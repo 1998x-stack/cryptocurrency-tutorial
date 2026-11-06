@@ -10,8 +10,8 @@ class ThemeCssTest(unittest.TestCase):
     def test_css_comment_and_reset_selector(self):
         text = CSS.read_text(encoding="utf-8")
         self.assertFalse(text.lstrip().startswith("<!--"), "HTML comments are not CSS comments")
-        without_comments = re.sub(r"/\\*.*?\\*/", "", text, flags=re.S).lstrip()
-        self.assertRegex(without_comments, r"^\\*\\s*\\{")
+        without_comments = re.sub(r"/\*.*?\*/", "", text, flags=re.S).lstrip()
+        self.assertRegex(without_comments, r"^\*\s*\{")
 
     def test_responsive_rules_remain(self):
         text = CSS.read_text(encoding="utf-8")
