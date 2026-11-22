@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html" class="active">第1章 货币的演化</a></li>
@@ -41,18 +42,42 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
 <!-- CHAPTER_CONTENT_START -->
 
-<h2>第1章 货币的演化 — 从贝壳到比特币</h2>
+<h1>第1章 货币的演化 — 从贝壳到比特币</h1>
 
 <p>大家好，我是你们的讲师。欢迎来到《比特币与加密货币》系列课程。在我们深入探讨区块链、哈希函数、UTXO这些技术概念之前，我想先带大家走一段路——一段人类寻找"钱"的漫长旅程。</p>
 
 <p>你可能会问：我们不是来学比特币的吗？为什么要讲货币史？答案是：<strong>不理解货币是什么，就无法理解比特币要解决什么问题。</strong>比特币首先是"货币"——一种全新的、数字原生的货币形态。要判断它能不能成功，你得先知道"好货币"长什么样。</p>
 
-<h3>1.1 从物物交换到一般等价物</h3>
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 240" aria-labelledby="fig-money-title fig-money-desc">
+  <title id="fig-money-title">货币形态的演化时间线</title>
+  <desc id="fig-money-desc">从商品货币（贝壳、盐、巨石）到黄金、金本位、法定货币，再到 2009 年出现的比特币，稀缺性的来源从实物变成共识、再变成数学。</desc>
+  <line x1="30" y1="120" x2="610" y2="120" stroke="#94a3b8" stroke-width="2"/>
+  <g text-anchor="middle">
+    <circle cx="60" cy="120" r="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+    <circle cx="190" cy="120" r="10" fill="#fef9c3" stroke="#d4a017" stroke-width="2"/>
+    <circle cx="320" cy="120" r="10" fill="#f3effc" stroke="#7461ba" stroke-width="2"/>
+    <circle cx="450" cy="120" r="10" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+    <circle cx="580" cy="120" r="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+    <g font-size="13" font-weight="700" fill="#0f172a">
+      <text x="60" y="92">商品货币</text><text x="190" y="92">黄金</text><text x="320" y="92">金本位</text><text x="450" y="92">法币</text><text x="580" y="92">比特币</text>
+    </g>
+    <g font-size="11" fill="#475569">
+      <text x="60" y="178">古代</text><text x="190" y="178">几千年</text><text x="320" y="178">19 世纪-1971</text><text x="450" y="178">1971 至今</text><text x="580" y="178">2009 至今</text>
+      <text x="60" y="196">贝壳·盐·巨石</text><text x="190" y="196">物理稀缺</text><text x="320" y="196">纸面兑换</text><text x="450" y="196">政府信用</text><text x="580" y="196">数学稀缺</text>
+    </g>
+  </g>
+  <text x="320" y="30" text-anchor="middle" font-size="15" font-weight="700" fill="#1e3a5f">稀缺性的载体在变：实物 → 共识 → 数学</text>
+</svg>
+<figcaption>图 1-1　货币形态演化（概览）。每一次更替都伴隨一次“信任对象”的转移：从我能握住的实物，到大家默认的信用，再到可独立验证的数学。比特币处在最后一站。</figcaption>
+</figure>
+
+<h2>1.1 从物物交换到一般等价物</h2>
 
 <p>在货币诞生之前，人类的交易方式是<strong>物物交换</strong>（barter）。我有两头羊，想要你的三袋麦子。问题来了：你需要羊吗？如果不需要，生意就谈不成。经济学家管这叫<strong>"需求的双重巧合"</strong>（double coincidence of wants）——交易双方必须恰好需要对方的东西，这太难了。</p>
 
@@ -75,7 +100,7 @@
 <strong>关键洞察：</strong>货币不需要是"有用的东西"，它只需要被<strong>足够多的人认同</strong>。雅浦岛的巨石沉在海底照样当钱用——因为所有人都知道那块石头属于谁。货币本质上是一种<strong>社会共识</strong>。
 </div>
 
-<h3>1.2 黄金为什么赢了</h3>
+<h2>1.2 黄金为什么赢了</h2>
 
 <p>在几千年的竞争淘汰中，黄金最终成为跨越文明的最佳货币。这不是偶然的，黄金天然具备优秀货币的所有特征：</p>
 
@@ -95,7 +120,7 @@
 
 <p>黄金是自然界给人类的礼物——它的化学性质决定了它不可能被"凭空印出来"。一盎司黄金需要几吨矿石、大量能源才能提炼出来。这个<strong>物理约束</strong>确保了黄金的稀缺性。</p>
 
-<h3>1.3 金本位为何崩溃</h3>
+<h2>1.3 金本位为何崩溃</h2>
 
 <p>黄金作为货币运行了几千年，但在现代经济面前暴露了致命缺陷：</p>
 
@@ -107,7 +132,7 @@
 <strong>历史上的今天：</strong>1971年8月15日，尼克松关闭了"黄金窗口"。外国人不能再拿美元兑换黄金。从那天起，全世界的货币都是<strong>纯信用货币</strong>（fiat money）了——货币的价值只靠政府信用背书，没有实物支撑。
 </div>
 
-<h3>1.4 法定货币的困境</h3>
+<h2>1.4 法定货币的困境</h2>
 
 <p>法定货币（fiat）给了政府巨大的货币政策灵活性。央行可以根据经济状况调节货币供应量——经济衰退时降息放水，经济过热时加息收紧。这听上去很完美，但有一个根本问题：</p>
 
@@ -134,11 +159,43 @@
   </tbody>
 </table>
 
+<p>下面把上表的“贬值幅度”画成柱状对比（<strong>教学示意</strong>：基于各国 CPI 的粗略估计，不同口径会有差异）：</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 250" aria-labelledby="fig-bars-title fig-bars-desc">
+  <title id="fig-bars-title">主要货币 1971-2025 购买力贬值幅度</title>
+  <desc id="fig-bars-desc">美元贬值约 87%、英镑约 93%、人民币约 92%，均为教学示意值。柱越高表示购买力流失越多。</desc>
+  <text x="320" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#1e3a5f">1971 → 2025 购买力贬值幅度（教学示意）</text>
+  <line x1="80" y1="210" x2="580" y2="210" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="80" y1="60" x2="580" y2="60" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4 4"/>
+  <g font-size="11" fill="#94a3b8"><text x="52" y="214">0%</text><text x="48" y="64">100%</text></g>
+  <g text-anchor="middle" font-size="13" fill="#0f172a">
+    <rect x="120" y="79" width="90" height="131" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/><text x="165" y="70">~87%</text><text x="165" y="232">美元</text>
+    <rect x="290" y="71" width="90" height="139" rx="6" fill="#fef3ec" stroke="#d06d4d" stroke-width="1.5"/><text x="335" y="62">~93%</text><text x="335" y="232">英镑</text>
+    <rect x="460" y="72" width="90" height="138" rx="6" fill="#f3effc" stroke="#7461ba" stroke-width="1.5"/><text x="505" y="63">~92%</text><text x="505" y="232">人民币</text>
+  </g>
+</svg>
+<figcaption>图 1-2　购买力流失（教学示意）。柱高是同一面额在该时段内购买力的跌幅估计，不是精确 CPI 系列。要得到严格数字，需指定国家、基期与 CPI 口径。</figcaption>
+</figure>
+
 <div class="highlight">
 <strong>核心问题：</strong>法币的供应由央行委员会决定——几个人的判断就决定了十几亿人的储蓄价值。这不是阴谋论，这是制度设计。凯恩斯自己都说过："通过持续的通货膨胀过程，政府可以秘密地、不被人察觉地没收公民财富的一个重要部分。"
 </div>
 
-<h3>1.5 中本聪的灵光一现</h3>
+<div class="widget">
+  <h4>交互：通胀如何侵蚀购买力</h4>
+  <p>假设每年固定通胀率，看一笔钱在若干年后的实际购买力还剩多少。</p>
+  <div class="widget-controls">
+    <label for="infl-rate">年通胀率 %</label>
+    <input id="infl-rate" type="number" min="0" max="50" step="0.5" value="7">
+    <label for="infl-years">年数</label>
+    <input id="infl-years" type="number" min="1" max="200" value="50">
+  </div>
+  <div class="widget-output" id="infl-output" role="status" aria-live="polite"></div>
+  <p style="font-size:0.85rem;color:#53676d;margin:10px 0 0;">已作简化：按复利「剩余 = (1 − 通胀率)^年数」计算，假设通胀率恒定；现实中通胀率逐年变化，且不同商品篮子差异很大。</p>
+</div>
+
+<h2>1.5 中本聪的灵光一现</h2>
 
 <p>2008年，一场金融危机席卷全球。雷曼兄弟倒闭，银行挤兑，政府用纳税人的钱救助"大到不能倒"的金融机构。正是在这一年的10月31日，一个叫"中本聪"（Satoshi Nakamoto）的匿名身份，在密码学邮件列表上发布了一篇论文：</p>
 
@@ -164,7 +221,7 @@ Coinbase留言:
 <strong>有趣的细节：</strong>中本聪选择嵌入这行新闻标题，不只是为了"证明创世区块不早于2009年1月3日"——这同时也是对传统金融体系的无声讽刺。你正在救助银行？我给了世界另一种选择。
 </div>
 
-<h3>1.6 数字稀缺性的诞生</h3>
+<h2>1.6 数字稀缺性的诞生</h2>
 
 <p>比特币创造了一个人类历史上从未有过的东西：<strong>数字稀缺性</strong>（digital scarcity）。</p>
 
@@ -184,7 +241,7 @@ Coinbase留言:
 <strong>但这也是代价：</strong>"只有你能动"的另一面是"只有你能负责"。丢了私钥？比特币永远消失。根据Chainalysis的数据，约2.3-3.7百万枚BTC已经永久丢失——价值超过2000亿美元。没有客服电话可以打。
 </div>
 
-<h3>1.7 比特币与黄金的类比</h3>
+<h2>1.7 比特币与黄金的类比</h2>
 
 <p>回到我们开篇的问题：比特币是好货币吗？我们用它和黄金做个对比：</p>
 
@@ -210,6 +267,16 @@ Coinbase留言:
 
 <p>下一章，我们将逐段精读中本聪的比特币白皮书，理解这九页纸上到底写了什么，让全世界为之疯狂。</p>
 
+<section id="references" aria-labelledby="ref-heading-1">
+<h2 id="ref-heading-1">本章参考与延伸</h2>
+<ul>
+  <li>中本聪《Bitcoin: A Peer-to-Peer Electronic Cash System》（2008）：<a href="https://bitcoin.org/bitcoin.pdf">bitcoin.org/bitcoin.pdf</a>（本文多处引其标题与创世区块留言）。</li>
+  <li>创世区块及其留言可在区块链浏览器核对：<a href="https://mempool.space/block/0">mempool.space 创世区块</a>。</li>
+  <li>1971 年“尼克松冲击”与布雷顿森林体系崩溃为公开经济史事实；本页的购买力贬值幅度为基于 CPI 的<strong>教学示意</strong>估计，非精确系列。</li>
+  <li>本章丢失 BTC 数量区间（约 230-370 万枚）引自 Chainalysis 的估计，属于区间估算而非精确值。</li>
+</ul>
+</section>
+
 <!-- CHAPTER_CONTENT_END -->
 
         <div class="footer-nav">
@@ -217,8 +284,26 @@ Coinbase留言:
             <a href="index.html">📖 返回目录</a>
             <a href="02.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+  var rate = document.getElementById('infl-rate');
+  var years = document.getElementById('infl-years');
+  var out = document.getElementById('infl-output');
+  function render() {
+    var i = parseFloat(rate.value) / 100, n = parseFloat(years.value);
+    if (!isFinite(i) || i < 0 || !isFinite(n) || n <= 0) { out.textContent = '请输入有效的通胀率与年数。'; return; }
+    var remain = Math.pow(1 - i, n);
+    out.textContent = '年通胀率 ' + (i * 100).toFixed(1) + '%、' + n + ' 年后：\n' +
+      '剩余购买力 ≈ ' + (remain * 100).toFixed(2) + '%（即 1 元只剩 ' + remain.toFixed(4) + ' 元的购买力）\n' +
+      '累计流失 ≈ ' + ((1 - remain) * 100).toFixed(2) + '%';
+  }
+  rate.addEventListener('input', render);
+  years.addEventListener('input', render);
+  render();
+})();
+</script>
 </body>
 </html>
