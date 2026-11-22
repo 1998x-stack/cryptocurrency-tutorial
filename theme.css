@@ -167,6 +167,19 @@ h1 {
 }
 .skip-link:focus { left: 0; }
 
+.visually-hidden {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.stage-nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; margin: 1.2rem 0 0; }
+.stage-nav a {
+    display: inline-block; padding: 6px 14px; border-radius: 40px; font-size: 0.85rem;
+    font-weight: 600; background: #f1f5f9; color: #1e3a5f; text-decoration: none;
+    border: 1px solid #dbe4ee;
+}
+.stage-nav a:hover { background: #e2e8f0; }
+
 figure.article-figure { margin: 24px 0; }
 figure.article-figure svg {
     display: block; width: 100%; height: auto;

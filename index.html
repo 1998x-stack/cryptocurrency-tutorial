@@ -281,13 +281,66 @@
     </style>
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="container">
     <div class="header">
         <h1><span class="emoji"></span><span class="title-text"></span></h1>
         <div class="sub"></div>
     </div>
 
-    <div id="cardContainer" class="course-grid"></div>
+    <nav class="stage-nav" aria-label="学习路径快速跳转">
+        <h2 class="visually-hidden">学习路径</h2>
+        <ul>
+            <li><a href="01.html">基础原理</a></li>
+            <li><a href="06.html">网络与挖矿</a></li>
+            <li><a href="13.html">升级与安全</a></li>
+            <li><a href="19.html">应用生态</a></li>
+            <li><a href="25.html">实践与前沿</a></li>
+        </ul>
+    </nav>
+
+    <figure class="article-figure" id="course-map">
+        <svg role="img" viewBox="0 0 900 150" aria-labelledby="map-title map-desc">
+            <title id="map-title">28 章学习路径地图</title>
+            <desc id="map-desc">28 个方块代表 28 个章节，分两行排列，颜色区分五个学习阶段。</desc>
+            <g id="course-map-blocks">
+            <rect x="22" y="18" width="50" height="50" rx="9" fill="#3b82f6" opacity="0.9"/>
+            <rect x="84" y="18" width="50" height="50" rx="9" fill="#3b82f6" opacity="0.9"/>
+            <rect x="146" y="18" width="50" height="50" rx="9" fill="#3b82f6" opacity="0.9"/>
+            <rect x="208" y="18" width="50" height="50" rx="9" fill="#3b82f6" opacity="0.9"/>
+            <rect x="270" y="18" width="50" height="50" rx="9" fill="#3b82f6" opacity="0.9"/>
+            <rect x="332" y="18" width="50" height="50" rx="9" fill="#d06d4d" opacity="0.9"/>
+            <rect x="394" y="18" width="50" height="50" rx="9" fill="#d06d4d" opacity="0.9"/>
+            <rect x="456" y="18" width="50" height="50" rx="9" fill="#d06d4d" opacity="0.9"/>
+            <rect x="518" y="18" width="50" height="50" rx="9" fill="#d06d4d" opacity="0.9"/>
+            <rect x="580" y="18" width="50" height="50" rx="9" fill="#d06d4d" opacity="0.9"/>
+            <rect x="642" y="18" width="50" height="50" rx="9" fill="#d06d4d" opacity="0.9"/>
+            <rect x="704" y="18" width="50" height="50" rx="9" fill="#d06d4d" opacity="0.9"/>
+            <rect x="766" y="18" width="50" height="50" rx="9" fill="#7461ba" opacity="0.9"/>
+            <rect x="828" y="18" width="50" height="50" rx="9" fill="#7461ba" opacity="0.9"/>
+            <rect x="22" y="82" width="50" height="50" rx="9" fill="#7461ba" opacity="0.9"/>
+            <rect x="84" y="82" width="50" height="50" rx="9" fill="#7461ba" opacity="0.9"/>
+            <rect x="146" y="82" width="50" height="50" rx="9" fill="#7461ba" opacity="0.9"/>
+            <rect x="208" y="82" width="50" height="50" rx="9" fill="#7461ba" opacity="0.9"/>
+            <rect x="270" y="82" width="50" height="50" rx="9" fill="#147f80" opacity="0.9"/>
+            <rect x="332" y="82" width="50" height="50" rx="9" fill="#147f80" opacity="0.9"/>
+            <rect x="394" y="82" width="50" height="50" rx="9" fill="#147f80" opacity="0.9"/>
+            <rect x="456" y="82" width="50" height="50" rx="9" fill="#147f80" opacity="0.9"/>
+            <rect x="518" y="82" width="50" height="50" rx="9" fill="#147f80" opacity="0.9"/>
+            <rect x="580" y="82" width="50" height="50" rx="9" fill="#147f80" opacity="0.9"/>
+            <rect x="642" y="82" width="50" height="50" rx="9" fill="#16a34a" opacity="0.9"/>
+            <rect x="704" y="82" width="50" height="50" rx="9" fill="#16a34a" opacity="0.9"/>
+            <rect x="766" y="82" width="50" height="50" rx="9" fill="#16a34a" opacity="0.9"/>
+            <rect x="828" y="82" width="50" height="50" rx="9" fill="#16a34a" opacity="0.9"/>
+            </g>
+        </svg>
+        <figcaption>图 0-1　28 章学习路径。颜色区分五个阶段：基础原理（01-05）、网络与挖矿（06-12）、升级与安全（13-18）、应用生态（19-24）、实践与前沿（25-28）。</figcaption>
+    </figure>
+
+    <main id="content">
+        <h2 class="visually-hidden">全部章节</h2>
+        <div id="cardContainer" class="course-grid"></div>
+    </main>
 
     <div style="text-align:center;">
         <div class="footer"></div>
@@ -301,17 +354,21 @@
         var titleEl = document.querySelector('.header .title-text');
         var subEl = document.querySelector('.header .sub');
         var footerEl = document.querySelector('.footer');
+        var FALLBACK = { title: '比特币与加密货币', emoji: '🪙', subtitle: '🪙 28章 实战体系', chapterCount: 28, chapters: [
+            ['01','货币的演化'],['02','比特币白皮书'],['03','密码学基础'],['04','区块链是什么'],['05','去中心化共识'],
+            ['06','比特币网络'],['07','第一次比特币交易'],['08','交易深入'],['09','脚本与锁定'],['10','密钥与地址'],
+            ['11','挖矿原理'],['12','挖矿经济学'],['13','软分叉与硬分叉'],['14','比特币改进提案'],['15','钱包安全'],
+            ['16','交易安全'],['17','助记词与备份'],['18','隐私与匿名'],['19','以太坊与智能合约'],['20','DeFi去中心化金融'],
+            ['21','Layer 2扩容'],['22','NFT与资产代币化'],['23','交易所与交易'],['24','链上数据分析'],['25','动手：部署一个代币'],
+            ['26','监管与合规'],['27','前沿趋势'],['28','综合项目']
+        ].map(function (p) { return { num: p[0], title: p[1], file: p[0] + '.html' }; }) };
 
         function showError(msg) {
             container.innerHTML = '<div class="state-msg error">' + msg + '</div>';
         }
 
-        fetch('courses.json')
-            .then(function(res) {
-                if (!res.ok) throw new Error('HTTP ' + res.status);
-                return res.json();
-            })
-            .then(function(data) {
+        function render(data) {
+
                 document.title = data.title + ' · 课程目录';
                 emojiEl.textContent = data.emoji;
                 titleEl.textContent = data.title;
@@ -364,10 +421,16 @@
 
                     container.appendChild(card);
                 });
+        }
+
+        fetch('courses.json')
+            .then(function(res) {
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                return res.json();
             })
-            .catch(function(err) {
-                showError('课程数据加载失败: ' + err.message + '。请刷新页面重试。');
-            });
+            .then(render)
+            .catch(function () { render(FALLBACK); });
+
     })();
 </script>
 
