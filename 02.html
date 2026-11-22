@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,12 +42,12 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
 <!-- CHAPTER_CONTENT_START -->
 
-<h2>第2章 比特币白皮书 — 点对点电子现金系统</h2>
+<h1>第2章 比特币白皮书 — 点对点电子现金系统</h1>
 
 <p>大家好，我是你们的讲师。上一章我们走过了从贝壳到黄金再到法币的货币演化之路，看到了现有货币体系的根本缺陷。2008年10月31日，一份只有九页的PDF文档被匿名发布在一个密码学邮件列表上，从此改变了世界。</p>
 
@@ -56,7 +57,7 @@
 <strong>一个小秘密：</strong>比特币白皮书虽然被全球数百万人引用，但真正完整读过它的人其实非常少。如果你现在认真读完本章，你就已经超过了99%的"币圈玩家"。技术功底往往来自于这种"回到第一性原理"的耐心。
 </div>
 
-<h3>2.1 2008年金融危机与白皮书的诞生</h3>
+<h2>2.1 2008年金融危机与白皮书的诞生</h2>
 
 <p>要理解比特币白皮书，必须先理解它诞生的时代背景。2008年9月15日，美国第四大投资银行雷曼兄弟（Lehman Brothers）宣布破产，引发了全球金融海啸。这场危机的根源是次级抵押贷款（subprime mortgage）的过度证券化——银行把一堆坏账打包成"金融产品"卖给全世界投资者。</p>
 
@@ -68,7 +69,7 @@
 <strong>背景知识：</strong>"Cypherpunk"一词由"cipher"（密码）和"punk"（朋克）合成。他们推崇用密码学工具来实现社会变革。1993年他们发表过一份《密码朋克宣言》，其中写道："我们不能期望政府、公司或其他大型无面组织出于善意来保护我们的隐私。"中本聪正是这个运动的终极实践者。
 </div>
 
-<h3>2.2 白皮书核心目标</h3>
+<h2>2.2 白皮书核心目标</h2>
 
 <p>白皮书开篇第一句就直指核心：</p>
 
@@ -93,7 +94,7 @@
 
 <p>请注意：比特币不是"不要信任"——而是"不需要信任"（not trust, but verify）。你不需要相信任何人，因为你能自己验证一切。</p>
 
-<h3>2.3 双重支付问题</h3>
+<h2>2.3 双重支付问题</h2>
 
 <p>白皮书的第2节讨论了比特币要解决的根本技术问题：<strong>双重支付</strong>（double spending），俗称"双花"。</p>
 
@@ -114,13 +115,35 @@
 Bob 看到 T1 的区块，Charlie 看到 T2 的区块
 到底哪笔交易是有效的？</code></pre>
 
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 260" aria-labelledby="fig-ds-title fig-ds-desc">
+  <title id="fig-ds-title">双花尝试与共识裁决</title>
+  <desc id="fig-ds-desc">Alice 把同一笔币分别发给 Bob 和 Charlie，出现两个分叉；当包含 T1 的分支先长出下一个区块、累积工作量更大，全节点就切到该链，含 T2 的区块变成孤块。</desc>
+  <marker id="arrow-ds" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker>
+  <g text-anchor="middle" font-size="12" fill="#0f172a">
+    <rect x="20" y="100" width="150" height="60" rx="10" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/><text x="95" y="126">共同历史</text><text x="95" y="146">区块 N</text>
+    <rect x="250" y="30" width="150" height="56" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/><text x="325" y="54">区块 N+1a</text><text x="325" y="74" font-size="11" fill="#166534">含 T1 → Bob</text>
+    <rect x="250" y="170" width="150" height="56" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 3"/><text x="325" y="194">区块 N+1b</text><text x="325" y="214" font-size="11" fill="#991b1b">含 T2 → Charlie</text>
+    <rect x="470" y="30" width="150" height="56" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/><text x="545" y="54">区块 N+2</text><text x="545" y="74" font-size="11" fill="#166534">累积工作量更大</text>
+  </g>
+  <g stroke="#64748b" stroke-width="2" fill="none">
+    <line x1="170" y1="120" x2="248" y2="58" marker-end="url(#arrow-ds)"/>
+    <line x1="170" y1="140" x2="248" y2="198" marker-end="url(#arrow-ds)"/>
+    <line x1="400" y1="58" x2="468" y2="58" marker-end="url(#arrow-ds)"/>
+  </g>
+  <g stroke="#dc2626" stroke-width="3"><line x1="415" y1="188" x2="445" y2="218"/><line x1="445" y1="188" x2="415" y2="218"/></g>
+  <text x="325" y="248" text-anchor="middle" font-size="12" fill="#991b1b">T2 被回滚，同一笔币只能花一次</text>
+</svg>
+<figcaption>图 2-1　双花如何被化解。双花不是一个区块就能“骗过”网络，而是要看哪条分支获得更多工作量。一旦包含 T1 的链先多出一个区块，含 T2 的区块就成为孤块，T2 随之失效。</figcaption>
+</figure>
+
 <p>这就是中本聪要解决的"拜占庭将军问题"的一个具体实例。他的方案是——不要只依靠一个节点做裁决，而要让全网通过<strong>工作量证明</strong>（Proof of Work）来达成共识。我们会在第5章详细展开这个过程。</p>
 
 <div class="warning">
 <strong>注意：</strong>双花问题不等于"黑客攻击"。它本质上是<strong>分布式系统中对事件顺序的争议</strong>。没有中心时钟，没有全局排序，你怎么知道两件事谁先谁后？比特币用"工作量最大的链条"作为时间代理——谁花的工作量最多，谁就是正确的历史。
 </div>
 
-<h3>2.4 时间戳服务器方案</h3>
+<h2>2.4 时间戳服务器方案</h2>
 
 <p>白皮书第3节介绍了比特币的核心数据结构——<strong>时间戳服务器</strong>（timestamp server）。</p>
 
@@ -153,7 +176,7 @@ Bob 看到 T1 的区块，Charlie 看到 T2 的区块
 
 <p>这个看起来简单的设计就是区块链的<strong>防篡改基础</strong>。它不是靠某个机构的权威来保证数据安全，而是纯数学的约束——任何一个字节的改变都会通过哈希函数传递到整个链条的末端。</p>
 
-<h3>2.5 UTXO与交易模型</h3>
+<h2>2.5 UTXO与交易模型</h2>
 
 <p>白皮书第5节描述了比特币的交易模型。大多数人第一次接触时会觉得非常别扭——因为它和我们熟悉的银行账户完全不一样。</p>
 
@@ -166,6 +189,31 @@ Bob 看到 T1 的区块，Charlie 看到 T2 的区块
   <li>你要支付时，需要组合手中的现金券来凑够金额</li>
   <li>如果现金券面额超过了支付金额，你会"找零"给自己</li>
 </ul>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 300" aria-labelledby="fig-utxo-title fig-utxo-desc">
+  <title id="fig-utxo-title">UTXO 交易：花掉旧输出，产生新输出</title>
+  <desc id="fig-utxo-desc">Alice 用两张现金券 UTXO A（2.0）与 UTXO B（1.0）凑成 3.0，交易产生三个新输出：给 Bob 2.5、给自己找零 0.498、给矿工手续费 0.002。</desc>
+  <marker id="arrow-utxo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker>
+  <text x="320" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a5f">花掉 = 引用旧 UTXO；支付 = 创建新输出</text>
+  <g text-anchor="middle" font-size="12" fill="#0f172a">
+    <rect x="20" y="46" width="150" height="64" rx="10" fill="#fef3ec" stroke="#d06d4d" stroke-width="1.5"/><text x="95" y="74">UTXO A</text><text x="95" y="94" font-size="11" fill="#9a4b31">2.0 BTC</text>
+    <rect x="20" y="168" width="150" height="64" rx="10" fill="#fef3ec" stroke="#d06d4d" stroke-width="1.5"/><text x="95" y="196">UTXO B</text><text x="95" y="216" font-size="11" fill="#9a4b31">1.0 BTC</text>
+    <rect x="240" y="90" width="140" height="104" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="310" y="130">交易</text><text x="310" y="152" font-size="11" fill="#1e3a5f">输入合计 3.0</text>
+    <rect x="450" y="40" width="170" height="60" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/><text x="535" y="66">→ Bob</text><text x="535" y="86" font-size="11" fill="#166534">2.5 BTC</text>
+    <rect x="450" y="128" width="170" height="60" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="535" y="154">→ 找零给自己</text><text x="535" y="174" font-size="11" fill="#1e3a5f">0.498 BTC</text>
+    <rect x="450" y="216" width="170" height="60" rx="10" fill="#fef9c3" stroke="#d4a017" stroke-width="1.5"/><text x="535" y="242">→ 矿工手续费</text><text x="535" y="262" font-size="11" fill="#916c22">0.002 BTC</text>
+  </g>
+  <g stroke="#64748b" stroke-width="2" fill="none">
+    <line x1="170" y1="78" x2="238" y2="120" marker-end="url(#arrow-utxo)"/>
+    <line x1="170" y1="200" x2="238" y2="164" marker-end="url(#arrow-utxo)"/>
+    <line x1="380" y1="130" x2="448" y2="70" marker-end="url(#arrow-utxo)"/>
+    <line x1="380" y1="150" x2="448" y2="158" marker-end="url(#arrow-utxo)"/>
+    <line x1="380" y1="170" x2="448" y2="246" marker-end="url(#arrow-utxo)"/>
+  </g>
+</svg>
+<figcaption>图 2-2　UTXO 模型（教学示意，金额仅示例）。旧的 UTXO 只能整张花掉，支付与找零都由交易新建输出完成；未被花费的旧输出则永远“报废”。输入合计必须等于（或大于）输出合计，差额即手续费。</figcaption>
+</figure>
 
 <p>举个例子：</p>
 
@@ -188,6 +236,25 @@ Alice 持有的 UTXO（两笔未花费输出）：
 
 交易后被花费的UTXO变为"已花费"（spent），不再可用</code></pre>
 
+<div class="widget">
+  <h4>交互：用 UTXO 凑一笔付款</h4>
+  <p>勾选手里的 UTXO，输入要付的金额与手续费，看能否凑够、找零多少。</p>
+  <div class="widget-controls" role="group" aria-label="选择持有的 UTXO">
+    <label><input type="checkbox" class="utxo" value="2.0" checked> 2.0</label>
+    <label><input type="checkbox" class="utxo" value="1.0" checked> 1.0</label>
+    <label><input type="checkbox" class="utxo" value="0.5"> 0.5</label>
+    <label><input type="checkbox" class="utxo" value="0.2"> 0.2</label>
+  </div>
+  <div class="widget-controls">
+    <label for="pay-amt">付款金额</label>
+    <input id="pay-amt" type="number" step="0.1" min="0" value="2.5">
+    <label for="pay-fee">手续费</label>
+    <input id="pay-fee" type="number" step="0.001" min="0" value="0.002">
+  </div>
+  <div class="widget-output" id="utxo-output" role="status" aria-live="polite"></div>
+  <p style="font-size:0.85rem;color:#53676d;margin:10px 0 0;">已作简化：每个 UTXO 要么全花要么不花；找零必须由交易自己新建一个输出。</p>
+</div>
+
 <div class="tip">
 <strong>UTXO的关键特征：</strong>你无法"花一部分"——每个UTXO要么全部花掉，要么不动。就像你有一张10元钞票，想买5元的东西，不能撕一半——你得拿出10元，让商家找你5元。在比特币里，这个"找零"是要自己给自己创建的。
 </div>
@@ -196,7 +263,7 @@ Alice 持有的 UTXO（两笔未花费输出）：
 
 <p>白皮书中用了一个很形象的比喻：每一枚币的所有权转移，就像把一个"数字信封"从上一个持有者传给下一个持有者，每个接收者都可以打开信封验证其真实性。</p>
 
-<h3>2.6 白皮书的深远影响</h3>
+<h2>2.6 白皮书的深远影响</h2>
 
 <p>比特币白皮书的影响力远远超出了加密货币圈子。它的核心创新——将<strong>密码学证明</strong>与<strong>经济激励</strong>结合，构建一个<strong>无需信任中介的分布式系统</strong>——对计算机科学、经济学、政治学都产生了深远影响。</p>
 
@@ -217,11 +284,22 @@ Alice 持有的 UTXO（两笔未花费输出）：
   </tbody>
 </table>
 
+<p>上表价格为特定时点的市场快照，<strong>波动剧烈</strong>，仅作教学示意；实际数值请以交易所与区块链浏览器实时数据为准。</p>
+
 <div class="highlight">
 <strong>本章核心总结：</strong>比特币白皮书用九页纸解决了一个看似不可能的问题——在不需要任何可信中介的前提下，实现数字资产的安全转移。它的核心是：用时间戳链记录交易顺序，用UTXO模型避免双花，用工作量证明确保全网共识。这九页纸的每句话几乎都不多余，是人类智慧的杰作。
 </div>
 
 <p>白皮书中提到了大量密码学概念——哈希、数字签名、公钥私钥——这些术语对第一次接触的人来说可能就是"天书"。别担心，下一章我们将放慢脚步，逐一拆解比特币背后的<strong>密码学基础</strong>，让你真正理解"数字签名"和"哈希函数"是怎么工作的。</p>
+
+<section id="references" aria-labelledby="ref-heading-2">
+<h2 id="ref-heading-2">本章参考与延伸</h2>
+<ul>
+  <li>原始论文：Satoshi Nakamoto, <em>Bitcoin: A Peer-to-Peer Electronic Cash System</em>（2008）：<a href="https://bitcoin.org/bitcoin.pdf">bitcoin.org/bitcoin.pdf</a>。本章 2.3、2.4、2.5 分别对应其第 2、3、5 节。</li>
+  <li>时间戳服务器与工作量证明的原始论述见该白皮书第 3、4 节。</li>
+  <li>本章价格、市值、ETF 等数据为特定时点的教学示意；实时数据以区块链浏览器与交易所为准。</li>
+</ul>
+</section>
 
 <!-- CHAPTER_CONTENT_END -->
 
@@ -230,8 +308,32 @@ Alice 持有的 UTXO（两笔未花费输出）：
             <a href="index.html">📖 返回目录</a>
             <a href="03.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+  var boxes = document.querySelectorAll('.utxo');
+  var amt = document.getElementById('pay-amt');
+  var fee = document.getElementById('pay-fee');
+  var out = document.getElementById('utxo-output');
+  function render() {
+    var total = 0, picked = [];
+    boxes.forEach(function (b) { if (b.checked) { total += parseFloat(b.value); picked.push(b.value); } });
+    var pay = parseFloat(amt.value) || 0, f = parseFloat(fee.value) || 0, need = pay + f, change = total - need;
+    var ok = change >= 0;
+    out.textContent =
+      '选中 UTXO：' + (picked.length ? picked.join(' + ') + ' = ' + total.toFixed(3) : '无') + ' BTC\n' +
+      '需要：付款 ' + pay.toFixed(3) + ' + 手续费 ' + f.toFixed(3) + ' = ' + need.toFixed(3) + ' BTC\n' +
+      (ok
+        ? '✅ 够付：给自己找零 ' + change.toFixed(3) + ' BTC\n✅ 产生输出：收款方 ' + pay.toFixed(3) + '、找零 ' + change.toFixed(3) + '、手续费 ' + f.toFixed(3)
+        : '❌ 不够：还差 ' + Math.abs(change).toFixed(3) + ' BTC，请多选一个 UTXO 或减少金额');
+  }
+  boxes.forEach(function (b) { b.addEventListener('change', render); });
+  amt.addEventListener('input', render);
+  fee.addEventListener('input', render);
+  render();
+})();
+</script>
 </body>
 </html>
