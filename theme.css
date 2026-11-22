@@ -198,6 +198,16 @@ button[aria-pressed="true"] { background: #0ea5e9; color: #fff; border-color: #0
     overflow-x: auto; line-height: 1.6; white-space: pre;
 }
 .math-scroll { overflow-x: auto; padding: 12px 8px; border-radius: 12px; background: #f8fafc; margin: 16px 0; }
+
+/* Merkle proof diagram states */
+.merkle-svg .edge { stroke: #94a3b8; stroke-width: 1.5; fill: none; }
+.merkle-svg .node { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.5; }
+.merkle-svg .node-label { font-size: 13px; fill: #334155; text-anchor: middle; }
+.merkle-svg .proof { opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+.merkle-svg.show-c .proof-c, .merkle-svg.show-d .proof-d { opacity: 1; }
+.merkle-svg .hl-edge { stroke: #147f80; stroke-width: 3; fill: none; }
+.merkle-svg .hl-node { fill: none; stroke: #147f80; stroke-width: 2.5; }
+.merkle-svg .sib-node { fill: none; stroke: #d06d4d; stroke-width: 2.5; stroke-dasharray: 5 3; }
 body { overflow-wrap: anywhere; }
 
 @media (prefers-reduced-motion: reduce) {

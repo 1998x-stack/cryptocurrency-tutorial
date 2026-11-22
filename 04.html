@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,12 +42,12 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
 <!-- CHAPTER_CONTENT_START -->
 
-<h2>第4章 区块链是什么 — 不可篡改的分布式账本</h2>
+<h1>第4章 区块链是什么 — 不可篡改的分布式账本</h1>
 
 <p>大家好，我是你们的讲师。前面两章我们分别讲了密码学基础和比特币白皮书——一个是微观工具箱，一个是宏观蓝图。现在到了把它们串联起来的时刻：<strong>区块链</strong>（blockchain）——这个你听过无数遍却可能从未真正理解的词。</p>
 
@@ -56,7 +57,7 @@
 <strong>课前提醒：</strong>这一章会涉及一些技术细节，但请记住——你不需要记住每个字段的精确字节数。你需要的是理解"为什么这样设计"。一旦理解了这个"为什么"，区块链的神秘感就消失了。它只是一套设计精良的数据结构。
 </div>
 
-<h3>4.1 区块的解剖</h3>
+<h2>4.1 区块的解剖</h2>
 
 <p>比特币的每个区块（block）包含两部分：<strong>区块头</strong>（block header）和<strong>交易列表</strong>（transactions）。区块头只有80字节，但包含了所有关键信息。</p>
 
@@ -78,6 +79,34 @@
 </table>
 
 <p>区块体的核心就是这笔交易列表——包括一个<strong>Coinbase交易</strong>（矿工给自己发的新币奖励 + 手续费）和所有被打包的用户交易。</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 360" aria-labelledby="fig-block-title fig-block-desc">
+  <title id="fig-block-title">比特币区块结构：80 字节区块头与交易列表</title>
+  <desc id="fig-block-desc">区块头包含版本号、前区块哈希、Merkle 根、时间戳、难度目标和 Nonce；Merkle 根由下方交易列表逐层哈希得到。</desc>
+  <rect x="20" y="20" width="600" height="320" rx="14" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+  <text x="36" y="44" font-size="18" font-weight="700" fill="#0f172a">区块 Block</text>
+  <rect x="40" y="52" width="560" height="152" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="52" y="76" font-size="16" font-weight="700" fill="#1e3a5f">区块头 · 80 字节</text>
+  <g font-size="15" fill="#0f172a">
+    <rect x="52" y="88" width="168" height="46" rx="8" fill="#ffffff" stroke="#93c5fd"/><text x="62" y="108">版本号</text><text x="62" y="126" font-size="12" fill="#475569">4 字节</text>
+    <rect x="232" y="88" width="168" height="46" rx="8" fill="#ffffff" stroke="#93c5fd"/><text x="242" y="108">前区块哈希</text><text x="242" y="126" font-size="12" fill="#475569">32 字节 · 链</text>
+    <rect x="412" y="88" width="168" height="46" rx="8" fill="#fef3ec" stroke="#d06d4d"/><text x="422" y="108">Merkle 根</text><text x="422" y="126" font-size="12" fill="#9a4b31">32 字节</text>
+    <rect x="52" y="140" width="168" height="46" rx="8" fill="#ffffff" stroke="#93c5fd"/><text x="62" y="160">时间戳</text><text x="62" y="178" font-size="12" fill="#475569">4 字节</text>
+    <rect x="232" y="140" width="168" height="46" rx="8" fill="#ffffff" stroke="#93c5fd"/><text x="242" y="160">难度目标 Bits</text><text x="242" y="178" font-size="12" fill="#475569">4 字节</text>
+    <rect x="412" y="140" width="168" height="46" rx="8" fill="#ffffff" stroke="#93c5fd"/><text x="422" y="160">Nonce</text><text x="422" y="178" font-size="12" fill="#475569">4 字节 · 可调</text>
+  </g>
+  <line x1="496" y1="186" x2="496" y2="220" stroke="#d06d4d" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="40" y="222" width="560" height="100" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="52" y="246" font-size="16" font-weight="700" fill="#1e3a5f">交易列表</text>
+  <g font-size="14" fill="#1e293b">
+    <rect x="52" y="256" width="168" height="52" rx="8" fill="#ffffff" stroke="#cbd5e1"/><text x="62" y="278">Coinbase</text><text x="62" y="296" font-size="11" fill="#475569">矿工奖励</text>
+    <rect x="232" y="256" width="168" height="52" rx="8" fill="#ffffff" stroke="#cbd5e1"/><text x="242" y="278">Tx #1</text><text x="242" y="296" font-size="11" fill="#475569">用户交易</text>
+    <rect x="412" y="256" width="168" height="52" rx="8" fill="#ffffff" stroke="#cbd5e1"/><text x="422" y="278">Tx #2 …</text><text x="422" y="296" font-size="11" fill="#475569">共 2512 笔</text>
+  </g>
+</svg>
+<figcaption>图 4-1　区块结构。<strong>区块头固定 80 字节</strong>，其中「前区块哈希」把当前区块绑定到父区块，「Merkle 根」是下方交易列表的哈希摘要。因此只要改动任一交易，Merkle 根、区块头哈希、Nonce 与后续所有区块都会连锁失效——这正是防篡改的来源。</figcaption>
+</figure>
 
 <pre><code>区块结构（概念图）：
 
@@ -106,9 +135,43 @@
 <strong>补充知识：</strong>Nonce是4字节，最大值约42亿。在比特币早期，Nonce循环一遍就够找到有效哈希了。而到2024年，全网算力已经到了惊人的级别，Nonce从0跑到42亿可能连一个哈希都挖不到。矿工不得不通过修改Coinbase交易中的ExtraNonce字段（变相延长Nonce空间）来继续寻找有效区块。
 </div>
 
-<h3>4.2 链式结构与防篡改原理</h3>
+<h2>4.2 链式结构与防篡改原理</h2>
 
 <p>区块链的核心创新是"链式结构"——每个区块通过<strong>前区块哈希</strong>字段引用前一个区块。这种设计有一个美妙的防篡改特性：</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 240" aria-labelledby="fig-chain-title fig-chain-desc">
+  <title id="fig-chain-title">链式结构与篡改的连锁失效</title>
+  <desc id="fig-chain-desc">每个区块头保存父区块哈希，形成单向链接；篡改中间的区块会使后续所有区块的父哈希失配，必须重算整条链。</desc>
+  <text x="20" y="30" font-size="15" fill="#475569">每个区块头保存“父区块哈希”，形成单向链接</text>
+  <g>
+    <rect x="20" y="70" width="170" height="110" rx="10" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+    <text x="34" y="96" font-size="15" font-weight="700" fill="#0f172a">区块 N-1</text>
+    <text x="34" y="120" font-size="12" fill="#475569">父哈希: …a3</text>
+    <text x="34" y="140" font-size="12" fill="#9a4b31">Merkle: …d7</text>
+    <text x="34" y="164" font-size="12" fill="#475569">Nonce: 2 821 445 176</text>
+  </g>
+  <g>
+    <rect x="235" y="70" width="170" height="110" rx="10" fill="#fef3ec" stroke="#dc2626" stroke-width="2" stroke-dasharray="6 4"/>
+    <text x="249" y="96" font-size="15" font-weight="700" fill="#991b1b">区块 N（被改）</text>
+    <text x="249" y="120" font-size="12" fill="#475569">父哈希: …a3 ✓</text>
+    <text x="249" y="140" font-size="12" fill="#991b1b">Merkle: …9f（变了）</text>
+    <text x="249" y="164" font-size="12" fill="#991b1b">Nonce: 失效</text>
+  </g>
+  <g>
+    <rect x="450" y="70" width="170" height="110" rx="10" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+    <text x="464" y="96" font-size="15" font-weight="700" fill="#0f172a">区块 N+1</text>
+    <text x="464" y="120" font-size="12" fill="#475569">父哈希: …9f ✗</text>
+    <text x="464" y="140" font-size="12" fill="#475569">Merkle: …1c</text>
+    <text x="464" y="164" font-size="12" fill="#475569">Nonce: 必须重算</text>
+  </g>
+  <line x1="190" y1="125" x2="233" y2="125" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-chain)"/>
+  <line x1="405" y1="125" x2="448" y2="125" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-chain)"/>
+  <defs><marker id="arrow-chain" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#3b82f6"/></marker></defs>
+  <text x="20" y="212" font-size="13" fill="#991b1b">改一个交易 → Merkle 根变 → 区块哈希变 → Nonce 失效 → 后续区块全部失效</text>
+</svg>
+<figcaption>图 4-2　链式防篡改。父哈希把区块"钉"在前一个区块上；篡改任何一环都会向下游传播。要伪造历史，攻击者必须重算从被改区块到最新区块的全部工作量，并持续跑赢诚实算力（详见 4.2 的计算）。</figcaption>
+</figure>
 
 <p>假设有人想修改区块链历史中的某个交易。他需要：</p>
 <ul>
@@ -142,13 +205,68 @@
 <strong>一种常见的误解：</strong>"区块链上的数据是加密的，所以别人看不懂。"这是错的！区块链上的交易数据<strong>大部分是明文的</strong>。比如转账地址、金额都是公开可见的。密码学保护的是<strong>所有权</strong>（只有私钥持有者能花费），而不是<strong>隐私</strong>（所有人都能看到交易内容）。这正是为什么比特币被称为"伪匿名"（pseudonymous）而非"匿名"（anonymous）。
 </div>
 
-<h3>4.3 Merkle树</h3>
+<h2>4.3 Merkle树</h2>
 
 <p>Merkle树（默克尔树）是区块结构中非常精妙的设计，由计算机科学家Ralph Merkle在1979年发明。它的存在解决了一个实际问题：<strong>如何在不下载整个区块的情况下，验证一笔交易确实在区块中？</strong></p>
 
 <p>想象一下：你在手机上用轻钱包（SPV钱包）运行比特币。你肯定不想下载整个区块链（超过600GB）——手机根本存不下。但你同时需要验证交易是否被确认了。Merkle树就是解决方案。</p>
 
 <p>Merkle树的构造方式：</p>
+
+<figure class="article-figure">
+<svg id="merkle-svg" class="merkle-svg show-c" role="img" viewBox="0 0 640 330" aria-labelledby="fig-merkle-title fig-merkle-desc">
+  <title id="fig-merkle-title">Merkle 树与交易 C 的证明路径</title>
+  <desc id="fig-merkle-desc">四笔交易两两哈希、逐层向上得到 Merkle 根；验证交易 C 时，只需额外的兄弟哈希 Hash D 与 Hash AB。</desc>
+  <g class="edges">
+    <line class="edge" x1="110" y1="270" x2="110" y2="226"/>
+    <line class="edge" x1="250" y1="270" x2="250" y2="226"/>
+    <line class="edge" x1="390" y1="270" x2="390" y2="226"/>
+    <line class="edge" x1="530" y1="270" x2="530" y2="226"/>
+    <line class="edge" x1="110" y1="190" x2="180" y2="146"/>
+    <line class="edge" x1="250" y1="190" x2="180" y2="146"/>
+    <line class="edge" x1="390" y1="190" x2="460" y2="146"/>
+    <line class="edge" x1="530" y1="190" x2="460" y2="146"/>
+    <line class="edge" x1="180" y1="110" x2="320" y2="66"/>
+    <line class="edge" x1="460" y1="110" x2="320" y2="66"/>
+  </g>
+  <g>
+    <rect class="node" x="265" y="30" width="110" height="36" rx="8"/><text class="node-label" x="320" y="53">Merkle 根</text>
+    <rect class="node" x="125" y="110" width="110" height="36" rx="8"/><text class="node-label" x="180" y="133">Hash AB</text>
+    <rect class="node" x="405" y="110" width="110" height="36" rx="8"/><text class="node-label" x="460" y="133">Hash CD</text>
+    <rect class="node" x="55" y="190" width="110" height="36" rx="8"/><text class="node-label" x="110" y="213">Hash A</text>
+    <rect class="node" x="195" y="190" width="110" height="36" rx="8"/><text class="node-label" x="250" y="213">Hash B</text>
+    <rect class="node" x="335" y="190" width="110" height="36" rx="8"/><text class="node-label" x="390" y="213">Hash C</text>
+    <rect class="node" x="475" y="190" width="110" height="36" rx="8"/><text class="node-label" x="530" y="213">Hash D</text>
+    <rect class="node" x="55" y="270" width="110" height="36" rx="8"/><text class="node-label" x="110" y="293">Tx A</text>
+    <rect class="node" x="195" y="270" width="110" height="36" rx="8"/><text class="node-label" x="250" y="293">Tx B</text>
+    <rect class="node" x="335" y="270" width="110" height="36" rx="8"/><text class="node-label" x="390" y="293">Tx C</text>
+    <rect class="node" x="475" y="270" width="110" height="36" rx="8"/><text class="node-label" x="530" y="293">Tx D</text>
+  </g>
+  <g class="proof proof-c">
+    <line class="hl-edge" x1="390" y1="270" x2="390" y2="226"/>
+    <line class="hl-edge" x1="390" y1="190" x2="460" y2="146"/>
+    <line class="hl-edge" x1="460" y1="110" x2="320" y2="66"/>
+    <rect class="hl-node" x="331" y="266" width="118" height="44" rx="10"/>
+    <rect class="hl-node" x="331" y="186" width="118" height="44" rx="10"/>
+    <rect class="hl-node" x="401" y="106" width="118" height="44" rx="10"/>
+    <rect class="hl-node" x="261" y="26" width="118" height="44" rx="10"/>
+    <rect class="sib-node" x="471" y="186" width="118" height="44" rx="10"/>
+    <rect class="sib-node" x="121" y="106" width="118" height="44" rx="10"/>
+  </g>
+  <g class="proof proof-d">
+    <line class="hl-edge" x1="530" y1="270" x2="530" y2="226"/>
+    <line class="hl-edge" x1="530" y1="190" x2="460" y2="146"/>
+    <line class="hl-edge" x1="460" y1="110" x2="320" y2="66"/>
+    <rect class="hl-node" x="471" y="266" width="118" height="44" rx="10"/>
+    <rect class="hl-node" x="471" y="186" width="118" height="44" rx="10"/>
+    <rect class="hl-node" x="401" y="106" width="118" height="44" rx="10"/>
+    <rect class="hl-node" x="261" y="26" width="118" height="44" rx="10"/>
+    <rect class="sib-node" x="331" y="186" width="118" height="44" rx="10"/>
+    <rect class="sib-node" x="121" y="106" width="118" height="44" rx="10"/>
+  </g>
+  </svg>
+  <figcaption>图 4-3　Merkle 树。叶子是交易，向上逐层两两哈希直到<span style="color:#147f80">根</span>。验证 Tx C 只需：自己算 Hash C，再拿到<b style="color:#d06d4d">兄弟哈希</b> Hash D 与 Hash AB，就能重算出 Merkle 根并与区块头比对。</figcaption>
+</figure>
 
 <pre><code>Merkle树构造过程：
 
@@ -185,7 +303,17 @@
 <strong>发明故事的启发：</strong>Merkle在1979年提交他的专利时，给这个数据结构的描述是"一种基于哈希的数字签名系统"。他当时可能没想到——40多年后，这个结构成为了一万亿美元资产的安全基础。这就是基础研究的力量：你不知道今天的数学发现会在几十年后变成什么。
 </div>
 
-<h3>4.4 创世区块</h3>
+<div class="widget" id="merkle-widget">
+  <h4>交互：Merkle 证明需要几个哈希？</h4>
+  <p>选择一笔要验证的交易，观察证明路径（青色实线）与必须额外提供的兄弟哈希（橙色虚线框）。</p>
+  <div class="widget-controls">
+    <button type="button" class="proof-btn" data-proof="c" aria-pressed="true">验证 Tx C</button>
+    <button type="button" class="proof-btn" data-proof="d" aria-pressed="false">验证 Tx D</button>
+  </div>
+  <div class="widget-output" id="merkle-output" role="status" aria-live="polite"></div>
+</div>
+
+<h2>4.4 创世区块</h2>
 
 <p>2009年1月3日，中本聪挖出了比特币的<strong>创世区块</strong>（Genesis Block），即区块高度0。这是区块链世界的"第一天"。</p>
 
@@ -205,7 +333,7 @@
 <strong>你可以自己验证：</strong>在任意区块链浏览器（如mempool.space或blockchair.com）中搜索创世区块的哈希 <code>000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f</code>。看到原文中嵌入的泰晤士报标题，你会切身感受到——这在当时是一个宣言。
 </div>
 
-<h3>4.5 区块链不等于比特币</h3>
+<h2>4.5 区块链不等于比特币</h2>
 
 <p>很多人把"区块链"和"比特币"混为一谈。实际上，<strong>区块链是一个更通用的数据结构</strong>，比特币只是它的第一个应用场景。</p>
 
@@ -231,6 +359,16 @@
 
 <p>本章我们打开了区块链的黑盒，看到了区块头的80字节数据结构、链式链接的防篡改机制、Merkle树的优雅设计、以及创世区块的历史意义。但区块链本身只是一个"记录载体"——它需要一种机制来决定<strong>"谁有权添加下一个区块"</strong>以及<strong>"大家都同意哪条链是正确的"</strong>。这就是我们下一章要讲的内容：<strong>去中心化共识</strong>。</p>
 
+<section id="references" aria-labelledby="ref-heading-4">
+<h2 id="ref-heading-4">本章参考与延伸</h2>
+<ul>
+  <li>中本聪《Bitcoin: A Peer-to-Peer Electronic Cash System》（2008）白皮书，第 2 节（交易链）与第 7 节（回收磁盘空间）讨论区块与时间戳链：<a href="https://bitcoin.org/bitcoin.pdf">bitcoin.org/bitcoin.pdf</a>。</li>
+  <li>区块 #800000、创世区块与实时交易数可在公共区块链浏览器核对：<a href="https://mempool.space/">mempool.space</a>、<a href="https://blockchair.com/bitcoin">blockchair.com</a>。</li>
+  <li>Merkle 树出处：Ralph C. Merkle, <em>A Certified Digital Signature</em>（1979）。</li>
+  <li>本章的 600 EH/s、区块 #800000、2,512 笔交易等数字为教学示意，用于说明数量级；实时数值请以区块链浏览器为准。</li>
+</ul>
+</section>
+
 <!-- CHAPTER_CONTENT_END -->
 
         <div class="footer-nav">
@@ -238,8 +376,27 @@
             <a href="index.html">📖 返回目录</a>
             <a href="05.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+  var svg = document.getElementById('merkle-svg');
+  var out = document.getElementById('merkle-output');
+  var btns = document.querySelectorAll('.proof-btn');
+  var msg = {
+    c: '验证 Tx C：自行计算 Hash C，向上需要 Hash D 与 Hash AB 两个兄弟哈希，就能重算 Merkle 根并与区块头比对。共 2 个兄弟哈希。',
+    d: '验证 Tx D：自行计算 Hash D，向上需要 Hash C 与 Hash AB 两个兄弟哈希，就能重算 Merkle 根并与区块头比对。共 2 个兄弟哈希。'
+  };
+  function set(p) {
+    svg.classList.toggle('show-c', p === 'c');
+    svg.classList.toggle('show-d', p === 'd');
+    out.textContent = msg[p];
+    btns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.proof === p)); });
+  }
+  btns.forEach(function (b) { b.addEventListener('click', function () { set(b.dataset.proof); }); });
+  set('c');
+})();
+</script>
 </body>
 </html>
