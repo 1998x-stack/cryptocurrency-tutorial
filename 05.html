@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,12 +42,12 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
 <!-- CHAPTER_CONTENT_START -->
 
-<h2>第5章 去中心化共识 — 拜占庭将军与工作量证明</h2>
+<h1>第5章 去中心化共识 — 拜占庭将军与工作量证明</h1>
 
 <p>大家好，我是你们的讲师。上一章我们打开了区块链，看到了它精妙的数据结构。但有一个问题我们还没回答：<strong>在没有中央权威的情况下，所有节点如何就"哪个区块是有效的"达成一致？</strong></p>
 
@@ -54,7 +55,7 @@
 
 <p>这就是共识机制（consensus mechanism）要解决的问题。本章我们从经典计算机科学难题出发，剖析比特币是如何用<strong>工作量证明</strong>（Proof of Work）来达成去中心化共识的。</p>
 
-<h3>5.1 拜占庭将军问题</h3>
+<h2>5.1 拜占庭将军问题</h2>
 
 <p>先讲一个1982年提出的经典计算机科学难题：<strong>拜占庭将军问题</strong>（Byzantine Generals Problem）。</p>
 
@@ -83,11 +84,42 @@
 <strong>关键认知：</strong>比特币没有"解决"拜占庭将军问题——传统意义上的解决需要<strong>100%确定性</strong>。比特币提供的是<strong>概率性共识</strong>——随着新区块不断加到链上，某个交易被回滚的概率指数级下降。6个区块（约1小时）之后，概率低到可以忽略不计。这是"足够好"的工程方案，不是纯数学理论方案。
 </div>
 
-<h3>5.2 工作量证明</h3>
+<h2>5.2 工作量证明</h2>
 
 <p>中本聪在白皮书中描述的共识机制是<strong>工作量证明</strong>（Proof of Work, PoW）。这个概念并非中本聪原创——1993年Cynthia Dwork和Moni Naor首次提出，1999年由Adam Back（后来也是Blockstream的创始人）实现为<strong>Hashcash</strong>系统，原本用于反垃圾邮件。</p>
 
 <p>PoW的核心是一个简单的数学竞赛：</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 320" aria-labelledby="fig-pow-title fig-pow-desc">
+  <title id="fig-pow-title">工作量证明的挖矿循环</title>
+  <desc id="fig-pow-desc">矿工组装候选区块头部与 Nonce 做双 SHA-256；哈希小于目标值则广播区块成功，否则把 Nonce 加一重新尝试。</desc>
+  <marker id="arrow-pow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker>
+  <g font-size="14" fill="#0f172a">
+    <rect x="40" y="40" width="220" height="64" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="58" y="68">组装候选区块</text><text x="58" y="88" font-size="12" fill="#475569">选交易 · 算 Merkle 根</text>
+    <rect x="40" y="160" width="220" height="64" rx="10" fill="#fef3ec" stroke="#d06d4d" stroke-width="1.5"/>
+    <text x="58" y="188">双 SHA-256</text><text x="58" y="208" font-size="12" fill="#9a4b31">hash=H(H(头部 ‖ Nonce))</text>
+    <rect x="320" y="160" width="200" height="64" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+    <text x="338" y="188">hash &lt; 目标？</text><text x="338" y="208" font-size="12" fill="#475569">与难度目标比较</text>
+    <rect x="320" y="40" width="200" height="64" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="338" y="68">广播区块</text><text x="338" y="88" font-size="12" fill="#166534">获得区块奖励</text>
+    <rect x="320" y="260" width="200" height="48" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="338" y="290" fill="#991b1b">Nonce += 1</text>
+  </g>
+  <g stroke="#64748b" stroke-width="2" fill="none">
+    <line x1="150" y1="104" x2="150" y2="158" marker-end="url(#arrow-pow)"/>
+    <line x1="260" y1="192" x2="318" y2="192" marker-end="url(#arrow-pow)"/>
+    <line x1="420" y1="160" x2="420" y2="106" marker-end="url(#arrow-pow)"/>
+    <line x1="420" y1="224" x2="420" y2="258" marker-end="url(#arrow-pow)"/>
+    <line x1="320" y1="284" x2="150" y2="284"/>
+    <line x1="150" y1="284" x2="150" y2="226" marker-end="url(#arrow-pow)"/>
+  </g>
+  <text x="150" y="300" font-size="12" fill="#475569">否 · 换个 Nonce 重试</text>
+  <text x="430" y="140" font-size="12" fill="#166534">是</text>
+</svg>
+<figcaption>图 5-1　工作量证明循环。绝大多数尝试落在「否」分支，矿工只能不断递增 Nonce；只有哈希值小于难度目标时才「中奖」。这是一个无捷径的试错过程，因此出块速度由算力与难度共同决定。</figcaption>
+</figure>
 
 <pre><code>工作量证明（挖矿）的核心逻辑：
 
@@ -118,9 +150,37 @@
 <strong>早期的故事：</strong>2010年，一个叫Laszlo Hanyecz的程序员用1万BTC买了两个披萨——这是历史上第一笔用比特币进行的实物交易。按2025年的高点价格（~$126,200），那两个披萨价值约12.6亿美元。但当时的挖矿难度极低，Laszlo用他的GPU在一台普通电脑上就能挖到比特币。今天，你需要价值数百万美元的ASIC矿机才有希望挖到比特币。这个故事说明了两件事：（1）早期采用的红利巨大；（2）PoW是一种随时间自然"集中化"的机制——算力竞争天然偏向规模经济。
 </div>
 
-<h3>5.3 最长链规则</h3>
+<h2>5.3 最长链规则</h2>
 
 <p>当网络中出现两个合法的区块同时被挖出时（称为"分叉"或fork），比特币的规则是：<strong>所有节点自动选择工作量最大的链</strong>——也就是累积难度最大的链，实践中通常就是最长的链。</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 320" aria-labelledby="fig-fork-title fig-fork-desc">
+  <title id="fig-fork-title">分叉与最长链规则</title>
+  <desc id="fig-fork-desc">两个矿工几乎同时挖出高度 101 的区块形成分叉；当其中一条链先长出下一个区块，全网就切换到累积工作量更大的那条链，另一条上的区块变为孤块。</desc>
+  <marker id="arrow-fork" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker>
+  <g stroke="#64748b" stroke-width="2" fill="none">
+    <line x1="320" y1="66" x2="198" y2="98" marker-end="url(#arrow-fork)"/>
+    <line x1="320" y1="66" x2="442" y2="98" marker-end="url(#arrow-fork)"/>
+  </g>
+  <g stroke="#16a34a" stroke-width="3" fill="none">
+    <line x1="195" y1="146" x2="195" y2="178" marker-end="url(#arrow-fork)"/>
+    <line x1="195" y1="226" x2="195" y2="258" marker-end="url(#arrow-fork)"/>
+  </g>
+  <line x1="445" y1="146" x2="445" y2="178" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 3"/>
+  <g text-anchor="middle" font-size="13" fill="#0f172a">
+    <rect x="270" y="20" width="100" height="46" rx="8" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/><text x="320" y="48">A · 高度 100</text>
+    <rect x="140" y="100" width="110" height="46" rx="8" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/><text x="195" y="128">B1 · 高度 101</text>
+    <rect x="390" y="100" width="110" height="46" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 3"/><text x="445" y="128">B2 · 高度 101</text>
+    <rect x="140" y="180" width="110" height="46" rx="8" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/><text x="195" y="208">C1 · 高度 102</text>
+    <rect x="390" y="180" width="110" height="46" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 3"/><text x="445" y="208">C2 · 高度 102</text>
+    <rect x="140" y="260" width="110" height="46" rx="8" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/><text x="195" y="288">D1 · 高度 103</text>
+  </g>
+  <text x="60" y="300" font-size="12" fill="#166534">链 1 更长 → 全网采纳</text>
+  <text x="390" y="300" font-size="12" fill="#991b1b">链 2 → 孤块，交易回到 mempool</text>
+</svg>
+<figcaption>图 5-2　分叉与最长链。规则不是“先到先得”，而是“累积工作量最大者胜”：链 1 先多出一个区块，所有节点就切到链 1，链 2 上的区块变成孤块。这也是等待 6 次确认的原因——分叉越往后越不可能翻盘。</figcaption>
+</figure>
 
 <pre><code>分叉与链选择：
 
@@ -165,7 +225,34 @@
 
 <p>这就是为什么比特币的确认需要等待——交易被打包进一个区块后，建议等待<strong>6个区块确认</strong>（约1小时）。打包的区块有可能在分叉中被回滚——虽然越往后概率越低。</p>
 
-<h3>5.4 51%攻击</h3>
+<p>这个“被回滚的概率”可以量化。白皮书第 11 节给出了诚实链落后 z 个区块、攻击者算力占比为 q 时被追上的概率：</p>
+
+<div class="math-scroll" data-math-scroll tabindex="0" role="region" aria-label="白皮书第 11 节追赶概率公式（可横向滚动）">
+<math display="block" aria-label="诚实链落后 z 个区块、攻击者算力占比 q 时被追上的概率公式">
+  <mi>P</mi><mo>=</mo><mn>1</mn><mo>−</mo>
+  <munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><mi>z</mi></munderover>
+  <mfrac><mrow><msup><mi>λ</mi><mi>k</mi></msup><msup><mi>e</mi><mrow><mo>−</mo><mi>λ</mi></mrow></msup></mrow><mrow><mi>k</mi><mo>!</mo></mrow></mfrac>
+  <mrow><mo>(</mo><mn>1</mn><mo>−</mo><msup><mrow><mo>(</mo><mfrac><mi>q</mi><mi>p</mi></mfrac><mo>)</mo></mrow><mrow><mi>z</mi><mo>−</mo><mi>k</mi></mrow></msup><mo>)</mo></mrow>
+</math>
+</div>
+
+<p>其中 <em>λ</em> = z·q/p、p = 1−q。下面的数值按此公式代入攻击者算力 <strong>q = 10%</strong> 计算。</p>
+
+<div class="widget">
+  <h4>交互：确认数与回滚概率</h4>
+  <div class="widget-controls" role="group" aria-label="选择确认区块数">
+    <button type="button" class="conf-btn" data-z="1" aria-pressed="false">1 次</button>
+    <button type="button" class="conf-btn" data-z="2" aria-pressed="false">2 次</button>
+    <button type="button" class="conf-btn" data-z="3" aria-pressed="false">3 次</button>
+    <button type="button" class="conf-btn" data-z="4" aria-pressed="false">4 次</button>
+    <button type="button" class="conf-btn" data-z="5" aria-pressed="false">5 次</button>
+    <button type="button" class="conf-btn" data-z="6" aria-pressed="true">6 次</button>
+  </div>
+  <div class="widget-output" id="conf-output" role="status" aria-live="polite"></div>
+  <p style="font-size:0.85rem;color:#53676d;margin:10px 0 0;">已作简化：假设难度恒定、攻击者算力占比固定为 q=10%，且出块近似泊松过程，按白皮书第 11 节公式计算；真实攻击者可临时租用算力，实际风险与这些假设不同。</p>
+</div>
+
+<h2>5.4 51%攻击</h2>
 
 <p>如果一个人或组织控制了超过50%的全网算力，会发生什么？这就是臭名昭著的<strong>51%攻击</strong>（也叫Majority Attack）。</p>
 
@@ -199,7 +286,7 @@
 <strong>关于"51%攻击"的真实教训：</strong>2020年8月，以太坊经典（ETC）连续遭遇多次51%攻击。攻击者在一小时内重组成千上万的区块，双花价值超过500万美元的ETC。当时ETC的全网算力只有约200 GH/s——一台中型矿机池就能接管。这个案例说明：<strong>PoW的安全性取决于算力的分散程度和整体规模</strong>。小币种的PoW往往比大币种脆弱得多。比特大陆等大型矿池如果合作，理论上能对比特币构成威胁——但经济上不划算，因为你攻击一个自己也在挖矿的资产等于砸自己饭碗。
 </div>
 
-<h3>5.5 共识机制的演进</h3>
+<h2>5.5 共识机制的演进</h2>
 
 <p>PoW是中本聪共识（Nakamoto Consensus）的核心，但它不是唯一的共识机制。最大的替代方案是<strong>权益证明</strong>（Proof of Stake, PoS）。</p>
 
@@ -225,6 +312,16 @@
 
 <p>至此，我们已经理解了比特币最核心的创新——通过工作量证明和最长链规则，在全球数万个互不信任的节点之间达成了<strong>去中心化共识</strong>。但共识机制需要依赖一个基础设施来传播交易和区块，才能运转起来。下一章，我们将走进<strong>比特币网络</strong>，看看这些节点之间是如何沟通的、交易是如何在几分钟内传遍全球的。</p>
 
+<section id="references" aria-labelledby="ref-heading-5">
+<h2 id="ref-heading-5">本章参考与延伸</h2>
+<ul>
+  <li>中本聪《Bitcoin: A Peer-to-Peer Electronic Cash System》（2008）第 4 节（工作量证明）与第 11 节（计算）：<a href="https://bitcoin.org/bitcoin.pdf">bitcoin.org/bitcoin.pdf</a>。本页回滚概率公式与该节一致。</li>
+  <li>拜占庭将军问题：L. Lamport, R. Shostak, M. Pease, <em>The Byzantine Generals Problem</em>（1982）。</li>
+  <li>Hashcash 反垃圾邮件工作量证明：A. Back（1997/2002）。</li>
+  <li>本章的 600 EH/s、难度约 108 万亿、披萨价格等数字为教学示意，用于说明数量级；实时数值请以区块链浏览器为准。</li>
+</ul>
+</section>
+
 <!-- CHAPTER_CONTENT_END -->
 
         <div class="footer-nav">
@@ -232,8 +329,29 @@
             <a href="index.html">📖 返回目录</a>
             <a href="06.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function () {
+  var out = document.getElementById('conf-output');
+  var btns = document.querySelectorAll('.conf-btn');
+  function attackerProb(z, q) {
+    var p = 1 - q, lambda = z * q / p, sum = 0, poisson = Math.exp(-lambda);
+    for (var k = 0; k <= z; k++) {
+      sum += poisson * (1 - Math.pow(q / p, z - k));
+      poisson *= lambda / (k + 1);
+    }
+    return 1 - sum;
+  }
+  function fmt(x) { return (x * 100).toFixed(x < 0.01 ? 3 : 2) + '%'; }
+  function set(z) {
+    out.textContent = '等待 ' + z + ' 次确认：交易被回滚的估算概率 ≈ ' + fmt(attackerProb(z, 0.10)) + '。';
+    btns.forEach(function (b) { b.setAttribute('aria-pressed', String(+b.dataset.z === z)); });
+  }
+  btns.forEach(function (b) { b.addEventListener('click', function () { set(+b.dataset.z); }); });
+  set(6);
+})();
+</script>
 </body>
 </html>
