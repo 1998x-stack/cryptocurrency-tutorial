@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,18 +42,18 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
 <!-- CHAPTER_CONTENT_START -->
 
-<h2>第3章 密码学基础 — 比特币的安全基石</h2>
+<h1>第3章 密码学基础 — 比特币的安全基石</h1>
 
 <p>大家好，我是你们的讲师。上一章我们精读了比特币白皮书，看到中本聪反复提到了"数字签名"、"哈希"、"工作量证明"这些词汇。如果你当时觉得有些头晕，完全正常——这就像在听用拉丁语开的医学会议。这一章，我们把这些密码学概念一个个拆解清楚。</p>
 
 <p>理解密码学是理解比特币的前提——不是因为你要自己实现它，而是因为<strong>比特币的安全模型筑基于密码学之上</strong>。如果你不理解哈希函数和数字签名，你就无法真正信任比特币。你只能"盲目相信"——而这恰恰是比特币试图消除的东西。</p>
 
-<h3>3.1 为什么加密货币需要密码学</h3>
+<h2>3.1 为什么加密货币需要密码学</h2>
 
 <p>密码学（cryptography）这个词源于希腊语"kryptos"（隐藏）和"graphein"（书写）。传统上，密码学用于保密通信——让信息只有收信人能读懂。但在比特币中，密码学的角色更加丰富：</p>
 
@@ -67,7 +68,7 @@
 <strong>核心思想：</strong>密码学让比特币实现了"无信任验证"（trustless verification）。你不需要相信一个银行柜员说"余额够了"，你可以自己运行全节点验证每一笔交易。密码学提供了验证工具，比特币网络提供了传播工具，两者结合产生了去中心化货币。
 </div>
 
-<h3>3.2 哈希函数</h3>
+<h2>3.2 哈希函数</h2>
 
 <p>哈希函数是比特币最基础的密码学原语。比特币使用的哈希函数是<strong>SHA-256</strong>（Secure Hash Algorithm 256-bit），由美国国家安全局（NSA）设计，NIST标准发布。</p>
 
@@ -93,13 +94,13 @@
 <pre><code># SHA-256 演示：输入微小变化导致哈希完全不同
 
 输入 "Hello, Bitcoin" 的 SHA-256:
-a1f8e5a1a1c5f9a1a1c5f9a1a1c5f9a1a1c5f9a1a1c5f9a1a1c5f9a1a1c5f9a1
+d8125d715a1f87012093af8dfd389e1d96d9c68ab58bf024a7a8d9e73056724b
 
 输入 "Hello, bitcoin" （注意小写'b'）的 SHA-256:
-7b3d8e2a4b6f1c9d3e5a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8
+c945a9b578a4c76bb3f58cb86f8606882b3524655095fbfb6b1686a84199e8bf
 
 输入 "Hello, Bitcoi" （去掉末尾'n'）的 SHA-256:
-e9f8d7c6b5a4938271605140392817061524334251607184903a2b1c0d1e2f3
+01b5159f7c867d2a4587f3a7f79326c9346b335756d1832ba04e3bccc806deb0
 
 ----
 关键观察：
@@ -108,11 +109,23 @@ e9f8d7c6b5a4938271605140392817061524334251607184903a2b1c0d1e2f3
 - 无法从输出反推出原始输入
 ----</code></pre>
 
+<div class="widget">
+  <h4>交互：亲手看雪崩效应</h4>
+  <p>输入任意文本，实时计算它的 SHA-256；再点“改 1 个字符”感受输出如何大变。</p>
+  <div class="widget-controls">
+    <label for="hash-input">输入</label>
+    <input id="hash-input" type="text" value="Hello, Bitcoin">
+    <button type="button" id="hash-flip">改 1 个字符</button>
+  </div>
+  <div class="widget-output" id="hash-output" role="status" aria-live="polite"></div>
+  <p style="font-size:0.85rem;color:#53676d;margin:10px 0 0;">已作简化：为保持离线可用，此处采用纯 JavaScript 的 SHA-256 实现（UTF-8 输入）；输出为标准 64 位十六进制摘要。</p>
+</div>
+
 <div class="tip">
 <strong>关于"量子威胁"的插曲：</strong>你可能听说过"量子计算机可以破解比特币"的讨论。真实情况是：SHA-256哈希对抗量子计算机有很好的抵抗力（Grover算法只能将穷举速度平方根提升，通过将椭圆曲线签名升级为量子安全的签名方案就可以应对）。真正有威胁的是<strong>椭圆曲线签名</strong>，而不是SHA-256。这会在3.3节中涉及。
 </div>
 
-<h3>3.3 非对称加密</h3>
+<h2>3.3 非对称加密</h2>
 
 <p>在比特币出现之前，几乎所有在线支付系统的安全都依赖<strong>对称加密</strong>——双方共享一个密码。就像你家大门只有一把钥匙，你和家人都拿同一把钥匙开门。问题在于：你怎么安全地把钥匙交给对方？</p>
 
@@ -144,11 +157,39 @@ e9f8d7c6b5a4938271605140392817061524334251607184903a2b1c0d1e2f3
 <strong>历史教训——初代比特币漏洞：</strong>2014年，开源钱包Electrum的早期版本在使用ECDSA签名时存在一个经典的随机数重用攻击（nonce reuse）漏洞。如果同一个随机数被用来签署两笔不同的交易，任何人可以从两个签名中直接计算出你的私钥。有人因此损失了数百个比特币。教训是：<strong>永远不要自己实现密码学</strong>。用经过审计的成熟库。
 </div>
 
-<h3>3.4 数字签名</h3>
+<h2>3.4 数字签名</h2>
 
 <p>数字签名是比特币交易的"法律效力"来源。在传统世界中，你需要手写签名或指纹来确认"我同意这笔转账"。数字签名承担了同样的功能——但更加安全。</p>
 
 <p>数字签名的过程：</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 300" aria-labelledby="fig-ecdsa-title fig-ecdsa-desc">
+  <title id="fig-ecdsa-title">数字签名的生成与验证</title>
+  <desc id="fig-ecdsa-desc">发送方对交易哈希用私钥签名，广播后全节点用公钥重算并验证签名；一致则交易有效，不一致则拒绝。</desc>
+  <marker id="arrow-ecdsa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker>
+  <text x="20" y="30" font-size="13" font-weight="700" fill="#1e3a5f">发送方（持有私钥）</text>
+  <g text-anchor="middle" font-size="13" fill="#0f172a">
+    <rect x="20" y="44" width="150" height="60" rx="10" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/><text x="95" y="80">交易数据 tx</text>
+    <rect x="210" y="44" width="150" height="60" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="285" y="80">哈希 H(tx)</text>
+    <rect x="400" y="44" width="210" height="60" rx="10" fill="#fef3ec" stroke="#d06d4d" stroke-width="1.5"/><text x="505" y="80">用私钥签名 → S</text>
+    <rect x="20" y="168" width="160" height="64" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/><text x="100" y="206">收到 tx · S · 公钥</text>
+    <rect x="220" y="168" width="170" height="64" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="305" y="206">重算 H(tx)′</text>
+    <rect x="430" y="168" width="190" height="64" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/><text x="525" y="206">用公钥验证签名</text>
+  </g>
+  <g stroke="#64748b" stroke-width="2" fill="none">
+    <line x1="170" y1="74" x2="208" y2="74" marker-end="url(#arrow-ecdsa)"/>
+    <line x1="360" y1="74" x2="398" y2="74" marker-end="url(#arrow-ecdsa)"/>
+    <line x1="180" y1="200" x2="218" y2="200" marker-end="url(#arrow-ecdsa)"/>
+    <line x1="390" y1="200" x2="428" y2="200" marker-end="url(#arrow-ecdsa)"/>
+    <path d="M505 104 C505 150 100 130 100 166" stroke-dasharray="6 4" marker-end="url(#arrow-ecdsa)"/>
+  </g>
+  <text x="300" y="146" font-size="12" fill="#475569">广播</text>
+  <text x="20" y="266" font-size="13" font-weight="700" fill="#1e3a5f">验证方（仅需公钥）</text>
+  <text x="220" y="290" font-size="12" fill="#166534">一致 → 签名有效；不一致 → 拒绝该交易</text>
+</svg>
+<figcaption>图 3-2　数字签名流程。私钥只用于签名（上半），验证只需公钥（下半）。因此私钥一旦泄露，任何人都能伪造你的签名——这就是“Not your keys, not your coins”的数学依据。</figcaption>
+</figure>
 
 <pre><code>签名过程（由发送方执行）：
 
@@ -182,9 +223,35 @@ e9f8d7c6b5a4938271605140392817061524334251607184903a2b1c0d1e2f3
 <strong>一个直击灵魂的警句：</strong>"Not your keys, not your coins."——如果别人持有你的私钥，那比特币就不是你的。这听起来像口号，但背后是严格的数学：拥有私钥 = 能产生有效签名 = 能花费对应的比特币。没有例外，没有客服。历史上最大规模的加密货币被盗事件——2014年Mt. Gox 85万BTC被盗、2022年FTX上百亿资产蒸发——本质上都是<strong>私钥管理失败</strong>。
 </div>
 
-<h3>3.5 密码学在比特币中的应用</h3>
+<h2>3.5 密码学在比特币中的应用</h2>
 
 <p>现在我们把所有密码学知识串联起来，看看比特币的完整流程：</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 210" aria-labelledby="fig-derive-title fig-derive-desc">
+  <title id="fig-derive-title">从私钥到地址的单向推导链</title>
+  <desc id="fig-derive-desc">私钥经椭圆曲线 secp256k1 得到公钥，再经 SHA-256 与 RIPEMD-160 得到公钥哈希，最后 Base58Check 编码为地址；整个过程只能正向计算。</desc>
+  <marker id="arrow-derive" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker>
+  <g text-anchor="middle" font-size="13" fill="#0f172a">
+    <rect x="20" y="64" width="120" height="70" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="80" y="94">私钥</text><text x="80" y="114" font-size="11" fill="#991b1b">256 比特·保密</text>
+    <rect x="180" y="64" width="120" height="70" rx="10" fill="#fef3ec" stroke="#d06d4d" stroke-width="1.5"/>
+    <text x="240" y="94">公钥</text><text x="240" y="114" font-size="11" fill="#9a4b31">secp256k1</text>
+    <rect x="340" y="64" width="120" height="70" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="400" y="94">公钥哈希</text><text x="400" y="114" font-size="11" fill="#1e3a5f">SHA-256+RIPEMD-160</text>
+    <rect x="500" y="64" width="120" height="70" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="560" y="94">地址</text><text x="560" y="114" font-size="11" fill="#166534">Base58Check</text>
+  </g>
+  <g stroke="#64748b" stroke-width="2" fill="none">
+    <line x1="140" y1="99" x2="178" y2="99" marker-end="url(#arrow-derive)"/>
+    <line x1="300" y1="99" x2="338" y2="99" marker-end="url(#arrow-derive)"/>
+    <line x1="460" y1="99" x2="498" y2="99" marker-end="url(#arrow-derive)"/>
+  </g>
+  <path d="M560 144 C560 190 80 190 80 144" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="320" y="196" text-anchor="middle" font-size="12" fill="#991b1b">逆向不可行：拿到公钥/地址也推不出私钥</text>
+</svg>
+<figcaption>图 3-1　单向推导链。每一步都是单向陷门函数：正向计算轻松，逆向几乎不可能。因此“公开地址和公钥”不等于“泄露私钥”。</figcaption>
+</figure>
 
 <pre><code>1. 地址生成（用户一次性操作）：
 
@@ -244,6 +311,16 @@ e9f8d7c6b5a4938271605140392817061524334251607184903a2b1c0d1e2f3
 
 <p>本章我们学习了哈希函数的单向性、椭圆曲线的非对称密钥对、数字签名的工作原理，最后串起了它们在比特币中的完整应用。这些概念是理解比特币安全模型的基石。你可能会觉得有些抽象——别急，下一章我们将进入<strong>区块链</strong>的世界，看看这些密码学工具是如何组装成一个不可篡改的分布式账本。</p>
 
+<section id="references" aria-labelledby="ref-heading-3">
+<h2 id="ref-heading-3">本章参考与延伸</h2>
+<ul>
+  <li>SHA-256 规范：NIST FIPS 180-4《Secure Hash Standard》；本页三个示例摘要可用 `printf '%s' "Hello, Bitcoin" | sha256sum` 复现。</li>
+  <li>secp256k1 椭圆曲线参数：SEC 2《Recommended Elliptic Curve Domain Parameters》。</li>
+  <li>中本聪《Bitcoin: A Peer-to-Peer Electronic Cash System》（2008）第 2 节（数字签名）：<a href="https://bitcoin.org/bitcoin.pdf">bitcoin.org/bitcoin.pdf</a>。</li>
+  <li>本页交互采用纯 JavaScript 的 SHA-256 实现，为离线可用而写入；输出已与 OpenSSL/Python hashlib 对多个输入的测试结果一致。</li>
+</ul>
+</section>
+
 <!-- CHAPTER_CONTENT_END -->
 
         <div class="footer-nav">
@@ -251,8 +328,72 @@ e9f8d7c6b5a4938271605140392817061524334251607184903a2b1c0d1e2f3
             <a href="index.html">📖 返回目录</a>
             <a href="04.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+/* 紧凑的 SHA-256 实现（UTF-8 输入），仅用于离线页面内演示 */
+function sha256(ascii) {
+  function rr(v, a) { return (v >>> a) | (v << (32 - a)); }
+  var maxWord = Math.pow(2, 32), result = '', words = [], i, j;
+  var asciiBitLength = ascii.length * 8;
+  var hash = sha256.h = sha256.h || [], k = sha256.k = sha256.k || [], pc = k.length;
+  var isComposite = {};
+  for (var candidate = 2; pc < 64; candidate++) {
+    if (!isComposite[candidate]) {
+      for (i = 0; i < 313; i += candidate) { isComposite[i] = candidate; }
+      hash[pc] = (Math.pow(candidate, 0.5) * maxWord) | 0;
+      k[pc++] = (Math.pow(candidate, 1 / 3) * maxWord) | 0;
+    }
+  }
+  ascii += '\x80';
+  while (ascii.length % 64 - 56) ascii += '\x00';
+  for (i = 0; i < ascii.length; i++) {
+    j = ascii.charCodeAt(i);
+    if (j >> 8) { return ''; }
+    words[i >> 2] |= j << ((3 - i) % 4) * 8;
+  }
+  words[words.length] = ((asciiBitLength / maxWord) | 0);
+  words[words.length] = asciiBitLength;
+  for (j = 0; j < words.length;) {
+    var w = words.slice(j, j += 16);
+    var oldHash = hash;
+    hash = hash.slice(0, 8);
+    for (i = 0; i < 64; i++) {
+      var w15 = w[i - 15], w2 = w[i - 2], a = hash[0], e = hash[4];
+      var temp1 = hash[7] + (rr(e, 6) ^ rr(e, 11) ^ rr(e, 25)) + ((e & hash[5]) ^ ((~e) & hash[6])) + k[i]
+        + (w[i] = (i < 16) ? w[i] : (w[i - 16] + (rr(w15, 7) ^ rr(w15, 18) ^ (w15 >>> 3)) + w[i - 7] + (rr(w2, 17) ^ rr(w2, 19) ^ (w2 >>> 10))) | 0);
+      var temp2 = (rr(a, 2) ^ rr(a, 13) ^ rr(a, 22)) + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+      hash = [(temp1 + temp2) | 0].concat(hash);
+      hash[4] = (hash[4] + temp1) | 0;
+    }
+    for (i = 0; i < 8; i++) hash[i] = (hash[i] + oldHash[i]) | 0;
+  }
+  for (i = 0; i < 8; i++) for (j = 3; j + 1; j--) {
+    var b = (hash[i] >> (j * 8)) & 255;
+    result += (b < 16 ? '0' : '') + b.toString(16);
+  }
+  return result;
+}
+</script>
+<script>
+(function () {
+  var input = document.getElementById('hash-input');
+  var out = document.getElementById('hash-output');
+  var flip = document.getElementById('hash-flip');
+  function utf8(str) { try { return unescape(encodeURIComponent(str)); } catch (e) { return str; } }
+  function render() {
+    var v = input.value;
+    out.textContent = 'SHA-256("' + v + '")\n' + sha256(utf8(v)) + '\n（64 个十六进制字符 = 256 比特）';
+  }
+  flip.addEventListener('click', function () {
+    var v = input.value;
+    input.value = (v.slice(-1) === 'X') ? v.slice(0, -1) : v + 'X';
+    render();
+  });
+  input.addEventListener('input', render);
+  render();
+})();
+</script>
 </body>
 </html>

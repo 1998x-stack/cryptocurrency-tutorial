@@ -183,6 +183,10 @@ figcaption {
 }
 .widget h4 { margin-top: 0; color: #1e3a5f; }
 .widget-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0; }
+.widget input {
+    flex: 1 1 180px; min-width: 0; font: inherit; padding: 8px 12px;
+    border: 1px solid #cbd5e1; border-radius: 10px; background: #fff;
+}
 button {
     font: inherit; font-weight: 600; cursor: pointer; padding: 8px 18px;
     border-radius: 40px; border: 1px solid #93c5fd; background: #e0f2fe;
