@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,10 +42,10 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
-<h2>第8章 交易深入 — UTXO模型的奥秘</h2>
+<h1>第8章 交易深入 — UTXO模型的奥秘</h1>
 
 <p>"我刚才收到 0.5 BTC——等等，我到底收到的是什么？"</p>
 
@@ -52,7 +53,7 @@
 
 <p>别急。这一章我们要揭开比特币交易模型最核心的概念——<strong>UTXO（Unspent Transaction Output，未花费交易输出）</strong>。理解 UTXO 模型，你就真正理解了比特币如何"记账"。它与我们日常使用的银行账户模型完全不同，而这恰恰是比特币设计中最精妙的部分之一。</p>
 
-<h3>8.1 什么是UTXO</h3>
+<h2>8.1 什么是UTXO</h2>
 
 <p>想象一下你的钱包。你有一张 100 元钞票、一张 50 元钞票和两张 20 元钞票。你要付 75 元——你会怎么做？你大概率会掏出 50 + 20 + 20 = 90 元，给对方 75 元，然后拿回 15 元找零。注意：你不可能"撕下 75 元"——面额是离散的。</p>
 
@@ -73,11 +74,23 @@
 
 <p>这个选择 UTXO 来凑金额的过程叫做<strong>Coin Selection</strong>（硬币选择）。好的 Coin Selection 算法能帮你节省手续费、保护隐私。差的算法——比如很多早期钱包直接用"先找到的 UTXO"——会导致不必要的隐私泄露。</p>
 
+<div class="widget" id="utxo-widget">
+  <h4>交互：硬币选择（Coin Selection）</h4>
+  <p>输入支付金额和各张 UTXO 的面额（逗号分隔，单位 BTC），看看钱包如何凑钱、找零多少。此处不计手续费，仅演示选择过程。</p>
+  <div class="widget-controls">
+    <label>支付金额 <input id="utxo-target" type="number" step="0.001" value="0.5"></label>
+    <label>可用 UTXO <input id="utxo-list" type="text" value="1.0, 0.8, 0.25"></label>
+    <button id="utxo-run" type="button">选择</button>
+    <button id="utxo-demo" type="button">换一组小额示例</button>
+  </div>
+  <div class="widget-output" id="utxo-out" role="status" aria-live="polite">点击“选择”查看结果。</div>
+</div>
+
 <div class="tip">
 <strong>一点历史：</strong>UTXO 模型并非中本聪首创。它最早出现在 1990 年代 David Chaum 的 eCash 系统中。但中本聪的天才之处在于把 UTXO 和去中心化的区块链结合起来——不需要中央服务器来验证"这张数字钞票有没有被花过"。
 </div>
 
-<h3>8.2 交易结构详解</h3>
+<h2>8.2 交易结构详解</h2>
 
 <p>一笔比特币交易到底长什么样？让我们拆解它的二进制结构。以下是交易的主要字段：</p>
 
@@ -95,11 +108,28 @@
   </tbody>
 </table>
 
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 150" aria-labelledby="fig-txstruct-title fig-txstruct-desc">
+  <title id="fig-txstruct-title">交易的字节布局</title>
+  <desc id="fig-txstruct-desc">一笔交易依次由版本号、输入数量、输入列表、输出数量、输出列表和锁定时间组成，其中列表长度可变。</desc>
+  <g font-size="12" text-anchor="middle" fill="#0f172a">
+    <rect x="10" y="45" width="80" height="48" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="50" y="66">version</text><text x="50" y="83" font-size="10" fill="#475569">4 字节</text>
+    <rect x="96" y="45" width="70" height="48" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><text x="131" y="66">in 数</text><text x="131" y="83" font-size="10" fill="#475569">变长</text>
+    <rect x="172" y="45" width="140" height="48" rx="8" fill="#fef3ec" stroke="#d06d4d" stroke-width="1.5"/><text x="242" y="66">inputs</text><text x="242" y="83" font-size="10" fill="#475569">outpoint+scriptsig+seq</text>
+    <rect x="318" y="45" width="70" height="48" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><text x="353" y="66">out 数</text><text x="353" y="83" font-size="10" fill="#475569">变长</text>
+    <rect x="394" y="45" width="150" height="48" rx="8" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/><text x="469" y="66">outputs</text><text x="469" y="83" font-size="10" fill="#475569">amount+scriptpubkey</text>
+    <rect x="550" y="45" width="80" height="48" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="590" y="66">locktime</text><text x="590" y="83" font-size="10" fill="#475569">4 字节</text>
+  </g>
+  <text x="320" y="125" text-anchor="middle" font-size="11" fill="#475569">灰底 = 可变长计数；蓝底 = 固定长度头尾；橙/绿 = 随输入输出数量变化的主体（此处已省略 SegWit 见证数据）</text>
+</svg>
+<figcaption>图 8-1　交易字段布局。交易大小主要由 inputs 与 outputs 的个数决定，这也是手续费按 vBytes 计价的直接原因。</figcaption>
+</figure>
+
 <div class="warning">
 <strong>不要搞反：</strong>很多初学者以为交易的"input"是自己的地址，"output"是对方的地址。错！<strong>Input 是你要花掉的旧 UTXO（引用之前的交易输出），Output 是新创建的 UTXO。</strong>输入是"销毁"，输出是"创造"。
 </div>
 
-<h3>8.3 输入与输出详解</h3>
+<h2>8.3 输入与输出详解</h2>
 
 <p>每个<strong>输入（input）</strong>由三部分组成：</p>
 
@@ -132,7 +162,7 @@
 
 <p>是的，你需要给<strong>自己</strong>创建一个找零输出！如果你没有找零输出差值就是手续费，那意味着你把 0.5 BTC 当手续费付了——这是真实发生过的悲剧。</p>
 
-<h3>8.4 交易费计算</h3>
+<h2>8.4 交易费计算</h2>
 
 <p>交易费不是固定的——它由市场决定。计算公式非常简单：</p>
 
@@ -157,7 +187,7 @@
 <strong>实用建议：</strong>2024 年 4 月减半后，由于 Runes 协议的流行，比特币网络一度极度拥堵。高优先级交易费率飙到 800+ sat/vB。但到了 2026 年，Ordinals 和 Runes 的热度冷却后，平均费率稳定在 10-30 sat/vB 左右。如果你是日常转账，用钱包的"建议费率"就好，不需要手动调。
 </div>
 
-<h3>8.5 Coinbase交易</h3>
+<h2>8.5 Coinbase交易</h2>
 
 <p>每当你看到一个区块，它包含的第一笔交易永远是唯一没有输入的交易——它叫<strong>Coinbase 交易</strong>（创币交易）。这不是交易所的名字，而是矿工给自己铸币的交易。</p>
 
@@ -169,6 +199,30 @@
   <li><strong>Coinbase 数据区：</strong>可以存放任意数据（最多 100 字节）。矿工常在这里写入自定义消息——甚至有人写入了求婚告白。</li>
   <li><strong>成熟期：</strong>Coinbase 交易的输出有 100 个区块的锁定期。矿工不能立刻花掉新挖出来的币——这是为了防止链分叉时的双花。</li>
 </ul>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 210" aria-labelledby="fig-cb-title fig-cb-desc">
+  <title id="fig-cb-title">普通交易与 Coinbase 交易的对比</title>
+  <desc id="fig-cb-desc">普通交易引用并花费旧的 UTXO 作为输入；Coinbase 交易没有输入，直接创造区块奖励与手续费作为新输出。</desc>
+  <g font-size="12" fill="#0f172a">
+    <text x="20" y="26" font-weight="700" fill="#1e3a5f">普通交易</text>
+    <rect x="20" y="36" width="250" height="150" rx="12" fill="#f8fafc" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="36" y="60" fill="#1d4ed8">输入（引用旧 UTXO）</text>
+    <rect x="36" y="70" width="218" height="26" rx="6" fill="#fff" stroke="#3b82f6"/><text x="46" y="88">txid…:0  0.003 BTC</text>
+    <rect x="36" y="100" width="218" height="26" rx="6" fill="#fff" stroke="#3b82f6"/><text x="46" y="118">txid…:1  0.002 BTC</text>
+    <text x="36" y="150" fill="#166534">输出（新 UTXO）</text>
+    <rect x="36" y="156" width="218" height="24" rx="6" fill="#ecfdf5" stroke="#16a34a"/><text x="46" y="173">接收方 + 找零</text>
+    <text x="360" y="26" font-weight="700" fill="#1e3a5f">Coinbase 交易</text>
+    <rect x="360" y="36" width="260" height="150" rx="12" fill="#f8fafc" stroke="#d06d4d" stroke-width="1.5"/>
+    <text x="376" y="60" fill="#9a3412">输入：无</text>
+    <rect x="376" y="70" width="228" height="26" rx="6" fill="#fff" stroke="#d06d4d"/><text x="386" y="88">txid 全 0 · vout 0xFFFFFFFF</text>
+    <text x="376" y="120" fill="#475569" font-size="11">scriptSig 可含任意数据（≤100 字节）</text>
+    <text x="376" y="150" fill="#166534">输出（新 UTXO）</text>
+    <rect x="376" y="156" width="228" height="24" rx="6" fill="#ecfdf5" stroke="#16a34a"/><text x="386" y="173">区块奖励 3.125 BTC + 手续费</text>
+  </g>
+</svg>
+<figcaption>图 8-2　Coinbase 交易是区块中唯一没有输入的交易；它不“花掉”UTXO，而是按共识规则创造新币并连同该区块手续费一起付给矿工（奖励值以 2024 年第四次减半后的 3.125 BTC 为准）。</figcaption>
+</figure>
 
 <pre><code>Coinbase 交易结构（第 850,000 区块示例）：
 
@@ -186,7 +240,7 @@
 <strong>深刻理解：</strong>Coinbase 交易是比特币系统中唯一"凭空创造"比特币的地方。每次减半意味着 Coinbase 交易的奖励减半，也意味着新币流入市场的速度减半。这就是比特币供应量被数学锁定的根本机制——你没法"多印"，因为每个区块的 Coinbase 金额被共识规则严格约束。
 </div>
 
-<h3>8.6 交易确认与链深度</h3>
+<h2>8.6 交易确认与链深度</h2>
 
 <p>你发了一笔交易，钱包显示"0 确认"——这是什么意思？</p>
 
@@ -217,13 +271,41 @@
 
 <p>下一章，我们将深入这些锁定和解锁脚本的核心——Bitcoin Script 语言。你将看到，比特币的"可编程性"是如何在极度受限的环境中实现令人惊叹的功能的。</p>
 
+<h2>本章参考与延伸</h2>
+<ul>
+  <li>中本聪白皮书第 9 节“Combining and Splitting Value”与第 5 节“Network”说明 UTXO 的拆分/合并与交易传播。</li>
+  <li>BIP-141 定义 vbyte 与见证数据折扣；BIP-125 定义 RBF。区块奖励 3.125 BTC 为 2024 年第四次减半后的数值。</li>
+  <li>文中的交易大小、费率区间与金额均为教学示意，非某一笔真实交易记录。</li>
+</ul>
+
         <div class="footer-nav">
             <a href="07.html">← 上一章</a>
             <a href="index.html">📖 返回目录</a>
             <a href="09.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function(){
+  var target=document.getElementById('utxo-target'), list=document.getElementById('utxo-list');
+  var out=document.getElementById('utxo-out');
+  function parse(s){ return s.split(',').map(function(x){return parseFloat(x);}).filter(function(x){return !isNaN(x)&&x>0;}); }
+  function run(){
+    var t=parseFloat(target.value);
+    var coins=parse(list.value).sort(function(a,b){return b-a;});
+    if(isNaN(t)||t<=0){ out.textContent='请输入有效的支付金额'; return; }
+    var sum=0, chosen=[];
+    for(var i=0;i<coins.length && sum<t;i++){ chosen.push(coins[i]); sum+=coins[i]; }
+    if(sum<t){ out.textContent='UTXO 合计 '+sum.toFixed(4)+' BTC，不足以支付 '+t+' BTC'; return; }
+    var change=sum-t;
+    out.textContent='按面额从大到小选择：'+chosen.join(' + ')+' = '+sum.toFixed(4)+' BTC\n'+
+      '创建输出：接收方 '+t+' BTC'+(change>0?'  |  找零 '+change.toFixed(4)+' BTC':'')+'\n'+
+      '（此处未计手续费，故找零偏大）';
+  }
+  document.getElementById('utxo-run').addEventListener('click', run);
+  document.getElementById('utxo-demo').addEventListener('click', function(){ target.value='0.3'; list.value='0.1, 0.15, 0.2, 0.05'; run(); });
+})();
+</script>
 </body>
 </html>
