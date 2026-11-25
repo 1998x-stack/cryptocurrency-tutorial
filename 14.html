@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,10 +42,10 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
-<h2>第14章 比特币改进提案 — 生态如何演进</h2>
+<h1>第14章 比特币改进提案 — 生态如何演进</h1>
 
 <p>想象一下：你有一个能让比特币变得更好的主意——可能是一种新的签名方案，或者一种更高效的交易格式。你该怎么做？在传统的组织中，你有"提案流程"，找经理签字。但比特币没有经理，没有董事会，也没有 CEO。</p>
 
@@ -52,7 +53,7 @@
 
 <p>这一章，我们来了解 BIP 的完整生命周期，回顾那些改变了比特币面貌的里程碑 BIP，以及看看现在和未来有哪些提案在推动比特币演进。</p>
 
-<h3>14.1 BIP是什么</h3>
+<h2>14.1 BIP是什么</h2>
 
 <p>BIP 的灵感来自 Python 的 PEP（Python Enhancement Proposal）和以太坊的 EIP。BIP 是比特币社区的"正式沟通语言"——如果你不能把你的想法写成一个规范的 BIP，社区就不会认真对待。</p>
 
@@ -70,13 +71,35 @@
      ↓
   [活跃 Active] / [已替换 Replaced] / [过时 Obsolete]</code></pre>
 
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 180" aria-labelledby="fig-bip-title fig-bip-desc">
+  <title id="fig-bip-title">BIP 的生命周期状态</title>
+  <desc id="fig-bip-desc">想法经邮件列表讨论成为草稿，分配编号后成为提案，经实现与审查可进入最终状态，也可能被撑回或取代。</desc>
+  <defs><marker id="ar-bip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker></defs>
+  <g text-anchor="middle" font-size="12" fill="#0f172a">
+    <rect x="10" y="60" width="100" height="46" rx="9" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><text x="60" y="88">想法</text>
+    <rect x="150" y="60" width="100" height="46" rx="9" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="200" y="88">草稿 Draft</text>
+    <rect x="290" y="60" width="110" height="46" rx="9" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="345" y="88">提案 Proposed</text>
+    <rect x="440" y="20" width="180" height="46" rx="9" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/><text x="530" y="40">最终 Final</text><text x="530" y="56" font-size="10" fill="#475569">已实现并稳定</text>
+    <rect x="440" y="100" width="180" height="46" rx="9" fill="#fef3ec" stroke="#d06d4d" stroke-width="1.5"/><text x="530" y="120">撑回 Withdrawn</text><text x="530" y="136" font-size="10" fill="#475569">编号永久保留，不重用</text>
+  </g>
+  <g stroke="#64748b" stroke-width="1.8" fill="none">
+    <line x1="110" y1="83" x2="148" y2="83" marker-end="url(#ar-bip)"/>
+    <line x1="250" y1="83" x2="288" y2="83" marker-end="url(#ar-bip)"/>
+    <path d="M400 78 C420 78 420 43 438 43" marker-end="url(#ar-bip)"/>
+    <path d="M400 90 C420 90 420 123 438 123" marker-end="url(#ar-bip)"/>
+  </g>
+</svg>
+<figcaption>图 14-1　BIP 生命周期。编号一经分配便永久保留；“撑回/取代/过时”也是历史的一部分，帮助后人理解为何某些想法未被采用。</figcaption>
+</figure>
+
 <p>BIP 的编辑者（BIP Editors）负责维护 BIP 仓库——他们不是"裁决者"，而是"看门人"，确保格式正确、编号有序。目前的 BIP 仓库在 GitHub 上的 <code>bitcoin/bips</code>，由几位长期的比特币贡献者维护。</p>
 
 <div class="tip">
 <strong>有趣的事实：</strong>BIP 编号是永久分配的。即使一个 BIP 被撤回或拒绝，它的编号也不会被重用。这意味着你可能会在 BIP 列表中看到一些"失败"的提案——它们也是历史的一部分。截至 2026 年，已经有超过 400 个 BIP 被提交。
 </div>
 
-<h3>14.2 BIP分类</h3>
+<h2>14.2 BIP分类</h2>
 
 <p>BIP 分为三大类：</p>
 
@@ -93,7 +116,7 @@
 
 <p>每一类都有不同的激活门槛。Standards Track BIP 需要至少足够的共识来实施（对软分叉需要矿工信号，对非共识变更需要代码审查合并），而 Informational BIP 只需要文档被接受即可。</p>
 
-<h3>14.3 里程碑BIP盘点</h3>
+<h2>14.3 里程碑BIP盘点</h2>
 
 <p>有些 BIP 如此重要，它们从根本上改变了比特币的面貌。每个比特币用户都应该了解它们：</p>
 
@@ -125,17 +148,49 @@ m/44'/0'/0'/0/0 → 比特币 P2PKH 的第一个接收地址
 m/84'/0'/0'/0/5 → 比特币 SegWit 的第 6 个接收地址
 m/86'/0'/0'/1/10 → 比特币 Taproot 的第 11 个找零地址</code></pre>
 
+<div class="widget" id="bip44-widget">
+  <h4>交互：BIP44 路径构建器</h4>
+  <p>选择 purpose、账户与地址索引，拼出一条推导路径。</p>
+  <div class="widget-controls">
+    <label>purpose <input id="b44-purpose" type="number" value="84" min="1"></label>
+    <label>account <input id="b44-account" type="number" value="0" min="0"></label>
+    <label>change <input id="b44-change" type="number" value="0" min="0" max="1"></label>
+    <label>index <input id="b44-index" type="number" value="5" min="0"></label>
+    <button id="b44-build" type="button">生成路径</button>
+    <button id="b44-taproot" type="button">Taproot 示例</button>
+  </div>
+  <div class="widget-output" id="b44-out" role="status" aria-live="polite">点击“生成路径”查看结果。</div>
+</div>
+
 <p><strong>BIP141 — Segregated Witness（隔离见证，2015年）</strong></p>
 <p>比特币最重要的技术升级之一。把签名从交易中隔离出来，修复了交易可锻性，降低了手续费，为闪电网络铺平了道路。</p>
 
 <p><strong>BIP340/341/342 — Schnorr/Taproot/Tapscript（2021年）</strong></p>
 <p>比特币的最新重大升级。Schnorr 签名聚合、MAST 隐私保护、升级后的脚本系统——三个 BIP 打包升级。</p>
 
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 150" aria-labelledby="fig-biptime-title fig-biptime-desc">
+  <title id="fig-biptime-title">里程碑 BIP 时间线</title>
+  <desc id="fig-biptime-desc">2012至2021年间，BIP16、BIP32、BIP39、BIP44、BIP141 与 BIP340-342 相继定义了脚本、钱包、地址与签名标准。</desc>
+  <line x1="40" y1="80" x2="610" y2="80" stroke="#cbd5e1" stroke-width="4"/>
+  <g font-size="10" fill="#0f172a" text-anchor="middle">
+    <circle cx="96" cy="80" r="6" fill="#3b82f6"/><text x="96" y="64">BIP16</text><text x="96" y="103">2012</text>
+    <circle cx="152" cy="80" r="6" fill="#3b82f6"/><text x="152" y="122">BIP32</text>
+    <circle cx="208" cy="80" r="6" fill="#3b82f6"/><text x="208" y="64">BIP39</text><text x="208" y="103">2013</text>
+    <circle cx="264" cy="80" r="6" fill="#3b82f6"/><text x="264" y="122">BIP44</text>
+    <circle cx="376" cy="80" r="6" fill="#d06d4d"/><text x="376" y="64">BIP141</text><text x="376" y="103">2015</text>
+    <circle cx="600" cy="80" r="6" fill="#16a34a"/><text x="580" y="122">BIP340-342</text><text x="600" y="64">2021</text>
+  </g>
+  <text x="40" y="142" font-size="10" fill="#475569">蓝：钱包/脚本基础　橙：SegWit　绿：Schnorr + Taproot</text>
+</svg>
+<figcaption>图 14-2　里程碑 BIP 时间线。它们分别奠定了多重签名、HD 钱包、助记词、推导路径、隔离见证与 Taproot 的基础。</figcaption>
+</figure>
+
 <div class="highlight">
 <strong>注意 BIP 的命名哲学：</strong>一个好的 BIP 不只要解决技术问题，还要考虑"如何让现有用户不受影响"。BIP16 兼容旧地址，BIP32 可以逐步迁移，BIP141 是软分叉。比特币社区几乎总是选择"痛苦最小"的升级路径——即使这意味着实现更复杂。
 </div>
 
-<h3>14.4 正在讨论的关键BIP</h3>
+<h2>14.4 正在讨论的关键BIP</h2>
 
 <p>比特币的发展从未停止。2026 年，社区正在讨论以下几个值得关注的标准提案：</p>
 
@@ -157,7 +212,7 @@ m/86'/0'/0'/1/10 → 比特币 Taproot 的第 11 个找零地址</code></pre>
 <strong>一个社区分裂的现实：</strong>OP_CTV 从 2019 年就开始讨论了，到现在仍然没有激活。不是因为它"不好"，而是因为比特币社区的审查非常保守——每一个新的 opcode 都可能引入意想不到的攻击面。在比特币中，"不做"通常是默认选项。这就是为什么 Bitcoin Core 的座右铭是："Don't break things"（不要搞坏东西）。
 </div>
 
-<h3>14.5 如何参与BIP讨论</h3>
+<h2>14.5 如何参与BIP讨论</h2>
 
 <p>如果你想参与比特币的治理和发展，完全不需要是密码学博士。任何人都可以通过以下途径参与：</p>
 
@@ -173,7 +228,7 @@ m/86'/0'/0'/1/10 → 比特币 Taproot 的第 11 个找零地址</code></pre>
 <strong>给新人的建议：</strong>不要一上来就提 BIP。先观察。先读 BIP 仓库里已有的提案（特别是 Final 状态的），了解它们为什么被接受。然后看一些 Withdrawn 状态的提案，理解为什么被拒绝。比特币社区的知识密度非常高——一个被拒绝的 BIP 可能包含着几个月的讨论精华。先吸收，再贡献。
 </div>
 
-<h3>14.6 比特币治理哲学</h3>
+<h2>14.6 比特币治理哲学</h2>
 
 <p>如果你把比特币和以太坊的治理方式做个对比，会发现两个截然不同的哲学：</p>
 
@@ -202,13 +257,37 @@ m/86'/0'/0'/1/10 → 比特币 Taproot 的第 11 个找零地址</code></pre>
 
 <p>从 BIP 的系统性创新中，我们可以看到比特币从"一个点对点的电子现金系统"正在演变为"一个开放的、可编程的价值网络"。下一章，我们将进入一个更贴近普通用户的主题——钱包安全。了解了比特币的底层之后，你需要知道如何安全地保管你的比特币。</p>
 
+<h2>本章参考与延伸</h2>
+<ul>
+  <li>BIP1（BIP 流程本身）、BIP16、BIP32、BIP39、BIP44、BIP141、BIP340-342、BIP119（OP_CTV，讨论中）与 BIP300/301（Drivechains，讨论中）。</li>
+  <li>文中 BIP 编号、年份与状态为公开记录；治理对比表中的判断为课程整理，非官方结论。</li>
+</ul>
+
         <div class="footer-nav">
             <a href="13.html">← 上一章</a>
             <a href="index.html">📖 返回目录</a>
             <a href="15.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function(){
+  var out=document.getElementById('b44-out');
+  var p=document.getElementById('b44-purpose'), a=document.getElementById('b44-account');
+  var c=document.getElementById('b44-change'), i=document.getElementById('b44-index');
+  var names={'44':'P2PKH（1 开头）','49':'P2SH-SegWit（3 开头）','84':'Native SegWit（bc1q）','86':'Taproot（bc1p）'};
+  function build(){
+    var pp=parseInt(p.value,10), aa=parseInt(a.value,10), cc=parseInt(c.value,10), ii=parseInt(i.value,10);
+    if([pp,aa,cc,ii].some(isNaN)){ out.textContent='请填写有效的数字'; return; }
+    var ns=names[String(pp)] || '其他/自定义 purpose';
+    var chain = cc===1 ? '内部链（找零）' : '外部链（接收）';
+    var path="m/"+pp+"'/0'/"+aa+"'/"+cc+'/'+ii;
+    out.textContent='路径：'+path+'\n用途：'+ns+'\n链：'+chain+'\n地址索引：第 '+(ii+1)+' 个';
+  }
+  document.getElementById('b44-build').addEventListener('click', build);
+  document.getElementById('b44-taproot').addEventListener('click', function(){ p.value='86'; a.value='0'; c.value='1'; i.value='10'; build(); });
+})();
+</script>
 </body>
 </html>
