@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,10 +42,10 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
-<h2>第10章 密钥与地址 — 你的数字身份</h2>
+<h1>第10章 密钥与地址 — 你的数字身份</h1>
 
 <p>"Not your keys, not your coins."——加密货币世界最著名的格言。</p>
 
@@ -52,7 +53,7 @@
 
 <p>真正拥有比特币，意味着你拥有对应的<strong>私钥</strong>。这一章，我们来拆解私钥到地址的完整链条——从 256 位随机数到我们熟悉的"bc1q..."地址。理解了它，你才真正理解了"数字所有权"。</p>
 
-<h3>10.1 私钥的本质</h3>
+<h2>10.1 私钥的本质</h2>
 
 <p>私钥本质上就是一个<strong>256 位的随机数</strong>。仅此而已。没有更多的花哨。</p>
 
@@ -76,7 +77,7 @@
 <strong>严重警告：</strong>永远不要使用任何在线的"私钥生成器"工具，不要从网站上复制粘贴私钥，不要用你喜欢的数字（生日、幸运数字）当私钥。一个"看起来随机"的人类选择数字（比如 42）在数学上完全不安全。一定要用可靠的本地钱包软件生成私钥。
 </div>
 
-<h3>10.2 从私钥到公钥</h3>
+<h2>10.2 从私钥到公钥</h2>
 
 <p>私钥本身不能被直接使用——你需要展示的是<strong>公钥</strong>，并用自己的私钥对交易进行<strong>签名</strong>。比特币使用的椭圆曲线是 <strong>secp256k1</strong>，定义如下：</p>
 
@@ -97,7 +98,7 @@
 
 <p>公钥有两种编码方式：<strong>未压缩公钥</strong>（65 字节，以 04 开头）和<strong>压缩公钥</strong>（33 字节，以 02 或 03 开头）。由于椭圆曲线的对称性，知道 x 坐标和 y 的正负号就能推出完整的公钥。压缩公钥节省了一半空间——在现代比特币交易中几乎普遍使用压缩公钥。</p>
 
-<h3>10.3 从公钥到地址</h3>
+<h2>10.3 从公钥到地址</h2>
 
 <p>公钥太长了，不适合作为收钱地址。比特币地址是通过对公钥进行两次哈希生成的：</p>
 
@@ -108,6 +109,30 @@
 - RIPEMD160: 输出只有 160 位 (20 字节), 地址更短, 方便使用
 - 双重哈希: 如果 SHA256 或 RIPEMD160 在未来发现弱点, 双重哈希提供"纵深防御"</code></pre>
 
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 130" aria-labelledby="fig-chain-title fig-chain-desc">
+  <title id="fig-chain-title">从私钥到地址的推导链</title>
+  <desc id="fig-chain-desc">私钥经椭圆曲线标量乘法得到公钥，再依次经 SHA256、RIPEMD160 得到 20 字节公钥哈希，最后经 Base58Check 编码为地址；每一步都不可逆。</desc>
+  <defs><marker id="ar-chain" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker></defs>
+  <g text-anchor="middle" font-size="11" fill="#0f172a">
+    <rect x="8" y="40" width="84" height="48" rx="8" fill="#fef3ec" stroke="#d06d4d" stroke-width="1.5"/><text x="50" y="62">私钥</text><text x="50" y="78" font-size="10" fill="#475569">256 位</text>
+    <rect x="128" y="40" width="100" height="48" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="178" y="62">公钥</text><text x="178" y="78" font-size="10" fill="#475569">33/65 字节</text>
+    <rect x="264" y="40" width="96" height="48" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><text x="312" y="62">SHA256</text><text x="312" y="78" font-size="10" fill="#475569">32 字节</text>
+    <rect x="396" y="40" width="96" height="48" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><text x="444" y="62">RIPEMD160</text><text x="444" y="78" font-size="10" fill="#475569">20 字节</text>
+    <rect x="528" y="40" width="104" height="48" rx="8" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/><text x="580" y="62">地址</text><text x="580" y="78" font-size="10" fill="#475569">Base58Check</text>
+  </g>
+  <g stroke="#64748b" stroke-width="1.8" fill="none">
+    <line x1="92" y1="64" x2="126" y2="64" marker-end="url(#ar-chain)"/>
+    <line x1="228" y1="64" x2="262" y2="64" marker-end="url(#ar-chain)"/>
+    <line x1="360" y1="64" x2="394" y2="64" marker-end="url(#ar-chain)"/>
+    <line x1="492" y1="64" x2="526" y2="64" marker-end="url(#ar-chain)"/>
+  </g>
+  <text x="178" y="30" font-size="10" fill="#1d4ed8">×G 标量乘法</text>
+  <text x="580" y="108" font-size="10" fill="#166534">单方向：任一步都无法反推</text>
+</svg>
+<figcaption>图 10-1　私钥→公钥→地址的单向推导链。每步都是单向函数：从地址无法回推公钥，从公钥无法回推私钥。这就是公开地址却仍能保密私钥的数学基础。</figcaption>
+</figure>
+
 <p><strong>Base58Check</strong> 编码的巧妙之处：</p>
 
 <ul>
@@ -116,7 +141,7 @@
   <li>Base58Check 在末尾包含 4 字节的校验和（双 SHA256 的前 4 字节），打错字母会被告知"无效地址"</li>
 </ul>
 
-<h3>10.4 地址格式演进</h3>
+<h2>10.4 地址格式演进</h2>
 
 <p>比特币的地址格式经历了四次主要迭代，每种格式都对应不同的脚本类型：</p>
 
@@ -134,13 +159,24 @@
 
 <p>如果你在 2026 年开设一个新钱包，默认地址应该是 bc1q 或 bc1p。但仍然有很多老地址在流通——你给"1"开头地址转账完全没问题，但需要注意手续费会略高（因为非 SegWit 交易占用更多区块空间）。</p>
 
-<h3>10.5 HD钱包与助记词</h3>
+<h2>10.5 HD钱包与助记词</h2>
 
 <p>如果每个地址都需要一个不同的私钥，管理起来会是一场灾难。你不可能从一个"1"地址收到工资、从"3"地址接收打赏、从"bc1q"地址做日常消费——每次都要换私钥太麻烦了。</p>
 
 <p>解决方案是<strong>分层确定性（HD, Hierarchical Deterministic）钱包</strong>，由 BIP32 定义。核心思想是：<strong>从一个种子（seed）通过单向函数派生出无数个子私钥和子公钥</strong>。</p>
 
 <p>BIP39 进一步规定了如何把种子编码成<strong>助记词（mnemonic phrase）</strong>：</p>
+
+<div class="widget" id="bip39-widget">
+  <h4>交互：BIP39 熵 → 助记词长度</h4>
+  <p>词数 =（熵位数 + 校验和位数）÷ 11，校验和位数 = 熵位数 ÷ 32。改一改熵位数看看变化。</p>
+  <div class="widget-controls">
+    <label>熵位数 <input id="bip39-entropy" type="number" value="128" min="128" max="256" step="32"></label>
+    <button id="bip39-calc" type="button">计算</button>
+    <button id="bip39-demo" type="button">用 256 位试试</button>
+  </div>
+  <div class="widget-output" id="bip39-out" role="status" aria-live="polite">点击“计算”查看结果。</div>
+</div>
 
 <pre><code>生成流程:
 
@@ -162,6 +198,33 @@
     ↓ (BIP44 路径)
 具体地址的私钥 → 公钥 → 地址</code></pre>
 
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 160" aria-labelledby="fig-hd-title fig-hd-desc">
+  <title id="fig-hd-title">HD 钱包的确定性推导</title>
+  <desc id="fig-hd-desc">一串助记词经种子、主密钥逐层派生出无数子私钥，同一助记词总是重建出完全相同的地址序列。</desc>
+  <defs><marker id="ar-hd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker></defs>
+  <g text-anchor="middle" font-size="11" fill="#0f172a">
+    <rect x="8" y="55" width="96" height="46" rx="8" fill="#fef3ec" stroke="#d06d4d" stroke-width="1.5"/><text x="56" y="76">助记词</text><text x="56" y="92" font-size="10" fill="#475569">12–24 词</text>
+    <rect x="140" y="55" width="96" height="46" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="188" y="76">种子</text><text x="188" y="92" font-size="10" fill="#475569">512 位</text>
+    <rect x="272" y="55" width="110" height="46" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="327" y="76">主私钥+链码</text><text x="327" y="92" font-size="10" fill="#475569">BIP32</text>
+  </g>
+  <g stroke="#64748b" stroke-width="1.8" fill="none">
+    <line x1="104" y1="78" x2="138" y2="78" marker-end="url(#ar-hd)"/>
+    <line x1="236" y1="78" x2="270" y2="78" marker-end="url(#ar-hd)"/>
+    <line x1="382" y1="78" x2="430" y2="78" marker-end="url(#ar-hd)"/>
+  </g>
+  <text x="56" y="30" font-size="10" fill="#9a3412">PBKDF2</text>
+  <text x="188" y="30" font-size="10" fill="#1d4ed8">HMAC-SHA512</text>
+  <g font-size="10" fill="#0f172a">
+    <rect x="430" y="14" width="200" height="30" rx="7" fill="#f8fafc" stroke="#64748b"/><text x="440" y="33">m/44'/0'/0'/0/0 → 地址₀</text>
+    <rect x="430" y="54" width="200" height="30" rx="7" fill="#f8fafc" stroke="#64748b"/><text x="440" y="73">m/44'/0'/0'/0/1 → 地址₁</text>
+    <rect x="430" y="94" width="200" height="30" rx="7" fill="#f8fafc" stroke="#64748b"/><text x="440" y="113">m/44'/0'/0'/0/2 → 地址₂</text>
+    <text x="530" y="146" fill="#475569">… 同一个助记词 → 完全相同的地址序列</text>
+  </g>
+</svg>
+<figcaption>图 10-2　HD 钱包（BIP32）的确定性派生。备份一次助记词，就能恢复全部（无限多）地址；同一条路径（BIP44）总是推导出同一个私钥。</figcaption>
+</figure>
+
 <p>BIP44 定义了标准的推导路径：<code>m/44'/0'/0'/0/0</code>，其中：</p>
 <ul>
   <li><code>m</code> = 主密钥</li>
@@ -176,7 +239,7 @@
 <strong>为什么需要 HD 钱包？</strong>想象你是一家电商公司，每天收到数百笔付款。如果每笔付款都需要生成一个新地址——旧钱包的做法是每次都要备份新私钥。用 HD 钱包，你只需要备份一次<strong>助记词</strong>，所有未来地址的私钥都可以从助记词恢复。这就是"一次备份，永久无忧"。
 </div>
 
-<h3>10.6 钱包恢复的完整流程</h3>
+<h2>10.6 钱包恢复的完整流程</h2>
 
 <p>这是每个比特币持有者都应该彻底理解的核心操作：从助记词恢复钱包。</p>
 
@@ -214,13 +277,33 @@
 
 <p>下一章，我们将把目光从"持有"转向"创造"——看看矿工是如何通过挖矿来铸造新比特币、并确保整个系统安全的。你将理解为什么工作量证明（Proof of Work）被很多人称为人类历史上最重要的经济激励设计之一。</p>
 
+<h2>本章参考与延伸</h2>
+<ul>
+  <li>BIP32（HD 钱包）、BIP39（助记词）、BIP44（多币种推导路径）定义了本章的派生链；secp256k1 参数见 SEC 2。</li>
+  <li>文中的私钥空间与概率比较为教学示意；示例地址仅用于展示前缀格式。</li>
+</ul>
+
         <div class="footer-nav">
             <a href="09.html">← 上一章</a>
             <a href="index.html">📖 返回目录</a>
             <a href="11.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function(){
+  var out=document.getElementById('bip39-out'), ent=document.getElementById('bip39-entropy');
+  var valid=[128,160,192,224,256];
+  function calc(){
+    var e=parseInt(ent.value,10);
+    if(valid.indexOf(e)<0){ out.textContent='熵位数必须是 128 / 160 / 192 / 224 / 256 之一'; return; }
+    var cs=e/32, total=e+cs, words=total/11;
+    out.textContent='熵 = '+e+' 位\n校验和 = '+e+' ÷ 32 = '+cs+' 位\n合计 = '+total+' 位 = '+words+' 个 11 位组\n→ '+words+' 个助记词单词';
+  }
+  document.getElementById('bip39-calc').addEventListener('click', calc);
+  document.getElementById('bip39-demo').addEventListener('click', function(){ ent.value='256'; calc(); });
+})();
+</script>
 </body>
 </html>
