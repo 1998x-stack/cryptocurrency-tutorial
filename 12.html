@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,16 +42,16 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
-<h2>第12章 挖矿经济学 — 博弈论与安全模型</h2>
+<h1>第12章 挖矿经济学 — 博弈论与安全模型</h1>
 
 <p>如果你在 2024 年 4 月 20 日左右打开推特，会看到一片"哀嚎"——比特币第四次减半发生了。区块奖励从 6.25 BTC 降到了 3.125 BTC。很多媒体说"矿工收入腰斩"，但第二天全网算力只下降了不到 5%。</p>
 
 <p>为什么矿工没有"集体破产"？因为挖矿经济学远不是"奖励减半 = 收入减半"这么简单。这一章，我们深入矿工的算盘本——从区块奖励的数学本质，到交易费市场的博弈，再到全球挖矿格局的变迁。</p>
 
-<h3>12.1 区块奖励与减半</h3>
+<h2>12.1 区块奖励与减半</h2>
 
 <p>比特币的货币发行规则写死在共识代码里：每产生 210,000 个区块（约 4 年），区块奖励减半。这是中本聪设计的核心经济机制。</p>
 
@@ -70,11 +71,44 @@
 
 <p>注意减半设计的美妙之处：<strong>它和价格无关。</strong>无论比特币价格是 1 美元还是 100 万美元，区块奖励的 BTC 数量都在严格按计划减少。矿工的收入 = （区块奖励 + 交易费） × 比特币价格。如果价格翻倍，矿工即使奖励减半，法币收入仍不变——这就是为什么减半后算力没有暴跌。</p>
 
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 210" aria-labelledby="fig-halving-title fig-halving-desc">
+  <title id="fig-halving-title">区块奖励的阶梯式减半</title>
+  <desc id="fig-halving-desc">每 210,000 个区块（约四年）区块奖励减半，从 50 BTC 逐级降到 25、12.5、6.25、3.125 BTC。</desc>
+  <line x1="60" y1="170" x2="620" y2="170" stroke="#94a3b8" stroke-width="1.5"/>
+  <path d="M70 40 H150 V105 H230 V137 H310 V154 H390 V162 H470 V166 H550 V170" fill="none" stroke="#3b82f6" stroke-width="2.5"/>
+  <g font-size="11" fill="#0f172a" text-anchor="middle">
+    <text x="110" y="34" fill="#1d4ed8">50</text>
+    <text x="190" y="99">25</text>
+    <text x="270" y="131">12.5</text>
+    <text x="350" y="148">6.25</text>
+    <text x="430" y="156">3.125</text>
+    <text x="510" y="160">1.5625</text>
+    <text x="110" y="188">第1个</text><text x="190" y="188">第2个</text><text x="270" y="188">第3个</text><text x="350" y="188">第4个</text><text x="430" y="188">第5个</text><text x="510" y="188">第6个</text>
+    <text x="590" y="188">…→0</text>
+  </g>
+  <text x="60" y="205" font-size="10" fill="#475569">横轴：减半周期（每 210,000 区块）　纵轴：区块奖励（BTC，示意比例）</text>
+</svg>
+<figcaption>图 12-1　阶梯式减半。奖励与币价无关，只与区块高度有关；这也是矿工法币收入必须靠币价与手续费上涨来对冲的原因。</figcaption>
+</figure>
+
 <div class="highlight">
 <strong>算力价格弹性：</strong>2016 年第二次减半后，有些人预测"大量矿工会死"。但结果是比特币价格在随后 18 个月内从 $650 涨到 $19,000——抵消了减半的影响。2020 年第三次减半类似，价格从 $8,600 涨到 $69,000。2024 年第四次减半后，价格从减半时的 $64,000 涨到了 2026 年的 $150,000+。<strong>历史规律是：减半 → 新币供应减半 → 如果需求不变或增加 → 价格上涨 → 矿工法币收入不减反增。</strong>
 </div>
 
-<h3>12.2 交易费市场</h3>
+<div class="widget" id="halving-widget">
+  <h4>交互：区块奖励计算器</h4>
+  <p>奖励从 50 BTC 开始，每 210,000 个区块减半一次。输入区块高度或减半次数试试。</p>
+  <div class="widget-controls">
+    <label>区块高度 <input id="halving-height" type="number" value="840000" min="0"></label>
+    <label>或减半次数 <input id="halving-epoch" type="number" value="4" min="0" max="33"></label>
+    <button id="halving-calc" type="button">按高度计算</button>
+    <button id="halving-next" type="button">下一周期</button>
+  </div>
+  <div class="widget-output" id="halving-out" role="status" aria-live="polite">点击“按高度计算”查看奖励。</div>
+</div>
+
+<h2>12.2 交易费市场</h2>
 
 <p>区块奖励不断减少，但矿工还有另一块收入：<strong>交易费</strong>。交易费完全由市场决定——用户愿意付多少来让交易被优先打包。</p>
 
@@ -100,7 +134,7 @@
 <strong>关键理解：</strong>交易费不是比特币的"bug"，而是 feature。在区块奖励归零后的几十年里，交易费将是矿工唯一的收入来源。所以 2024-2028 年这个周期非常关键——这是测试"仅靠交易费能不能支撑安全预算"的过渡期。Runes 的爆发给了乐观者信心：用户确实愿意为区块空间付费。
 </div>
 
-<h3>12.3 矿工收入结构演变</h3>
+<h2>12.3 矿工收入结构演变</h2>
 
 <p>让我们做一个简单的数学模拟：</p>
 
@@ -118,9 +152,28 @@
   </tbody>
 </table>
 
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 220" aria-labelledby="fig-rev-title fig-rev-desc">
+  <title id="fig-rev-title">矿工收入结构：交易费占比逐年上升</title>
+  <desc id="fig-rev-desc">堆叠柱状图：2016至2032年，交易费占矿工总收入的比例从约0.2%升至约25%。</desc>
+  <line x1="50" y1="180" x2="620" y2="180" stroke="#94a3b8" stroke-width="1.5"/>
+  <g font-size="11" text-anchor="middle">
+    <rect x="70" y="170" width="60" height="10" fill="#d06d4d"/><rect x="70" y="60" width="60" height="110" fill="#3b82f6"/><text x="100" y="200">2016</text><text x="100" y="52" fill="#1d4ed8">0.2%</text>
+    <rect x="170" y="160" width="60" height="20" fill="#d06d4d"/><rect x="170" y="60" width="60" height="100" fill="#3b82f6"/><text x="200" y="200">2020</text><text x="200" y="52" fill="#1d4ed8">1.8%</text>
+    <rect x="270" y="140" width="60" height="40" fill="#d06d4d"/><rect x="270" y="60" width="60" height="80" fill="#3b82f6"/><text x="300" y="200">2024</text><text x="300" y="52" fill="#1d4ed8">7%</text>
+    <rect x="370" y="138" width="60" height="42" fill="#d06d4d"/><rect x="370" y="60" width="60" height="78" fill="#3b82f6"/><text x="400" y="200">2026</text><text x="400" y="52" fill="#1d4ed8">7.5%</text>
+    <rect x="470" y="110" width="60" height="70" fill="#d06d4d"/><rect x="470" y="60" width="60" height="50" fill="#3b82f6"/><text x="500" y="200">2028估</text><text x="500" y="52" fill="#1d4ed8">15%</text>
+    <rect x="570" y="80" width="50" height="100" fill="#d06d4d"/><rect x="570" y="60" width="50" height="20" fill="#3b82f6"/><text x="595" y="200">2032估</text><text x="595" y="52" fill="#1d4ed8">25%</text>
+  </g>
+  <rect x="450" y="6" width="12" height="12" fill="#3b82f6"/><text x="466" y="16" font-size="11" fill="#475569">区块奖励</text>
+  <rect x="540" y="6" width="12" height="12" fill="#d06d4d"/><text x="556" y="16" font-size="11" fill="#475569">交易费</text>
+</svg>
+<figcaption>图 12-2　收入结构演变（堆叠柱示意）。柱高只表示两类收入的相对比例；2028/2032 为课程估算，非实际统计。</figcaption>
+</figure>
+
 <p>图表告诉我们一个重要的趋势：<strong>交易费在矿工收入中的比例正在不可逆地上升。</strong>即使价格增长抵消了减半的法币影响，但长远来看，当区块奖励降到 0.01 BTC 以下时（约 2060 年），交易费必须成为主要收入来源。如果届时交易费市场不够大，安全性就会下降——这就是所谓的"安全预算问题"。</p>
 
-<h3>12.4 矿工博弈行为</h3>
+<h2>12.4 矿工博弈行为</h2>
 
 <p>假设矿工可以理性地选择"作恶"——他们在什么情况下会这么做？这是博弈论的核心问题。</p>
 
@@ -136,7 +189,7 @@
 <strong>一个值得警惕的历史事件：</strong>2014 年，GHash.IO 矿池一度算力超过全网 51%。虽然他们没有发动攻击（他们声称），但这引发了社区的巨大恐慌——一个实体理论上可以双花、审查交易。社区发起了"不要使用 GHash"的运动，最终该矿池的算力份额下降。这个事件直接推动了"矿池多样化"的讨论和一些技术改进（如 Stratum V2 的交易选择权）。
 </div>
 
-<h3>12.5 比特币安全预算</h3>
+<h2>12.5 比特币安全预算</h2>
 
 <p>"安全预算"指的是攻击比特币网络所需的成本。如果攻击成本低于攻击收益，系统就是脆弱的。</p>
 
@@ -166,7 +219,7 @@
 <strong>一个更深层的问题：</strong>到 2140 年区块奖励归零时，如果交易费不能支撑足够的安全预算，比特币的安全模型可能需要根本性的改变。一些人认为届时 Layer 2（闪电网络）的交易量已经足够大，支付给 Layer 1 的结算费足以维持安全。也有人认为应该取消 2100 万上限（但这会分裂社区）。这是比特币社区仍在争论的话题。
 </div>
 
-<h3>12.6 全球挖矿版图</h3>
+<h2>12.6 全球挖矿版图</h2>
 
 <p>比特币挖矿是一个全球化的产业，但地理版图在过去几年发生了重大变化。</p>
 
@@ -194,13 +247,40 @@
 
 <p>下一章，我们将从"挖矿的共识"转向"共识本身的分裂"——当社区对如何升级比特币产生分歧时，会发生什么？软分叉和硬分叉的故事里，有技术、有政治、也有数十亿美元的博弈。</p>
 
+<h2>本章参考与延伸</h2>
+<ul>
+  <li>中本聪白皮书第 6 节“Incentive”说明区块奖励与手续费对矿工的激励；减半周期 210,000 区块与奖励序列由共识规则固定。</li>
+  <li>表中历史减半日期与币价为公开记录；2026 年后的价格、算力与安全预算均为课程估算，非实际统计。</li>
+</ul>
+
         <div class="footer-nav">
             <a href="11.html">← 上一章</a>
             <a href="index.html">📖 返回目录</a>
             <a href="13.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function(){
+  var out=document.getElementById('halving-out');
+  var height=document.getElementById('halving-height'), epoch=document.getElementById('halving-epoch');
+  function reward(n){ return 50/Math.pow(2,n); }
+  function byHeight(){
+    var h=parseInt(height.value,10);
+    if(isNaN(h)||h<0){ out.textContent='请输入有效的区块高度'; return; }
+    var n=Math.floor(h/210000);
+    epoch.value=n;
+    out.textContent='区块高度 '+h+' 落在第 '+(n+1)+' 个减半周期\n减半次数 = floor('+h+' / 210000) = '+n+'\n区块奖励 = 50 ÷ 2^'+n+' = '+reward(n)+' BTC';
+  }
+  function next(){
+    var n=Math.min(33, (parseInt(epoch.value,10)||0)+1);
+    epoch.value=n; height.value=n*210000;
+    out.textContent='下一个周期（'+n+' 次减半）：区块奖励 = '+reward(n)+' BTC\n该周期起始高度 = '+height.value;
+  }
+  document.getElementById('halving-calc').addEventListener('click', byHeight);
+  document.getElementById('halving-next').addEventListener('click', next);
+})();
+</script>
 </body>
 </html>
