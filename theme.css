@@ -21,7 +21,7 @@ body {
 
 .container {
     display: grid;
-    grid-template-columns: 260px 1fr;
+    grid-template-columns: 260px minmax(0, 1fr);
     gap: 0;
 }
 
@@ -61,7 +61,7 @@ body {
 }
 
 /* === Main Content === */
-.main-content { padding: 30px 35px; background: white; }
+.main-content { padding: 30px 35px; background: white; min-width: 0; }
 
 /* === Typography === */
 h2 {
@@ -242,7 +242,7 @@ body { overflow-wrap: anywhere; }
 
 /* === Responsive === */
 @media (max-width: 768px) {
-    .container { grid-template-columns: 1fr; }
+    .container { grid-template-columns: minmax(0, 1fr); }
     .sidebar { border-right: none; border-bottom: 2px solid #cbd5e1; }
     body { padding: 10px; }
     .main-content { padding: 20px; }

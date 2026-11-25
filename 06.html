@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,12 +42,12 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
 <!-- CHAPTER_CONTENT_START -->
 
-<h2>第6章 比特币网络 — 全球最大的点对点网络</h2>
+<h1>第6章 比特币网络 — 全球最大的点对点网络</h1>
 
 <p>大家好，我是你们的讲师。想象一下：你刚在第5章理解了工作量证明和共识机制——矿工们通过解决数学难题来决定谁有权写下一个区块。但一个关键问题浮出水面：<strong>交易是怎么从你的钱包传到全世界的？矿工怎么知道你刚刚发送了一笔交易？</strong></p>
 
@@ -56,7 +57,7 @@
 <strong>一次真实经历的教训：</strong>2017年比特币网络大拥堵期间，我有一位朋友发送了一笔交易，因为设置了极低的手续费（10聪/字节），结果这比交易在mempool里"卡"了整整两周才被确认。期间他的交易在网络上传播到了几乎所有节点——每个节点都知道"某人想花这笔钱"——但因为没有矿工愿意打包低费交易，它就像在候机厅里永远等不到登机牌的旅客。这个故事告诉我们：在网络层面，交易传播和交易确认是两件不同的事情。
 </div>
 
-<h3>6.1 节点类型与角色</h3>
+<h2>6.1 节点类型与角色</h2>
 
 <p>比特币网络不是一个"统一的服务器群"。它由全球各地不同的节点组成，每个节点承担不同的角色：</p>
 
@@ -80,9 +81,42 @@
 <strong>一个重要的区分：</strong>"运行全节点"和"挖矿"是两件完全独立的事。你可以在不挖矿的情况下运行全节点——这样你可以用自己的节点验证所有交易，不需要信任任何第三方。中本聪设计比特币时的愿景是：<strong>每个用户都应该运行一个全节点</strong>。虽然这在2010年之后变得不现实（区块链体积增长过快），但运行全节点仍然是参与比特币网络的最好方式。
 </div>
 
-<h3>6.2 P2P网络协议</h3>
+<h2>6.2 P2P网络协议</h2>
 
 <p>比特币节点通过TCP 8333端口（主网）进行通信。网络协议的核心是<strong>泛洪传播</strong>（gossip protocol / flooding）：每个节点把自己收到的消息转发给它的对等节点（peers），这些对等节点再转发给它们的对等节点——直到全网都知道。</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 250" aria-labelledby="fig-gossip-title fig-gossip-desc">
+  <title id="fig-gossip-title">泛洪（gossip）传播示意</title>
+  <desc id="fig-gossip-desc">一个节点的消息在第一跳发给四个对等节点，第二跳每个对等节点再转发，覆盖范围随每跳指数扩张。</desc>
+  <g stroke="#94a3b8" stroke-width="1.6" fill="none">
+    <line x1="150" y1="125" x2="300" y2="45"/><line x1="150" y1="125" x2="300" y2="105"/>
+    <line x1="150" y1="125" x2="300" y2="155"/><line x1="150" y1="125" x2="300" y2="215"/>
+  </g>
+  <g stroke="#147f80" stroke-width="1.6" fill="none" stroke-dasharray="5 4">
+    <line x1="300" y1="45" x2="470" y2="25"/><line x1="300" y1="45" x2="470" y2="70"/>
+    <line x1="300" y1="105" x2="470" y2="95"/><line x1="300" y1="105" x2="470" y2="140"/>
+    <line x1="300" y1="155" x2="470" y2="165"/><line x1="300" y1="155" x2="470" y2="210"/>
+    <line x1="300" y1="215" x2="470" y2="190"/><line x1="300" y1="215" x2="470" y2="235"/>
+  </g>
+  <circle cx="120" cy="125" r="30" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="120" y="130" text-anchor="middle" font-size="12" fill="#1e3a5f">发起节点</text>
+  <g>
+    <circle cx="300" cy="45" r="16" fill="#fff" stroke="#3b82f6" stroke-width="2"/>
+    <circle cx="300" cy="105" r="16" fill="#fff" stroke="#3b82f6" stroke-width="2"/>
+    <circle cx="300" cy="155" r="16" fill="#fff" stroke="#3b82f6" stroke-width="2"/>
+    <circle cx="300" cy="215" r="16" fill="#fff" stroke="#3b82f6" stroke-width="2"/>
+  </g>
+  <g fill="#fff" stroke="#147f80" stroke-width="1.6">
+    <circle cx="470" cy="25" r="11"/><circle cx="470" cy="70" r="11"/><circle cx="470" cy="95" r="11"/>
+    <circle cx="470" cy="140" r="11"/><circle cx="470" cy="165" r="11"/><circle cx="470" cy="190" r="11"/>
+    <circle cx="470" cy="210" r="11"/><circle cx="470" cy="235" r="11"/>
+  </g>
+  <text x="60" y="185" font-size="12" fill="#475569">第 1 跳（出站对等节点）</text>
+  <text x="410" y="175" font-size="12" fill="#147f80">第 2 跳（继续转发）</text>
+</svg>
+<figcaption>图 6-1　泛洪传播。每个节点收到消息后转发给它的对等节点，覆盖范围每跳扩张一次；代价是同一消息被重复转发多次（无结构覆盖网络的设计取舍）。</figcaption>
+</figure>
 
 <p>一个比特币节点建立连接的过程：</p>
 
@@ -123,7 +157,7 @@
 <strong>有趣的细节：</strong>比特币的P2P网络是"无结构"的——没有中心路由、没有DHT、没有共识路由。这种设计的优点是对抗审查（想关闭网络？需要把每个节点都关了，这不可能），缺点是效率不高（同样的消息被多个节点重复转发）。但中本聪的设计哲学一直很明确：<strong>抵抗审查比效率更重要</strong>。
 </div>
 
-<h3>6.3 交易生命周期</h3>
+<h2>6.3 交易生命周期</h2>
 
 <p>一笔典型的比特币交易从创建到最终确认，经历以下完整生命周期：</p>
 
@@ -161,6 +195,40 @@
 
 6. 最终状态：SPENT（已花费UTXO）</code></pre>
 
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 130" aria-labelledby="fig-life-title fig-life-desc">
+  <title id="fig-life-title">一笔交易的生命周期</title>
+  <desc id="fig-life-desc">交易从钱包创建并签名，广播到网络，在内存池等待，被打包进区块，随后逐块增加确认数。</desc>
+  <defs><marker id="ar-life" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker></defs>
+  <g text-anchor="middle" font-size="12" fill="#0f172a">
+    <rect x="10" y="40" width="104" height="52" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="62" y="62">创建并签名</text><text x="62" y="80" font-size="11" fill="#475569">钱包</text>
+    <rect x="138" y="40" width="104" height="52" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="190" y="62">广播</text><text x="190" y="80" font-size="11" fill="#475569">P2P 网络</text>
+    <rect x="266" y="40" width="104" height="52" rx="10" fill="#fef3ec" stroke="#d06d4d" stroke-width="1.5"/><text x="318" y="62">内存池等待</text><text x="318" y="80" font-size="11" fill="#475569">未确认</text>
+    <rect x="394" y="40" width="104" height="52" rx="10" fill="#fef3ec" stroke="#d06d4d" stroke-width="1.5"/><text x="446" y="62">挖矿打包</text><text x="446" y="80" font-size="11" fill="#475569">进入区块</text>
+    <rect x="522" y="40" width="108" height="52" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/><text x="576" y="62">确认累加</text><text x="576" y="80" font-size="11" fill="#475569">1…6 次</text>
+  </g>
+  <g stroke="#64748b" stroke-width="1.8" fill="none">
+    <line x1="114" y1="66" x2="136" y2="66" marker-end="url(#ar-life)"/>
+    <line x1="242" y1="66" x2="264" y2="66" marker-end="url(#ar-life)"/>
+    <line x1="370" y1="66" x2="392" y2="66" marker-end="url(#ar-life)"/>
+    <line x1="498" y1="66" x2="520" y2="66" marker-end="url(#ar-life)"/>
+  </g>
+</svg>
+<figcaption>图 6-2　交易生命周期。注意“广播”与“确认”是两件事：低手续费交易可以很快传遍全网，却长期停留在内存池（未确认状态），直到有矿工愿意打包。</figcaption>
+</figure>
+
+<div class="widget" id="conf-widget">
+  <h4>交互：确认数计算器</h4>
+  <p>确认数 = 当前链尖高度 − 交易所在区块高度 + 1。尝试改一改数字。</p>
+  <div class="widget-controls">
+    <label>交易所在区块高度 <input id="conf-tx" type="number" value="800000" min="0"></label>
+    <label>当前链尖高度 <input id="conf-tip" type="number" value="800005" min="0"></label>
+    <button id="conf-calc" type="button">计算</button>
+    <button id="conf-demo" type="button">加载“6 次确认”示例</button>
+  </div>
+  <div class="widget-output" id="conf-out" role="status" aria-live="polite">确认数 = 链尖高度 − 交易所在区块高度 + 1。点击“计算”查看结果。</div>
+</div>
+
 <p>在mempool中，交易可能有几种状态：</p>
 <ul>
   <li><strong>未确认</strong>：等待矿工打包</li>
@@ -173,7 +241,7 @@
 <strong>2023年的教训——Ordinals铭文风暴：</strong>2023年初，开发者Casey Rodarmor发布了Ordinals协议，允许在比特币的隔离见证（SegWit）空间和Taproot脚本中嵌入任意数据（如图片、文字）。这导致大量"铭文"交易涌入mempool，一度造成比特币网络严重拥堵，普通交易需要等待数小时甚至数天才能被确认。这也意外地成为了RBF和CPFP技术的"压力测试"——证明了比特币网络的抗压能力，但也暴露了手续费市场的波动性。这件事说明：比特币网络不仅传输金融交易，任何能嵌入区块链的数据都会被传播。
 </div>
 
-<h3>6.4 网络规模与地理分布</h3>
+<h2>6.4 网络规模与地理分布</h2>
 
 <p>比特币网络不是一台"比特币服务器"——它是全球10,000到15,000个可连接的全节点组成的去中心化网络。这些节点分布如下：</p>
 
@@ -197,7 +265,7 @@
 <strong>网络效应的力量：</strong>比特币网络的真正价值不在于挖矿难度，而在于<strong>网络规模</strong>。根据梅特卡夫定律（Metcalfe's Law），一个网络的价值与用户数量的平方成正比。比特币在2009年只有中本聪一个人——那时网络几乎为零。到2026年，全球持有比特币的人数估计超过3亿——虽然有全节点的只有大约5万人，但每个钱包用户都是网络的一个"终端"。这就是为什么没有"另一个比特币"能取代比特币——不是技术问题，是网络效应。
 </div>
 
-<h3>6.5 运行全节点的意义</h3>
+<h2>6.5 运行全节点的意义</h2>
 
 <p>你可能会问："既然手机钱包用SPV就够了，我为什么要费劲运行一个全节点？"</p>
 
@@ -235,6 +303,12 @@
 
 <p>本章我们探索了比特币作为一个P2P网络的运作方式——从节点类型、网络协议、交易的生命周期到全球拓扑分布。现在你已经理解了交易是怎么从你的钱包飞往全世界的。下一章，我们将把所有这些知识变成一次实实在在的动手操作：<strong>创建你的第一个比特币钱包，完成人生中的第一笔比特币交易</strong>。</p>
 
+<h2>本章参考与延伸</h2>
+<ul>
+  <li>中本聪《比特币：一种点对点的电子现金系统》（2008）第 5 节“Network”，描述交易在 P2P 网络上的泛洪广播与新节点接入。文中节点数量、地区比例均为教学示意估算，非精确统计。</li>
+  <li>Bitcoin Core 开发者文档（developer.bitcoin.org）中关于 P2P 网络消息（version / verack / getaddr / addr）与主网端口 8333 的说明。</li>
+</ul>
+
 <!-- CHAPTER_CONTENT_END -->
 
         <div class="footer-nav">
@@ -242,8 +316,25 @@
             <a href="index.html">📖 返回目录</a>
             <a href="07.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function(){
+  var tx=document.getElementById('conf-tx'), tip=document.getElementById('conf-tip');
+  var out=document.getElementById('conf-out'), btn=document.getElementById('conf-calc');
+  function calc(){
+    var t=parseInt(tx.value,10), h=parseInt(tip.value,10);
+    if(isNaN(t)||isNaN(h)){ out.textContent='请输入有效的区块高度'; return; }
+    var c=h-t+1;
+    out.textContent = c<=0 ? '未确认：交易还不在链上（链尖高度未超过交易高度）'
+                           : '确认数 = '+h+' − '+t+' + 1 = '+c+' 次';
+  }
+  btn.addEventListener('click', calc);
+  document.getElementById('conf-demo').addEventListener('click', function(){
+    tx.value='800000'; tip.value='800005'; calc();
+  });
+})();
+</script>
 </body>
 </html>
