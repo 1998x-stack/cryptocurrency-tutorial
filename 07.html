@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,12 +42,12 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
 <!-- CHAPTER_CONTENT_START -->
 
-<h2>第7章 第一次比特币交易 — 实操体验</h2>
+<h1>第7章 第一次比特币交易 — 实操体验</h1>
 
 <p>大家好，我是你们的讲师。前六章我们覆盖了非常多的理论——从货币史到白皮书，从哈希函数到区块结构，从拜占庭将军问题到P2P网络协议。你可能已经在想："说了这么多，到底怎样才能真正拥有一个比特币？"</p>
 
@@ -56,7 +57,7 @@
 <strong>安全提示：</strong>本章涉及的每一步都涉及真实的金钱操作（即使金额很小）。请在每一步操作前认真阅读安全提示。比特币世界没有"客服"，也没有"撤销交易"按钮。你的安全，100%取决于你自己的操作习惯。
 </div>
 
-<h3>7.1 选择你的第一个钱包</h3>
+<h2>7.1 选择你的第一个钱包</h2>
 
 <p>比特币钱包本质上是一个<strong>私钥管理工具</strong>。它不直接"存"你的比特币——比特币始终在区块链上。钱包只是帮你管理私钥，从而让你能花费对应的UTXO。</p>
 
@@ -81,7 +82,7 @@
 
 <p>不建议使用交易所提供的"钱包"（如币安账户、Coinbase托管）作为你的第一个钱包。原因很简单：<strong>交易所钱包里的比特币不是你的</strong>——你持有的是交易所欠你的"借条"。如果交易所倒闭（如FTX 2022年11月事件），你的比特币就没了。只有持有私钥，才真正拥有比特币。</p>
 
-<h3>7.2 创建钱包与备份</h3>
+<h2>7.2 创建钱包与备份</h2>
 
 <p>假设你选择了BlueWallet，创建钱包的步骤：</p>
 
@@ -121,7 +122,7 @@
 
 <p>拿到12个助记词后，<strong>千万不要</strong>做以下任何事：不要输入到任何网站、不要发给任何人（包括声称是"技术支持"的人）、不要存到任何联网设备里。助记词等同于你的比特币的全部控制权——谁拿到助记词，谁就能花你的比特币。</p>
 
-<h3>7.3 获取第一笔比特币</h3>
+<h2>7.3 获取第一笔比特币</h2>
 
 <p>有了钱包，你就需要一个地方获得你的第一笔比特币。大多数人通过<strong>中心化交易所</strong>（Centralized Exchange, CEX）购买——比如币安（Binance）、OKX、Coinbase、Kraken等。</p>
 
@@ -140,7 +141,7 @@
 
 <p>提现时需要你在BlueWallet中提供<strong>接收地址</strong>——钱包里点击"Receive"就会生成一个以 <code>bc1...</code> 开头的地址（SegWit格式，手续费最低）。把这个地址复制到交易所的提现页面，输入金额，确认。几分钟后，你的钱包就会显示收到了一笔待确认的交易。</p>
 
-<h3>7.4 发送与接收</h3>
+<h2>7.4 发送与接收</h2>
 
 <p>现在你有了自己的比特币，我们来了解一下日常收发操作的细节。</p>
 
@@ -157,6 +158,27 @@
     <tr><td>Taproot (bech32m)</td><td>bc1p</td><td>2021年升级，支持更多脚本</td><td>最低+更高隐私</td></tr>
   </tbody>
 </table>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 240" aria-labelledby="fig-flow-title fig-flow-desc">
+  <title id="fig-flow-title">一笔交易的资金流向</title>
+  <desc id="fig-flow-desc">若干个输入的 UTXO 相加，扣除矿工费后分配给接收方输出和找零输出；差额即矿工费。</desc>
+  <defs><marker id="ar-flow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker></defs>
+  <text x="20" y="24" font-size="13" font-weight="700" fill="#1e3a5f">输入（你的 UTXO）</text>
+  <text x="400" y="24" font-size="13" font-weight="700" fill="#1e3a5f">输出</text>
+  <g text-anchor="middle" font-size="12" fill="#0f172a">
+    <rect x="20" y="40" width="150" height="44" rx="9" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="95" y="67">0.003 BTC</text>
+    <rect x="20" y="96" width="150" height="44" rx="9" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="95" y="123">0.002 BTC</text>
+    <rect x="400" y="56" width="210" height="50" rx="9" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/><text x="505" y="78">接收方 0.00490 BTC</text><text x="505" y="96" font-size="11" fill="#475569">新 UTXO</text>
+    <rect x="400" y="140" width="210" height="50" rx="9" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><text x="505" y="162">找零 0.00009 BTC</text><text x="505" y="180" font-size="11" fill="#475569">回到你的钱包</text>
+  </g>
+  <path d="M170 62 C280 62 300 81 398 81" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#ar-flow)"/>
+  <path d="M170 118 C280 118 300 165 398 165" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#ar-flow)"/>
+  <rect x="250" y="196" width="300" height="34" rx="9" fill="#fef3ec" stroke="#d06d4d" stroke-width="1.5"/>
+  <text x="400" y="218" text-anchor="middle" font-size="12" fill="#7c2d12">矿工费 0.00001 BTC = 1,000 sat（费率 8 sat/vB）</text>
+</svg>
+<figcaption>图 7-1　交易把输入 UTXO 全额花费：总输入 0.005 BTC = 接收方输出 0.0049 + 找零 0.00009 + 矿工费 0.00001（金额为教学示意，费率为示例值）。任何一笔交易都必须“输入 ≥ 输出 + 矿工费”。</figcaption>
+</figure>
 
 <p>发送交易时，几个重要参数：</p>
 
@@ -186,10 +208,22 @@
 建议：第一次发送时选择 "中等" 费率，
 观察交易如何在mempool中和区块浏览器中呈现</code></pre>
 
+<div class="widget" id="fee-widget">
+  <h4>交互：矿工费估算器</h4>
+  <p>矿工费 = 交易大小（vBytes）× 费率（sat/vByte）。改一改费率与大小，看看总费用的变化。</p>
+  <div class="widget-controls">
+    <label>费率 <input id="fee-rate" type="number" value="10" min="1" max="500"> sat/vB</label>
+    <label>交易大小 <input id="fee-size" type="number" value="150" min="10" max="2000"> vB</label>
+    <button id="fee-calc" type="button">估算</button>
+    <button id="fee-congested" type="button">拥堵时段示例</button>
+  </div>
+  <div class="widget-output" id="fee-out" role="status" aria-live="polite">点击“估算”查看手续费。</div>
+</div>
+
 <div class="tip">
 <strong>第一次发送前的小建议：</strong>可以在钱包中的"发送"页面，<strong>首先给自己发一笔极小金额</strong>（比如0.00001 BTC，约$0.73）。这不仅是为了测试你生成地址是否正确，更重要的是——你会在区块链浏览器上看到这第一笔交易，感受一笔"不可撤销的转账"在链上永远记录下来的那种奇妙感觉。这也是一种仪式感。</div>
 
-<h3>7.5 区块链浏览器探秘</h3>
+<h2>7.5 区块链浏览器探秘</h2>
 
 <p>交易发出后，你可以在<strong>区块链浏览器</strong>（blockchain explorer）上实时查看它的状态。最推荐的浏览器是 <strong>mempool.space</strong>（由社区维护，开源，无追踪）和 <strong>blockchair.com</strong>（数据丰富，支持多链）。</p>
 
@@ -235,6 +269,12 @@
 
 <p>在下一章，我们将从一个更技术的视角重新审视交易——深入理解<strong>比特币交易的内部构造</strong>（交易输入/输出的精确格式、锁定时间、签名哈希类型等），为后续学习脚本语言和智能合约铺垫基础。</p>
 
+<h2>本章参考与延伸</h2>
+<ul>
+  <li>BIP-141（SegWit）、BIP-173（bech32）、BIP-350（bech32m）定义了本章出现的地址前缀与编码方式。</li>
+  <li>mempool.space 与 blockchair.com 为公开的区块链浏览器；文中交易明细、费率与美元金额均为教学示意，非真实交易记录。</li>
+</ul>
+
 <!-- CHAPTER_CONTENT_END -->
 
         <div class="footer-nav">
@@ -242,8 +282,25 @@
             <a href="index.html">📖 返回目录</a>
             <a href="08.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function(){
+  var rate=document.getElementById('fee-rate'), size=document.getElementById('fee-size');
+  var out=document.getElementById('fee-out');
+  function calc(){
+    var r=parseFloat(rate.value), s=parseFloat(size.value);
+    if(isNaN(r)||isNaN(s)){ out.textContent='请输入有效的费率与大小'; return; }
+    var sat=r*s, btc=sat/1e8, usd=btc*73000;
+    out.textContent = s+' vB \u00d7 '+r+' sat/vB = '+Math.round(sat)+' sat\n'+
+      '= '+btc.toFixed(8)+' BTC \u2248 $'+usd.toFixed(2)+'（按 $73,000/BTC 示意换算）';
+  }
+  document.getElementById('fee-calc').addEventListener('click', calc);
+  document.getElementById('fee-congested').addEventListener('click', function(){
+    rate.value='50'; size.value='150'; calc();
+  });
+})();
+</script>
 </body>
 </html>
