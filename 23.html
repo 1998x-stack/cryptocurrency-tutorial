@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,16 +42,16 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
-<h2>第23章 交易所与交易 — 进入加密市场的大门</h2>
+<h1>第23章 交易所与交易 — 进入加密市场的大门</h1>
 
 <p>在前面二十多章里，我们学会了比特币的原理、挖矿的机制、钱包的使用，甚至还了解了 DeFi 和 NFT。但一个很现实的问题摆在这里——你手上这些加密资产，怎么买进来、怎么卖出去？这就是交易所的舞台。</p>
 
 <p>这一章可能是整个课程里"最接地气"的一章。我会带你走进交易所的世界：从中心化到去中心化，从挂单到吃单，从 K 线到插针。更重要的是，我会告诉你新手的"送命题"在哪里——那些亏钱的坑，大部分人在第一年就踩过。</p>
 
-<h3>23.1 CEX 中心化交易所</h3>
+<h2>23.1 CEX 中心化交易所</h2>
 
 <p><strong>中心化交易所</strong>（Centralized Exchange，简称 CEX）是目前加密世界最大的入口。它的运作逻辑和传统证券交易所类似：你把资产存到交易所的"资金池"里，交易所内部记录你拥有多少，你和其他用户之间通过交易所的<strong>订单簿</strong>（order book）匹配成交。</p>
 
@@ -75,7 +76,7 @@
 
 <p>CEX 的核心功能是<strong>订单簿撮合</strong>。买卖双方各自挂出价格和数量，交易所的引擎将价格匹配的订单自动成交。这个过程在传统股票市场需要几秒钟，在加密交易所通常只需要几毫秒。</p>
 
-<h3>23.2 注册与 KYC</h3>
+<h2>23.2 注册与 KYC</h2>
 
 <p>要在合规的 CEX 上交易，第一步永远是<strong>注册并完成 KYC</strong>（Know Your Customer，了解你的客户）。这不是交易所自己想出来的麻烦流程——这是全球反洗钱（AML）法规的硬性要求。</p>
 
@@ -98,7 +99,7 @@
 <strong>血的教训：</strong>2022 年 FTX 交易所暴雷事件。FTX 曾是全球第三大交易所，估值 320 亿美元，创始人 Sam Bankman-Fried 被视为天才。结果呢？FTX 把用户资金偷偷借给了关联公司 Alameda Research 做高风险交易，最终亏空 80 亿美元。所有用户——包括你我这样的普通人——的资金被冻结，至今仍在破产清算中。这就是"不自己保管私钥"的终极风险。
 </div>
 
-<h3>23.3 交易基础</h3>
+<h2>23.3 交易基础</h2>
 
 <p>完成 KYC 后，你看到的第一样东西就是<strong>交易界面</strong>。乍一看很吓人——密密麻麻的数字、红绿蜡烛、各种按钮。我们来拆解一下。</p>
 
@@ -118,6 +119,26 @@
 
 <p><strong>读懂订单簿：</strong>交易界面中间是 K 线图，左侧是"卖盘"（asks，绿/红色），右侧是"买盘"（bids，绿色）。买盘和卖盘之间的差价叫<strong>点差</strong>（spread）。点差越小，说明流动性越好。比特币这样的大币种点差可能只有 0.01%，而一些小币种可能超过 1%。</p>
 
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 210" aria-labelledby="fig23ob-title fig23ob-desc">
+  <title id="fig23ob-title">订单簿：卖盘、买盘与点差</title>
+  <desc id="fig23ob-desc">订单簿上半部分是卖盘，价格自下而上递增；下半部分是买盘，价格自上而下递减；最优卖价与最优买价之差是点差，点差越小流动性越好。</desc>
+  <g font-size="10" fill="#334155">
+    <rect x="200" y="20" width="180" height="22" rx="4" fill="#fecaca"/><text x="196" y="35" text-anchor="end">$60,030</text><text x="388" y="35">卖盘 ask</text>
+    <rect x="200" y="46" width="130" height="22" rx="4" fill="#fecaca"/><text x="196" y="61" text-anchor="end">$60,020</text>
+    <rect x="200" y="72" width="90" height="22" rx="4" fill="#fecaca"/><text x="196" y="87" text-anchor="end">$60,010</text>
+  </g>
+  <rect x="30" y="100" width="580" height="24" rx="6" fill="#fef3ec" stroke="#d06d4d" stroke-width="1.2"/>
+  <text x="320" y="116" font-size="10.5" fill="#7c2d12" text-anchor="middle">点差 spread = 60,010 − 60,000 = $10（点差越小，流动性越好）</text>
+  <g font-size="10" fill="#334155">
+    <rect x="200" y="130" width="100" height="22" rx="4" fill="#bbf7d0"/><text x="196" y="145" text-anchor="end">$60,000</text><text x="388" y="145">买盘 bid</text>
+    <rect x="200" y="156" width="150" height="22" rx="4" fill="#bbf7d0"/><text x="196" y="171" text-anchor="end">$59,990</text>
+    <rect x="200" y="182" width="210" height="22" rx="4" fill="#bbf7d0"/><text x="196" y="197" text-anchor="end">$59,980</text>
+  </g>
+</svg>
+<figcaption>图 23-1　订单簿结构（数值为教学示意）。条形长度代表该价位的挂单数量；点差与深度共同决定一笔大单的成交成本。</figcaption>
+</figure>
+
 <p><strong>K 线基础（Candlestick Chart）：</strong>每根 K 线记录了一个时间段内的四个价格——开盘价（Open）、收盘价（Close）、最高价（High）、最低价（Low）。阳线（通常绿色）表示收盘价高于开盘价——价格上涨。阴线（通常红色）表示收盘价低于开盘价——价格下跌。K 线的上下影线代表价格曾经触碰到的最高和最低点。</p>
 
 <pre><code>K 线结构（以 1 小时线为例）：
@@ -132,7 +153,7 @@
 
 <p><strong>交易对（Trading Pairs）：</strong>BTC/USDT 的意思是"用 USDT 买 BTC"。USDT 是一种<strong>稳定币</strong>（stablecoin），发行方 Tether 声称每 1 USDT 都有 1 美元储备作为支撑。常见的交易对：BTC/USDT、ETH/USDT、ETH/BTC。建议新手从 USDT 交易对开始——用稳定币计价让计算更直观。</p>
 
-<h3>23.4 费率与资金管理</h3>
+<h2>23.4 费率与资金管理</h2>
 
 <p>交易不是免费的。每次操作交易所都要收手续费。理解费率结构对你的交易成本影响巨大。</p>
 
@@ -162,11 +183,43 @@
 <strong>省钱小技巧：</strong>很多交易所提供"用平台币抵扣手续费"的折扣（如 Binance 用 BNB 抵扣可打 75 折）。如果你交易量较大，记得开通这个选项。另外，用限价单（挂单）而不是市价单，不仅能省手续费，还能帮你养成更好的交易习惯。
 </div>
 
+<div class="widget" id="fee-widget">
+  <h4>交互：手续费拖累试算</h4>
+  <p>输入本金、单边费率与每日交易次数，看看一年下来手续费会吞噬多少（教学示意，未计复利与滑点）。</p>
+  <div class="widget-controls">
+    <label>本金 (USD) <input id="fw-cap" type="number" value="10000" min="0"></label>
+    <label>单边费率 (%) <input id="fw-rate" type="number" value="0.1" min="0" step="0.01"></label>
+    <label>每日交易次数 <input id="fw-n" type="number" value="5" min="0"></label>
+    <button id="fw-run" type="button">试算</button>
+  </div>
+  <div class="widget-output" id="fw-out" role="status" aria-live="polite">点击“试算”查看结果。</div>
+</div>
+
 <p><strong>出入金（Fiat On/Off Ramp）：</strong>法币换成加密资产时，你会遇到"法币出入金"问题。方法包括：银行转账（SEPA、ACH 等）、信用卡/借记卡（手续费高，3-5%）、P2P 交易（点对点转账，注意防骗）。提醒你：用信用卡买加密货币相当于加杠杆买一个高波动资产——极不推荐新手这样做。</p>
 
-<h3>23.5 DEX 去中心化交易所</h3>
+<h2>23.5 DEX 去中心化交易所</h2>
 
 <p>如果你对"把资产交给交易所保管"这件事一直不太放心，那么<strong>去中心化交易所</strong>（Decentralized Exchange，简称 DEX）就是你的答案。DEX 不需要将资产存入交易所钱包——你直接用你的钱包连接 DEX 网站，在自己的钱包里完成交易。</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 200" aria-labelledby="fig23cex-title fig23cex-desc">
+  <title id="fig23cex-title">CEX 与 DEX 的关键差异</title>
+  <desc id="fig23cex-desc">中心化交易所需把资产存入交易所、用订单簿撮合并通常要求 KYC，流动性强但有托管风险；去中心化交易所用钱包直接连接、由 AMM 定价、无需 KYC，但会承受滑点与 MEV 风险。</desc>
+  <rect x="20" y="30" width="290" height="150" rx="12" fill="#f8fafc" stroke="#64748b" stroke-width="1.6"/>
+  <text x="165" y="56" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="600">CEX 中心化交易所</text>
+  <text x="40" y="84" font-size="10.5" fill="#334155">• 资产托管在交易所</text>
+  <text x="40" y="106" font-size="10.5" fill="#334155">• 订单簿撮合，深度好</text>
+  <text x="40" y="128" font-size="10.5" fill="#334155">• 通常需 KYC / AML</text>
+  <text x="40" y="150" font-size="10.5" fill="#334155">• 风险：跑路 / 被盗 / 冻结</text>
+  <rect x="330" y="30" width="290" height="150" rx="12" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.6"/>
+  <text x="475" y="56" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="600">DEX 去中心化交易所</text>
+  <text x="350" y="84" font-size="10.5" fill="#334155">• 用钱包直连，自托管</text>
+  <text x="350" y="106" font-size="10.5" fill="#334155">• AMM 定价，x·y=k</text>
+  <text x="350" y="128" font-size="10.5" fill="#334155">• 无需 KYC</text>
+  <text x="350" y="150" font-size="10.5" fill="#334155">• 风险：滑点 / MEV / 合约风险</text>
+</svg>
+<figcaption>图 23-2　CEX 与 DEX 的取舍。核心分歧是“谁保管私钥”：CEX 换来了流动性与便利，DEX 换来了自托管与免许可。</figcaption>
+</figure>
 
 <p><strong>Uniswap 的 AMM 模型：</strong>Uniswap 开创了<strong>自动做市商</strong>（Automated Market Maker，AMM）模式。它不像 CEX 那样用订单簿撮合买卖双方，而是用智能合约创建"流动性池"（liquidity pool）。每个交易对（如 ETH/USDC）的资金池里有两种代币，价格由恒等式 <code>x * y = k</code> 自动决定。你在池子里的交易量越大，价格滑点（slippage）就越高。</p>
 
@@ -195,7 +248,7 @@
 
 <p>主流的 DEX 包括 Uniswap（以太坊）、SushiSwap（多链）、PancakeSwap（BNB Chain）、Raydium（Solana）。每个链上都有自己的"龙头 DEX"。使用 DEX 之前，确保你的钱包里有该链的原生代币（ETH、BNB、SOL 等）来支付 Gas 费。</p>
 
-<h3>23.6 交易策略入门</h3>
+<h2>23.6 交易策略入门</h2>
 
 <p>在学到了所有交易工具和平台之后，我想给你最重要的一条建议：<strong>如果你一分钱交易经验都没有，不要碰合约、不要碰杠杆、不要碰期货。</strong></p>
 
@@ -221,13 +274,33 @@
 
 <p>从本章学到的最大教训应该是：<strong>选择平台是第一步，选择策略是第二步，管住手才是永恒的课题。</strong>下一章，我们将学习如何通过链上数据来辅助你的决策——不再靠感觉，而是靠链上的真实指标。</p>
 
+<h2>本章参考与延伸</h2>
+<ul>
+  <li>Binance / Coinbase 等交易所的公开费率与 KYC 分级说明；Uniswap AMM 与 MEV（三明治攻击）为公开技术资料。</li>
+  <li>FTX 破产（2022）与 SBF 判决为公开司法报道；各交易所日交易量为公开估算口径。</li>
+  <li>订单簿数值、费率与交易策略为教学示意，随市场与账户等级变化，页面未作精确复现。</li>
+</ul>
+
         <div class="footer-nav">
             <a href="22.html">← 上一章</a>
             <a href="index.html">📖 返回目录</a>
             <a href="24.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function(){
+  var c=document.getElementById('fw-cap'), r=document.getElementById('fw-rate'), n=document.getElementById('fw-n');
+  var out=document.getElementById('fw-out');
+  document.getElementById('fw-run').addEventListener('click', function(){
+    var C=parseFloat(c.value), R=parseFloat(r.value), N=parseFloat(n.value);
+    if([C,R,N].some(isNaN)||C<0||R<0||N<0){ out.textContent='请输入有效的非负数值'; return; }
+    var perTrade=C*R/100, annual=perTrade*N*365, pct=annual/C*100;
+    out.textContent='单笔手续费：$'+perTrade.toFixed(2)+'\n年交易次数：'+Math.round(N*365)+'\n年手续费合计：$'+annual.toFixed(2)+'\n占本金比例：约 '+pct.toFixed(1)+'%';
+    if(pct>=10) out.textContent+='\n⚠ 高频交易的手续费拖累可能超过多数人的年收益。';
+  });
+})();
+</script>
 </body>
 </html>
