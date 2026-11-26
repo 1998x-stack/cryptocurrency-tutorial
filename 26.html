@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,16 +42,16 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
-<h2>第26章 监管与合规 — 加密世界的游戏规则</h2>
+<h1>第26章 监管与合规 — 加密世界的游戏规则</h1>
 
 <p>2022年11月11日，亿万富翁Sam Bankman-Fried的FTX帝国在短短一周内崩塌。超过80亿美元的用户资金不翼而飞，数百万人一觉醒来发现自己在交易所的资产变成了零。一位名叫Dave的加州软件工程师在Reddit上写道："我把我孩子的大学教育基金全部放在了FTX——87,000美元。现在已经清零。我不知道该怎么告诉我的妻子。"</p>
 
 <p>FTX的崩溃不是技术问题——区块链本身运行良好。问题出在<strong>信任</strong>：用户把资产交给了一个中心化实体，而这个实体用他们的钱做了高杠杆赌注。中本聪在比特币白皮书里开篇就写道"我们需要一种基于密码学证明而非信任的电子支付系统"——FTX恰恰证明了为什么他说的"信任"如此危险。这个事件催生了全球监管机构的觉醒。2025-2026年，加密货币监管从"要不要管"的争论，全面进入了"怎么管"的执行阶段。理解规则，已经是从业者和投资者的必修课。</p>
 
-<h3>26.1 为什么加密货币需要监管</h3>
+<h2>26.1 为什么加密货币需要监管</h2>
 
 <p>加密货币社区的很多人对监管持怀疑态度——"代码即法律"（Code is Law）的理想根深蒂固。但现实世界中的三大问题让监管势在必行：</p>
 
@@ -64,7 +65,7 @@
 <strong>一个现实案例：</strong>2024年，英国金融行为监管局（FCA）对一家未注册的加密ATM运营商处以破纪录的罚款。这些ATM被犯罪分子用于将犯罪所得转换为加密货币。FCA的声明很直白："如果你运营加密ATM而不注册，我们不仅会关闭你的机器，还会送你进监狱。"这不是针对加密技术，而是针对<strong>使用加密技术实施犯罪的人</strong>。
 </div>
 
-<h3>26.2 美国监管格局</h3>
+<h2>26.2 美国监管格局</h2>
 
 <p>美国的加密监管是一场三方的博弈：国会（立法）、SEC（证券监管）和CFTC（商品期货监管）。2025-2026年，这场博弈进入了决定性阶段。</p>
 
@@ -82,6 +83,31 @@
     通过测试 → 数字商品 → CFTC 管辖
     未通过   → 证券     → SEC 管辖</code></pre>
 
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 200" aria-labelledby="fig26clar-title fig26clar-desc">
+  <title id="fig26clar-title">CLARITY Act 去中心化测试的判定路径</title>
+  <desc id="fig26clar-desc">数字资产先经过去中心化测试：控制权分散、发行满 12 个月、治理由持有人投票等条件全部满足则归为数字商品由 CFTC 管辖，否则归为证券由 SEC 管辖。</desc>
+  <defs><marker id="ar26a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker></defs>
+  <rect x="20" y="80" width="150" height="46" rx="9" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="95" y="108" font-size="11" fill="#0f172a" text-anchor="middle">数字资产</text>
+  <line x1="172" y1="103" x2="218" y2="103" stroke="#64748b" stroke-width="1.8" marker-end="url(#ar26a)"/>
+  <rect x="226" y="66" width="180" height="74" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="316" y="90" font-size="11" fill="#0f172a" text-anchor="middle">去中心化测试</text>
+  <text x="316" y="108" font-size="9" fill="#475569" text-anchor="middle">控制权分散 / 满 12 个月</text>
+  <text x="316" y="124" font-size="9" fill="#475569" text-anchor="middle">治理由持有人投票</text>
+  <line x1="408" y1="84" x2="454" y2="54" stroke="#16a34a" stroke-width="1.8" marker-end="url(#ar26a)"/>
+  <line x1="408" y1="122" x2="454" y2="152" stroke="#dc2626" stroke-width="1.8" marker-end="url(#ar26a)"/>
+  <rect x="462" y="24" width="158" height="52" rx="9" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="541" y="46" font-size="11" fill="#14532d" text-anchor="middle">数字商品</text>
+  <text x="541" y="64" font-size="9.5" fill="#475569" text-anchor="middle">CFTC 管辖</text>
+  <rect x="462" y="130" width="158" height="52" rx="9" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="541" y="152" font-size="11" fill="#7f1d1d" text-anchor="middle">证券</text>
+  <text x="541" y="170" font-size="9.5" fill="#475569" text-anchor="middle">SEC 管辖（需注册）</text>
+  <text x="316" y="180" font-size="10" fill="#475569" text-anchor="middle">条件全部满足 → 通过；否则归为证券</text>
+</svg>
+<figcaption>图 26-1　去中心化测试的判定路径（教学简化）。它把“是不是证券”从个案争论变成了可对照的清单，这也是该法案最具示范意义的部分。</figcaption>
+</figure>
+
 <p>这个测试决定了项目生死。被判为证券意味着需要向SEC注册——法律和合规成本高达数百万美元。截至2026年中，比特币和以太坊已被认定为"充分的去中心化"，属于商品。但大部分DeFi代币、预售代币和小市值项目仍然处于"可能被认定为证券"的风险中。</p>
 
 <p><strong>GENIUS Act（稳定币法案）：</strong>2025年提出的《指导国家稳定币发行法案》要求发行规模超过100亿美元的稳定币发行方必须获得美联储或货币监理署的许可。发行方必须按1:1持有高流动性储备资产（短期国债、现金），并接受月度审计。Circle的USDC（市值约600亿美元）和Tether的USDT（市值约1,400亿美元）都需要在新框架下重新申请许可。</p>
@@ -92,9 +118,28 @@
 <strong>关键预测：</strong>多位分析人士认为，CLARITY Act的参议院通过时间可能在2026年底或2027年初。无论法案是否通过，"去中心化测试"的概念已经在全球监管讨论中产生了示范效应。欧盟、新加坡和日本的监管机构都在研究类似的判定标准。
 </div>
 
-<h3>26.3 全球监管对比</h3>
+<h2>26.3 全球监管对比</h2>
 
 <p>各国对加密货币的态度差异巨大——从"全面拥抱"到"彻底禁止"都有代表。以下是截至2026年中的全球监管版图：</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 180" aria-labelledby="fig26map-title fig26map-desc">
+  <title id="fig26map-title">全球监管光谱：从拥抱到禁止</title>
+  <desc id="fig26map-desc">各国对加密资产的监管强度从宽松到严格排列：迪拜、香港、新加坡偏宽松，欧盟、美国、日本已建立明确框架，中国内地全面禁止交易与挖矿。</desc>
+  <defs><linearGradient id="g26map" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#16a34a"/><stop offset="0.5" stop-color="#f59e0b"/><stop offset="1" stop-color="#dc2626"/></linearGradient></defs>
+  <rect x="50" y="70" width="540" height="26" rx="13" fill="url(#g26map)"/>
+  <text x="50" y="58" font-size="11" fill="#0f172a" font-weight="600">宽松 / 拥抱</text>
+  <text x="590" y="58" font-size="11" fill="#0f172a" font-weight="600" text-anchor="end">严格 / 禁止</text>
+  <g font-size="10" fill="#334155" text-anchor="middle">
+    <line x1="120" y1="96" x2="120" y2="110" stroke="#94a3b8"/><text x="120" y="124">迪拜</text><text x="120" y="138">香港</text>
+    <line x1="250" y1="96" x2="250" y2="110" stroke="#94a3b8"/><text x="250" y="124">新加坡</text>
+    <line x1="410" y1="96" x2="410" y2="110" stroke="#94a3b8"/><text x="410" y="124">欧盟</text><text x="410" y="138">美国 / 日本</text>
+    <line x1="560" y1="96" x2="560" y2="110" stroke="#94a3b8"/><text x="560" y="124">中国内地</text><text x="560" y="138">（交易/挖矿禁止）</text>
+  </g>
+  <text x="320" y="170" font-size="10" fill="#475569" text-anchor="middle">光谱位置为教学示意，反映框架的相对严格程度而非精确排序</text>
+</svg>
+<figcaption>图 26-2　全球监管光谱。同一份资产在不同辖区可能面对完全不同的规则，这也是跨境用户必须关注属地合规的原因。</figcaption>
+</figure>
 
 <table>
   <thead>
@@ -159,7 +204,7 @@
   </tbody>
 </table>
 
-<h3>26.4 KYC/AML与旅行规则</h3>
+<h2>26.4 KYC/AML与旅行规则</h2>
 
 <p>反洗钱（AML）和"了解你的客户"（KYC）是理解加密合规的核心概念。它们不是加密独有的——任何受监管的金融机构都必须遵守。但在加密领域，它们的应用引发了一些特殊挑战。</p>
 
@@ -197,7 +242,7 @@
 <strong>实操指南：</strong>如果你在Binance、Kraken或Bybit等主流交易所交易，KYC流程通常包括：(1) 上传身份证或护照；(2) 自拍照+活体检测；(3) 地址证明（水电账单）；(4) 风险评估问卷。建议在牛市来临前完成Level 2或Level 3认证——2024年比特币突破10万美元时，Binance的KYC队列排到了5天，很多用户眼睁睁看着行情暴涨却无法入金。
 </div>
 
-<h3>26.5 加密货币税务</h3>
+<h2>26.5 加密货币税务</h2>
 
 <p>税务是合规中最容易被忽视但后果最严重的领域。每个加密用户都必须了解自己所在司法管辖区的税务义务——不知道"不是借口，税务部门不会因为你不知道就免于处罚。</p>
 
@@ -221,13 +266,33 @@
   </tbody>
 </table>
 
+<div class="widget" id="tax-widget">
+  <h4>交互：加密税务事件速判</h4>
+  <p>选择一种操作，看看它通常是否触发应税事件（教学示意，不同司法辖区规则不同，请以当地法规为准）。</p>
+  <div class="widget-controls">
+    <label>操作
+      <select id="tx-kind">
+        <option value="buy">法币买入加密货币</option>
+        <option value="sell">加密货币卖出为法币</option>
+        <option value="swap">币币交易（BTC→ETH）</option>
+        <option value="stake">Staking / 挖矿收入</option>
+        <option value="airdrop">空投 / 硬分叉获得代币</option>
+        <option value="spend">用加密货币购买商品</option>
+        <option value="move">自持钱包间转账</option>
+      </select>
+    </label>
+    <button id="tx-run" type="button">判定</button>
+  </div>
+  <div class="widget-output" id="tx-out" role="status" aria-live="polite">选择后点击“判定”。</div>
+</div>
+
 <p><strong>记录保存建议：</strong>很多用户到了报税季才发现自己根本无法记起一年来的数千笔交易。建议从第一天起使用税务软件（Koinly、CoinTracker、CoinLedger或日本的Crypto Tax），或者至少维护一个电子表格，记录：交易时间戳、交易对手地址、币种数量、成交时美元价格、交易ID（txid）、手续费。许多交易所现在提供CSV导出功能，结合链上API可以自动生成税务报告。</p>
 
 <div class="warning">
 <strong>踩坑故事：</strong>日本的Web3创业者小林（化名）在2024年没有申报约4000万日元的staking收入。2026年初，日本税务署利用链上数据与交易所KYC信息的交叉比对，准确追溯到了他的地址。"我以为链上是匿名，日本税务署查不到。"结果他不仅要补缴税款，还被处以35%的滞纳金和罚款——合计超过700万日元（约合4.7万美元）。2026年修订后的《金融商品取引法》进一步加强了税务署调取链上数据的法律权限。
 </div>
 
-<h3>26.6 合规的未来</h3>
+<h2>26.6 合规的未来</h2>
 
 <p>展望2027-2030年，合规的趋势已经相当明确：</p>
 
@@ -243,13 +308,38 @@
 
 <p>下一章，我们将从监管的"游戏规则"切换到另一个激动人心的话题——加密货币的前沿趋势。比特币生态在2024-2026年爆发了哪些革命性创新？AI和区块链如何融合？机构化浪潮怎样重塑市场？ZK和隐私计算将如何改变我们使用区块链的方式？这些问题的答案，将决定加密世界未来五年的走向。</p>
 
+<h2>本章参考与延伸</h2>
+<ul>
+  <li>CLARITY Act、GENIUS Act、欧盟 MiCA/DAC8、FATF Travel Rule 与 TRISA 协议的公开法案文本与规范。</li>
+  <li>FTX 破产、Tornado Cash 相关刑事判决、Uniswap Wells 通知与 FCA 处罚案例为公开司法与监管报道。</li>
+  <li>各国税率、去中心化测试的量化门槛与监管版图为公开报道口径，随立法进展变化，页面不构成法律意见。</li>
+</ul>
+
         <div class="footer-nav">
             <a href="25.html">← 上一章</a>
             <a href="index.html">📖 返回目录</a>
             <a href="27.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function(){
+  var sel=document.getElementById('tx-kind'); var out=document.getElementById('tx-out');
+  var info={
+    buy:{t:'通常非应税', d:'用法币买入加密货币本身不实现盈亏。'},
+    sell:{t:'应税', d:'卖出为法币，实现资本利得或亏损。'},
+    swap:{t:'应税', d:'币币交易视为先卖出再买入，需计算利得。'},
+    stake:{t:'应税', d:'收到时按市价计入普通收入。'},
+    airdrop:{t:'应税', d:'按收到时的公允价值计税。'},
+    spend:{t:'应税', d:'视为处置资产，需计算利得。'},
+    move:{t:'通常非应税', d:'仅改变保管位置，不改变所有权。'}
+  };
+  document.getElementById('tx-run').addEventListener('click', function(){
+    var i=info[sel.value];
+    out.textContent='判定：'+i.t+'\n说明：'+i.d+'\n（教学示意，请以当地法规为准）';
+  });
+})();
+</script>
 </body>
 </html>
