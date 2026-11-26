@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,16 +42,16 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html" class="active">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
-<h2>第28章 综合项目 — 构建一个简单区块链</h2>
+<h1>第28章 综合项目 — 构建一个简单区块链</h1>
 
 <p>欢迎来到课程的最后一章。在过去27章中，我们从货币的演化一路走到监管合规，从密码学基础到Layer 2扩容，从DeFi到NFT——你已经掌握了关于比特币和加密货币的全景知识。现在是时候把所有这些概念变成真正的代码了。</p>
 
 <p>在这一章中，我们将从零开始构建一个名为<strong>PyChain</strong>的简化版区块链。它不是一个"玩具"，它是一个包含区块链接、工作量证明、交易系统、钱包密钥和P2P网络的完整实现。全部代码只有约250行Python——你可以理解每一行的作用。写完后，你会拥有一个真正的、可以在你电脑上运行的区块链系统。</p>
 
-<h3>28.1 项目概览</h3>
+<h2>28.1 项目概览</h2>
 
 <p>PyChain将包含以下核心模块：</p>
 
@@ -72,7 +73,7 @@
   </tbody>
 </table>
 
-<h3>28.2 区块与链</h3>
+<h2>28.2 区块与链</h2>
 
 <p>我们从最基础的东西开始——一个区块（Block）。在比特币中，每个区块包含区块头（前序哈希、时间戳、难度目标、nonce）和交易列表。我们的实现简洁地封装了这些概念：</p>
 
@@ -115,11 +116,48 @@ class Block:
 
 <p>关键概念：每个区块的哈希依赖于它的<strong>所有字段</strong>——包括前一个区块的哈希。这意味着任何一个区块的数据被修改，它的哈希就会变化，从而断开与前一个区块的连接（"哈希链"）。这就是区块链不可篡改的根本原因。</p>
 
-<h3>28.3 工作量证明（PoW）</h3>
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 210" aria-labelledby="fig28chain-title fig28chain-desc">
+  <title id="fig28chain-title">哈希链：每个区块都锁定前一个区块</title>
+  <desc id="fig28chain-desc">每个区块头保存前一个区块的哈希；一旦修改任一历史区块，它的哈希会变化，后续区块的 previous_hash 不再匹配，整条链验证失败。</desc>
+  <defs><marker id="ar28a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker></defs>
+  <g text-anchor="middle" font-size="10" fill="#0f172a">
+    <rect x="20" y="50" width="150" height="80" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="95" y="76">Block #0</text><text x="95" y="96" font-size="9" fill="#475569">prev: "0"</text><text x="95" y="114" font-size="9" fill="#475569">hash: 0000a1…</text>
+    <rect x="240" y="50" width="150" height="80" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><text x="315" y="76">Block #1</text><text x="315" y="96" font-size="9" fill="#475569">prev: 0000a1…</text><text x="315" y="114" font-size="9" fill="#475569">hash: 0000b7…</text>
+    <rect x="460" y="50" width="150" height="80" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><text x="535" y="76">Block #2</text><text x="535" y="96" font-size="9" fill="#475569">prev: 0000b7…</text><text x="535" y="114" font-size="9" fill="#475569">hash: 0000c3…</text>
+  </g>
+  <g stroke="#64748b" stroke-width="1.8" fill="none">
+    <line x1="172" y1="90" x2="238" y2="90" marker-end="url(#ar28a)"/>
+    <line x1="392" y1="90" x2="458" y2="90" marker-end="url(#ar28a)"/>
+  </g>
+  <rect x="240" y="150" width="150" height="34" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.4"/>
+  <text x="315" y="171" font-size="9.5" fill="#7f1d1d" text-anchor="middle">篡改 #1 → 哈希改变</text>
+  <text x="320" y="200" font-size="10.5" fill="#475569" text-anchor="middle">后续区块的 prev 不再匹配 → 全链验证失败，这就是不可篡改的来源</text>
+</svg>
+<figcaption>图 28-1　哈希链。区块之间不是靠“编号”相连，而是靠哈希相互锁定；改一块就会拆掉整条链的可信性。</figcaption>
+</figure>
+
+<h2>28.3 工作量证明（PoW）</h2>
 
 <p>工作量证明的核心思想是：要创建一个有效的区块，你必须完成一个计算密集型任务。在我们的实现中，任务是<strong>找到一个nonce值，使得区块哈希以特定数量的前导零开头</strong>。</p>
 
 <p>当difficulty=4时，目标是以"0000"开头的哈希。每次尝试只有1/65536的概率找到这样的哈希（16^4 = 65536）。这就是"工作"——CPU需要平均进行65,536次哈希计算才能找到一个有效nonce。在比特币中，当前难度要求哈希以约19个前导零开头——找到一次需要约10^19次尝试（全网的ASIC矿机每秒可进行约600 EH/s的计算）。</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 190" aria-labelledby="fig28pow-title fig28pow-desc">
+  <title id="fig28pow-title">工作量证明：寻找带前导零的哈希</title>
+  <desc id="fig28pow-desc">矿工不断递增 nonce 并重新计算哈希，直到哈希以指定数量的 0 开头；难度越高，前导零越多，平均需要尝试的次数就越多。</desc>
+  <text x="20" y="40" font-size="10.5" fill="#334155" font-family="monospace">nonce=1 → 9f3c1a…   ✗</text>
+  <text x="20" y="66" font-size="10.5" fill="#334155" font-family="monospace">nonce=2 → 41b8e2…   ✗</text>
+  <text x="20" y="92" font-size="10.5" fill="#334155" font-family="monospace">nonce=3 → 7ae09d…   ✗</text>
+  <text x="20" y="118" font-size="10.5" fill="#334155" font-family="monospace">…</text>
+  <text x="20" y="150" font-size="11" fill="#14532d" font-family="monospace" font-weight="600">nonce=k → 0000f2…   ✓</text>
+  <text x="620" y="66" font-size="10.5" fill="#dc2626" text-anchor="end">不以 0000 开头 → 丢弃</text>
+  <text x="620" y="150" font-size="10.5" fill="#16a34a" text-anchor="end">以 0000 开头 → 找到有效区块</text>
+  <text x="320" y="182" font-size="10" fill="#475569" text-anchor="middle">difficulty=4 时平均需要 16^4 = 65,536 次尝试；难度每 +1，工作量 ×16</text>
+</svg>
+<figcaption>图 28-2　工作量证明（数值为教学示意）。前导零的个数就是“难度”，它把出块成本变成一个可调的旋钮。</figcaption>
+</figure>
 
 <pre><code># === pychain.py — Part 2: Blockchain ===
 class Blockchain:
@@ -195,7 +233,18 @@ class Blockchain:
 <strong>难度调整实验：</strong>你可以尝试修改difficulty值来感受挖矿难度的变化。在笔者的MacBook M3上：difficulty=2时几乎瞬间找到nonce；difficulty=4时需要约0.5-2秒；difficulty=6时需要约30秒-2分钟。比特币的全网每2016个区块调整一次难度（约每两周），以确保平均出块时间保持在10分钟。
 </div>
 
-<h3>28.4 交易与钱包</h3>
+<div class="widget" id="pow-widget">
+  <h4>交互：PoW 难度与工作量估算</h4>
+  <p>输入前导零数量 difficulty 与每秒哈希次数，估算平均需要多少次尝试与多长时间（教学示意；忽略难度与哈希率波动）。</p>
+  <div class="widget-controls">
+    <label>difficulty <input id="pw-d" type="number" value="4" min="1" max="16"></label>
+    <label>每秒哈希次数 <input id="pw-h" type="number" value="1000000" min="1"></label>
+    <button id="pw-run" type="button">估算</button>
+  </div>
+  <div class="widget-output" id="pw-out" role="status" aria-live="polite">点击“估算”查看结果。</div>
+</div>
+
+<h2>28.4 交易与钱包</h2>
 
 <p>现在我们添加钱包功能。在比特币中，钱包的核心是：<strong>私钥</strong>（一个256位的随机数）和对应的<strong>公钥</strong>（通过椭圆曲线secp256k1从私钥推导）。我们使用Python内置库实现一个简化版本：</p>
 
@@ -256,7 +305,7 @@ def get_balance(blockchain, address):
 <strong>重要安全提醒：</strong>上述签名函数使用了HMAC风格的哈希签名，而不是真正的ECDSA数字签名。这不是生产安全的——真正比特币交易的安全性依赖于secp256k1椭圆曲线数字签名算法。我们的简化版足以演示交易流程的概念，但<strong>绝对不能</strong>用于任何真实资金。如果你要在生产中使用，请使用成熟的密码学库（如<code>ecdsa</code>或<code>coincurve</code>）。
 </div>
 
-<h3>28.5 P2P网络与Flask API</h3>
+<h2>28.5 P2P网络与Flask API</h2>
 
 <p>最后，我们为PyChain添加一个HTTP API层，让多个节点可以通信。使用Flask（一个轻量级Python Web框架）来实现：</p>
 
@@ -357,7 +406,7 @@ def consensus():
     })
 </code></pre>
 
-<h3>28.6 完整代码与运行</h3>
+<h2>28.6 完整代码与运行</h2>
 
 <p>下面是将以上所有部分组合在一起的完整<strong>pychain.py</strong>文件。创建一个新文件，复制以下全部代码，然后运行它：</p>
 
@@ -604,7 +653,7 @@ if __name__ == "__main__":
     print("=" * 56)
     app.run(host="0.0.0.0", port=5000, debug=True)</code></pre>
 
-<h3>如何运行与测试</h3>
+<h2>如何运行与测试</h2>
 
 <p><strong>第一步：</strong>确保安装了Flask：</p>
 
@@ -652,7 +701,7 @@ curl http://localhost:5000/balance/wallet_B</code></pre>
 <strong>实验：</strong>开启两个终端，分别运行<code>python3 pychain.py</code>和<code>python3 pychain.py</code>（在不同端口上，比如修改第5000行为5001）。在一个节点上注册另一个节点为peer，然后在不同节点上挖矿，观察它们的链如何独立增长。真正的共识机制需要实现最长链替换——这是中本聪共识（Nakamoto Consensus）的核心思想。
 </div>
 
-<h3>扩展练习</h3>
+<h2>扩展练习</h2>
 
 <p>PyChain是一个教学性实现。如果你想进一步挑战自己，以下是一些扩展方向：</p>
 
@@ -669,7 +718,7 @@ curl http://localhost:5000/balance/wallet_B</code></pre>
 <strong>推荐资源：</strong>如果你想深入了解比特币核心的实现，推荐阅读<code>bitcoin-core</code>的源代码（C++，github.com/bitcoin/bitcoin），或者阅读《Mastering Bitcoin》第三版（Andreas M. Antonopoulos著）。如果你对以太坊感兴趣，可以去看看Ethereum的Py-EVM实现——一个纯Python的以太坊客户端，理解起来比go-ethereum更容易。
 </div>
 
-<h3>课程结语</h3>
+<h2>课程结语</h2>
 
 <p>到这里，我们的《比特币与加密货币》28章课程正式结束了。</p>
 
@@ -685,13 +734,32 @@ curl http://localhost:5000/balance/wallet_B</code></pre>
 
 <p>— 讲师 谢明</p>
 
+<h2>本章参考与延伸</h2>
+<ul>
+  <li>本章 PyChain 代码为从零编写的教学实现，借鉴公开的区块链教学范例（区块/PoW/Flask API 结构），非生产代码。</li>
+  <li>比特币难度目标、SHA-256 与 secp256k1 签名等为公开技术规范；bitcoin/bitcoin 与 Py-EVM 为公开参考实现。</li>
+  <li>代码中的简化签名（哈希签名替身）、难度示例与出块时间均为教学示意，不可用于真实资金。</li>
+</ul>
+
         <div class="footer-nav">
             <a href="27.html">← 上一章</a>
             <a href="index.html">📖 返回目录</a>
             <a href="javascript:void(0)">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function(){
+  var d=document.getElementById('pw-d'), h=document.getElementById('pw-h'); var out=document.getElementById('pw-out');
+  document.getElementById('pw-run').addEventListener('click', function(){
+    var D=parseInt(d.value,10), H=parseFloat(h.value);
+    if(isNaN(D)||isNaN(H)||D<1||D>16||H<=0){ out.textContent='请输入有效数值（difficulty 1–16，哈希次数 > 0）'; return; }
+    var attempts=Math.pow(16,D), sec=attempts/H;
+    var human = sec<1 ? sec.toFixed(3)+' 秒' : sec<60 ? sec.toFixed(1)+' 秒' : sec<3600 ? (sec/60).toFixed(1)+' 分钟' : sec<86400 ? (sec/3600).toFixed(1)+' 小时' : (sec/86400).toFixed(1)+' 天';
+    out.textContent='平均尝试次数 ≈ 16^'+D+' = '+attempts.toExponential(3)+'\n在 '+H.toExponential(2)+' H/s 下，平均耗时 ≈ '+human+'\n提示：这只是期望值，实际耗时存在很大波动。';
+  });
+})();
+</script>
 </body>
 </html>

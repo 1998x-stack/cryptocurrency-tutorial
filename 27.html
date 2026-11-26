@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,10 +42,10 @@
             <li><a href="27.html" class="active">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
-<h2>第27章 前沿趋势 — 加密货币的下一站</h2>
+<h1>第27章 前沿趋势 — 加密货币的下一站</h1>
 
 <p>2023年1月，一位名叫"@rodarmor"的比特币核心贡献者Casey Rodarmor发布了一个名为Ordinals的协议。这个协议允许用户在比特币的最小单位——聪（satoshi）——上刻入任意数据（图片、文本、音频）。一夜之间，比特币从一个"数字黄金"的故事，变成了一个可以承载NFT的智能资产平台。社区分裂了：有人欢呼——这是比特币的"寒武纪大爆发"；有人愤怒——这是在"污染"区块空间。</p>
 
@@ -52,9 +53,34 @@
 
 <p>这一章，我们不谈价格。我们谈技术、谈趋势、谈加密货币领域正在发生的深层次变革——这些变革将定义2026-2030年的行业格局。</p>
 
-<h3>27.1 比特币生态爆发</h3>
+<h2>27.1 比特币生态爆发</h2>
 
 <p>2023年以前，比特币的主要叙事是"数字黄金"——简单、安全、但功能有限。Ordinals协议的出现彻底改变了这一点。</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 210" aria-labelledby="fig27eco-title fig27eco-desc">
+  <title id="fig27eco-title">比特币生态的四类新协议</title>
+  <desc id="fig27eco-desc">在比特币 L1 之上，Ordinals 提供铭文、BRC-20/Runes 提供代币、BitVM 提供可验证计算、Babylon 提供质押；它们都建立在比特币的共识与安全之上。</desc>
+  <rect x="40" y="20" width="260" height="72" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="60" y="46" font-size="11" fill="#0f172a" font-weight="600">Ordinals 铭文</text>
+  <text x="60" y="66" font-size="9.5" fill="#475569">在聪上写入数据，全链上存储</text>
+  <text x="60" y="82" font-size="9.5" fill="#475569">→ 数字文物 / 链上 NFT</text>
+  <rect x="340" y="20" width="260" height="72" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="360" y="46" font-size="11" fill="#0f172a" font-weight="600">BRC-20 / Runes</text>
+  <text x="360" y="66" font-size="9.5" fill="#475569">比特币上的可替代代币标准</text>
+  <text x="360" y="82" font-size="9.5" fill="#475569">→ Runes 更省区块空间</text>
+  <rect x="40" y="104" width="260" height="72" rx="10" fill="#fef3ec" stroke="#d06d4d" stroke-width="1.5"/>
+  <text x="60" y="130" font-size="11" fill="#0f172a" font-weight="600">BitVM</text>
+  <text x="60" y="150" font-size="9.5" fill="#475569">用欺诈证明验证合约逻辑</text>
+  <text x="60" y="166" font-size="9.5" fill="#475569">→ 不改共识也能“算”复杂程序</text>
+  <rect x="340" y="104" width="260" height="72" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="360" y="130" font-size="11" fill="#0f172a" font-weight="600">Babylon 质押</text>
+  <text x="360" y="150" font-size="9.5" fill="#475569">BTC 不离开主链即可参与 PoS</text>
+  <text x="360" y="166" font-size="9.5" fill="#475569">→ 让“hodl”获得收益</text>
+  <text x="320" y="202" font-size="10.5" fill="#475569" text-anchor="middle">底座：比特币 L1 的共识与安全（以上协议均不修改主链共识）</text>
+</svg>
+<figcaption>图 27-1　比特币生态的四类新协议。它们把比特币从“只做价值转移”扩展为可承载铭文、代币、计算与质押的资产平台。</figcaption>
+</figure>
 
 <p><strong>Ordinals与铭文（Inscriptions）：</strong>Ordinals协议利用了2021年Taproot升级带来的区块空间扩展。它允许用户在satoshi上"铭刻"任意数据——图片、文本、SVG、HTML文件。每个铭文都是完全在链上的，永远不会消失。到2026年，已有超过1亿个铭文被写入比特币区块链，创造了一个被称为"数字文物"的新资产类别。</p>
 
@@ -68,7 +94,7 @@
 <strong>值得关注：</strong>RGB协议（RGB，Really Good for Bitcoin）是一个基于客户端的智能合约系统，利用比特币的UTXO模型来发行和管理资产。与Ordinals直接在链上铭刻数据不同，RGB使用链下数据和链上承诺（commitment）来实现隐私和可扩展性。2026年，RGB v0.11正式发布，支持了更多高级合约功能——它可能成为比特币DeFi的核心基础设施。
 </div>
 
-<h3>27.2 AI与区块链融合</h3>
+<h2>27.2 AI与区块链融合</h2>
 
 <p>2024-2026年，AI和加密货币从两个平行世界开始走向交融。这不是炒作——有真实的用例正在落地。</p>
 
@@ -96,7 +122,7 @@
 │  链上存储（Arweave, Filecoin）                │
 └──────────────────────────────────────────────┘</code></pre>
 
-<h3>27.3 机构化浪潮</h3>
+<h2>27.3 机构化浪潮</h2>
 
 <p>如果说2021年的牛市是"散户牛"，2024-2026年的牛市是"机构牛"。Bitcoin ETF的获批开启了一个全新的时代。</p>
 
@@ -128,9 +154,28 @@
 <strong>ETF vs. 直接持有：</strong>ETF的优势是税务简化和合规便利——你的退休账户（IRA/401k）可以直接持有。但代价是"not your keys, not your coins"——ETF持有的BTC由托管人控制，你无法直接提币到自托管钱包。对于注重自我主权的用户，直接持有仍然不可替代。
 </div>
 
-<h3>27.4 跨链与互操作性</h3>
+<h2>27.4 跨链与互操作性</h2>
 
 <p>如果整个加密世界只有一个区块链，就不需要互操作性。但现实是2026年存在超过100条活跃的公链——比特币、以太坊（及其L2）、Solana、Cosmos、Polkadot、Avalanche、NEAR、Tron……资产和数据被隔离在不同的生态中。跨链是解决方案，但也带来了巨大的安全挑战。</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 200" aria-labelledby="fig27bridge-title fig27bridge-desc">
+  <title id="fig27bridge-title">跨链方案的信任假设光谱</title>
+  <desc id="fig27bridge-desc">从信任验证者集合的传统跨链桥，到用轻客户端的 IBC、用数学证明的 ZK 桥，再到把信任交给求解器市场的链抽象与意图方案；信任假设不同，安全性与用户体验也不同。</desc>
+  <defs><linearGradient id="g27b" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#dc2626"/><stop offset="0.5" stop-color="#f59e0b"/><stop offset="1" stop-color="#16a34a"/></linearGradient></defs>
+  <rect x="40" y="70" width="560" height="26" rx="13" fill="url(#g27b)"/>
+  <text x="40" y="58" font-size="11" fill="#0f172a" font-weight="600">信任假设强（信任验证者）</text>
+  <text x="600" y="58" font-size="11" fill="#0f172a" font-weight="600" text-anchor="end">信任假设弱（数学/竞争）</text>
+  <g font-size="10" fill="#334155" text-anchor="middle">
+    <line x1="120" y1="96" x2="120" y2="110" stroke="#94a3b8"/><text x="120" y="124">传统跨链桥</text><text x="120" y="138">多次重大事故</text>
+    <line x1="300" y1="96" x2="300" y2="110" stroke="#94a3b8"/><text x="300" y="124">IBC</text><text x="300" y="138">轻客户端验证</text>
+    <line x1="450" y1="96" x2="450" y2="110" stroke="#94a3b8"/><text x="450" y="124">ZK 桥</text><text x="450" y="138">数学证明</text>
+    <line x1="570" y1="96" x2="570" y2="110" stroke="#94a3b8"/><text x="570" y="124">链抽象 / 意图</text><text x="570" y="138">求解器市场</text>
+  </g>
+  <text x="320" y="176" font-size="10" fill="#475569" text-anchor="middle">无重大事故的记录通常来自更弱的信任假设；新范式需时间验证</text>
+</svg>
+<figcaption>图 27-2　跨链信任光谱（教学示意）。选择跨链方式，本质是在“信任谁”与“用什么代价”之间做选择。</figcaption>
+</figure>
 
 <p><strong>跨链桥（Bridges）的风险。</strong>跨链桥是加密历史上最大的安全漏洞来源。2022年的Wormhole桥被黑损失3.26亿美元，Ronin桥（Axie Infinity）损失6亿美元——总量超过20亿美元的跨链桥攻击损失。桥的安全难题在于：它依赖于一个验证者集合来管理锁定的资产。如果验证者被攻破，所有锁定资产都会被盗。2025年出现了新一代"无需信任桥"（trustless bridge），使用轻客户端（light client）和ZK证明来直接在链A上验证链B的状态，消除了对验证者集合的依赖。</p>
 
@@ -157,11 +202,28 @@
   </tbody>
 </table>
 
+<div class="widget" id="bridge-widget">
+  <h4>交互：跨链方案信任速查</h4>
+  <p>选择一种跨链方案，查看它的信任假设与风险提示（教学示意）。</p>
+  <div class="widget-controls">
+    <label>方案
+      <select id="br-kind">
+        <option value="bridge">传统跨链桥</option>
+        <option value="ibc">IBC（轻客户端）</option>
+        <option value="zk">ZK 桥</option>
+        <option value="chainabs">链抽象 / 意图</option>
+      </select>
+    </label>
+    <button id="br-run" type="button">查询</button>
+  </div>
+  <div class="widget-output" id="br-out" role="status" aria-live="polite">选择后点击“查询”。</div>
+</div>
+
 <div class="warning">
 <strong>跨链风险评估：</strong>使用跨链桥时，请记住一个简单原则——<strong>不要使用"没有审计"或"新生"的桥。</strong>2025年，一个名为Bungee的新桥在上线第3天被黑客盗走了全部锁仓资产（约2,400万美元）。黑客利用了一个在桥合约中未初始化的owner变量——一个非常低级但破坏力极大的漏洞。在跨链领域，"非创新不信任"（Don't Trust, Verify）的原则比任何领域都更重要。
 </div>
 
-<h3>27.5 隐私计算与ZK</h3>
+<h2>27.5 隐私计算与ZK</h2>
 
 <p>区块链的"透明但假名"特性一直是一个矛盾：所有交易记录对所有人可见，但地址背后的身份是隐藏的。这既带来了透明性优势，也带来了隐私问题。零知识证明（ZK-proofs）正在成为解决这一矛盾的关键技术。</p>
 
@@ -203,7 +265,7 @@ print(f"\n验证结果: {'✅ 通过' if verified else '❌ 拒绝'}")
 # 只通过commitment-challenge-response三元组就能确认
 # Alice确实知道满足条件的秘密值</code></pre>
 
-<h3>27.6 2026-2030展望</h3>
+<h2>27.6 2026-2030展望</h2>
 
 <p>在2026年这个时间节点，展望未来五年，加密货币世界的几个确定性趋势已经浮出水面：</p>
 
@@ -219,13 +281,35 @@ print(f"\n验证结果: {'✅ 通过' if verified else '❌ 拒绝'}")
 
 <p>下一章是我们的最后一课——我将带你从零开始构建一个完整的区块链：包含PoW挖矿、交易系统、钱包和P2P网络。准备好了吗？</p>
 
+<h2>本章参考与延伸</h2>
+<ul>
+  <li>Ordinals、BRC-20、Runes、BitVM、Babylon、RGB 等协议的白皮书与公开文档；IBC、Fhenix/Zama（FHE）公开资料。</li>
+  <li>比特币现货 ETF、MicroStrategy 持仓、萨尔瓦多/不丹等国家持仓为公开报道与披露口径。</li>
+  <li>各协议持仓量、AUM 与安全事件金额为公开报道口径，随时间变化，页面按公开口径整理，非投资建议。</li>
+</ul>
+
         <div class="footer-nav">
             <a href="26.html">← 上一章</a>
             <a href="index.html">📖 返回目录</a>
             <a href="28.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function(){
+  var sel=document.getElementById('br-kind'); var out=document.getElementById('br-out');
+  var info={
+    bridge:{t:'信任假设：信任验证者集合', r:'风险：高（历史上多次重大事故）', d:'锁定资产由一组验证者管理，验证者被攻破则锁定资产被盗。'},
+    ibc:{t:'信任假设：轻客户端验证', r:'风险：低（未见重大事故）', d:'通过链间轻客户端直接验证对方状态，无需中间人，但技术复杂。'},
+    zk:{t:'信任假设：数学证明', r:'风险：低（理论最强安全）', d:'用零知识证明验证跨链状态，代价是证明生成较慢。'},
+    chainabs:{t:'信任假设：部分信任求解器', r:'风险：新范式，待验证', d:'用户只签名意图，求解器竞标执行；体验最好，安全模型仍在验证。'}
+  };
+  document.getElementById('br-run').addEventListener('click', function(){
+    var i=info[sel.value];
+    out.textContent=i.t+'\n'+i.r+'\n说明：'+i.d;
+  });
+})();
+</script>
 </body>
 </html>
