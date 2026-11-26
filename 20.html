@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,10 +42,10 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
-<h2>第20章 DeFi去中心化金融 — 没有银行的金融世界</h2>
+<h1>第20章 DeFi去中心化金融 — 没有银行的金融世界</h1>
 
 <p>想象一下这样一个世界：你想从自己持有的资产上赚利息，不需要去银行开户、填表、等审批。你想借一笔钱，不需要提交工资流水、不需要信用评分、不需要等三天。你想用USDC兑换ETH，打开一个网页，点一下，几秒钟就完成了——背后没有任何做市商、订单簿或中心化交易所。</p>
 
@@ -52,7 +53,7 @@
 
 <p>DeFi是区块链上"杀手级应用"的集中体现。如果说比特币是货币1.0、以太坊是可编程货币2.0，那么DeFi就是<strong>金融的自来水</strong>——任何人都能打开龙头使用，不需要许可，不需要中介。</p>
 
-<h3>20.1 DeFi是什么</h3>
+<h2>20.1 DeFi是什么</h2>
 
 <p>DeFi的全称是Decentralized Finance，核心思想是<strong>用智能合约取代传统金融中介</strong>。在传统金融世界，你想做借贷、交易、理财——必须通过银行、券商、做市商。每一层都要收费，每一层都有门槛。在DeFi里，这些功能被写成了智能合约，部署在区块链上，任何人都可以用。</p>
 
@@ -68,7 +69,7 @@
 <strong>用数据说话：</strong>截至2026年，以太坊上DeFi协议锁定的总价值（Total Value Locked, TVL）接近1500亿美元。Uniswap单日交易量经常超过Coinbase。Aave累计发放的贷款价值超过2000亿美元。这些数字在2019年还接近于零。
 </div>
 
-<h3>20.2 自动化做市商</h3>
+<h2>20.2 自动化做市商</h2>
 
 <p>DeFi交易量最大的赛道是<strong>去中心化交易所</strong>（DEX），而DEX中最核心的创新是<strong>自动化做市商</strong>（Automated Market Maker, AMM）。</p>
 
@@ -96,7 +97,36 @@ k = 常数（保持不变）
 // 这是一个报价: 1 ETH ≈ 1,980.2 USDC
 // 这个价格由池子的深度决定</code></pre>
 
+<div class="widget" id="amm-widget">
+  <h4>交互：AMM 兑换试算器（x·y=k）</h4>
+  <p>输入池中储备与买入的 ETH 数量，按恒定乘积公式估算可得 USDC 与滑点（教学示意，未计入手续费）。</p>
+  <div class="widget-controls">
+    <label>池中 ETH <input id="am-x" type="number" value="100" min="0" step="0.1"></label>
+    <label>池中 USDC <input id="am-y" type="number" value="200000" min="0" step="100"></label>
+    <label>买入 ETH <input id="am-in" type="number" value="1" min="0" step="0.01"></label>
+    <button id="am-run" type="button">试算</button>
+  </div>
+  <div class="widget-output" id="am-out" role="status" aria-live="polite">点击“试算”查看结果。</div>
+</div>
+
 <p>这个公式的巧妙之处：<strong>价格由池子的比例自动决定</strong>。你买的越多，价格越高（滑点）。这也是"自动做市"的含义——不需要人工挂单，数学公式就是你的做市商。</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 220" aria-labelledby="fig20amm-title fig20amm-desc">
+  <title id="fig20amm-title">AMM 恒定乘积曲线 x·y=k</title>
+  <desc id="fig20amm-desc">资金池的 ETH 与 USDC 数量乘积 k 保持不变，交易沿双曲线移动：买入 ETH 使它变少、价格上升，斜率（相对价格）随位置变化，这就是滑点。</desc>
+  <line x1="60" y1="180" x2="600" y2="180" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="60" y1="180" x2="60" y2="20" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="600" y="198" font-size="11" fill="#475569" text-anchor="end">ETH 储备量 x →</text>
+  <text x="66" y="16" font-size="11" fill="#475569">USDC 储备量 y ↑</text>
+  <path d="M70 40 C120 150 220 172 580 176" fill="none" stroke="#3b82f6" stroke-width="2.4"/>
+  <circle cx="150" cy="152" r="6" fill="#16a34a"/><text x="150" y="140" font-size="10" fill="#14532d" text-anchor="middle">当前价格点</text>
+  <circle cx="330" cy="170" r="6" fill="#d06d4d"/><text x="360" y="166" font-size="10" fill="#7c2d12">买入 ETH 后：价格上升</text>
+  <text x="330" y="34" font-size="11" fill="#0f172a" text-anchor="middle">x · y = k（常数）</text>
+  <text x="330" y="212" font-size="10" fill="#475569" text-anchor="middle">价格 = y / x = 曲线切线斜率；交易越大，滑点越高</text>
+</svg>
+<figcaption>图 20-1　恒定乘积做市。池中两种资产的比例决定即时价格，交易沿曲线滑动；这也是“买得越多、均价越差”（滑点）的几何来源。</figcaption>
+</figure>
 
 <p>但AMM也有代价。作为<strong>流动性提供者</strong>（Liquidity Provider, LP），你把资产放入池子赚取交易手续费。但如果你在价格剧烈波动后撤出资金，可能发现自己拿到的资产价值比"一直持有"更少——这就是<strong>无常损失</strong>（Impermanent Loss）。</p>
 
@@ -104,13 +134,36 @@ k = 常数（保持不变）
 <strong>真实的"踩坑"经历：</strong>2021年，很多新人看到Uniswap上某些交易对年化收益超过100%，疯狂涌入提供流动性。但忽略了ETH价格从2000美元涨到4000美元带来的无常损失。有人存入10 ETH + 20000 USDC（价值$40,000），几个月后撤出发现资产只值$32,000——虽然手续费赚了$5,000，但仍然净亏$3,000。无常损失不是"无常"的——它在你撤出时就成了永久损失。
 </div>
 
-<h3>20.3 借贷协议</h3>
+<h2>20.3 借贷协议</h2>
 
 <p>除了交易，DeFi另一大支柱是<strong>去中心化借贷</strong>（Lending Protocol）。Aave和Compound是两大龙头。</p>
 
 <p>借贷的逻辑很直接：你把ETH存入Aave的"存款池"赚取利息，其他人抵押ETH借出USDC。但和传统银行的根本区别是——<strong>所有借贷必须超额抵押</strong>（Over-collateralized）。</p>
 
 <p>这意味着：你想借价值$1,000的USDC，至少需要抵押价值$1,500的ETH。如果ETH价格下跌，导致抵押率跌破阈值——你的头寸会被<strong>清算</strong>（Liquidation），清算人偿还你的债务并获得一定的折扣（通常5-10%）。</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 200" aria-labelledby="fig20liq-title fig20liq-desc">
+  <title id="fig20liq-title">超额抵押与清算阈值</title>
+  <desc id="fig20liq-desc">借款人抵押约 150 美元的 ETH 借出 100 美元的稳定币，健康因子（抵押价值/债务）随 ETH 价格波动；当健康因子跌破阈值（常见约 1.0 附近）头寸被清算，清算人获折扣奖励。</desc>
+  <text x="20" y="30" font-size="11" fill="#0f172a" font-weight="600">抵押价值 / 债务 = 健康因子</text>
+  <rect x="20" y="46" width="600" height="26" rx="7" fill="#f8fafc" stroke="#cbd5e1"/>
+  <rect x="20" y="46" width="420" height="26" rx="7" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.3"/>
+  <text x="230" y="64" font-size="10.5" fill="#14532d" text-anchor="middle">健康因子 &gt; 1.5：安全</text>
+  <rect x="420" y="46" width="100" height="26" rx="7" fill="#fde68a" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="470" y="64" font-size="10" fill="#78350f" text-anchor="middle">警戒</text>
+  <rect x="520" y="46" width="100" height="26" rx="7" fill="#fecaca" stroke="#dc2626" stroke-width="1.3"/>
+  <text x="570" y="64" font-size="10" fill="#7f1d1d" text-anchor="middle">清算</text>
+  <line x1="470" y1="40" x2="470" y2="80" stroke="#f59e0b" stroke-dasharray="4 3"/>
+  <line x1="520" y1="40" x2="520" y2="80" stroke="#dc2626" stroke-dasharray="4 3"/>
+  <text x="470" y="94" font-size="9.5" fill="#78350f" text-anchor="middle">警戒线</text>
+  <text x="520" y="94" font-size="9.5" fill="#7f1d1d" text-anchor="middle">清算阈值</text>
+  <text x="320" y="130" font-size="11" fill="#0f172a" text-anchor="middle">ETH 下跌 → 抵押价值缩水 → 健康因子逼近阈值</text>
+  <text x="320" y="152" font-size="11" fill="#dc2626" text-anchor="middle">跌破阈值 → 清算人替你还债，收走抵押并赚 5–10% 折扣</text>
+  <text x="320" y="176" font-size="10" fill="#475569" text-anchor="middle">因超额抵押，DeFi 借贷不需要信用评分，却会产生级联清算风险</text>
+</svg>
+<figcaption>图 20-2　超额抵押与清算。健康因子跌破阈值即自动清算，这使得 DeFi 借贷无需信用审查，但在剧烈波动时会引发连锁清算（教学简化：阈值与折扣为常见近似值）。</figcaption>
+</figure>
 
 <table>
   <thead>
@@ -131,7 +184,7 @@ k = 常数（保持不变）
 <strong>闪电贷名场面：</strong>2023年，一个白帽黑客利用闪电贷发现了Euler Finance合约中的漏洞——他借了2亿美金，用这笔资金操纵了价格预言机，暴露了合约漏洞后归还了贷款，最后拿到了$100万的漏洞赏金。整个过程发生在<strong>12秒</strong>的一笔交易里。如果他不归还？交易失败，一切回滚。这就是闪电贷的魔力。
 </div>
 
-<h3>20.4 稳定币</h3>
+<h2>20.4 稳定币</h2>
 
 <p>DeFi的血液是<strong>稳定币</strong>（Stablecoin）。没有它，DeFi无法运转——因为绝大多数人不愿意用波动的ETH作为计价单位。</p>
 
@@ -147,7 +200,7 @@ k = 常数（保持不变）
 <strong>UST/Luna崩盘——加密货币史上最大的灾难之一：</strong>2022年5月，Terra生态的算法稳定币UST（占DeFi TVL第二）突然遭遇挤兑。大量持有者同时抛售UST，而套利机制需要Luna（Terra的原生代币）吸收抛压——Luna被无限铸造，价格从$80跌到接近0。几天之内，一个价值400亿美元的生态链彻底归零。无数散户血本无归，韩国尤甚。这个事件直接导致韩国政府出台严格的加密监管框架，也彻底摧毁了算法稳定币的叙事。
 </div>
 
-<h3>20.5 收益农耕与流动性挖矿</h3>
+<h2>20.5 收益农耕与流动性挖矿</h2>
 
 <p>在2020-2021年的DeFi Summer中，最火爆的概念是<strong>流动性挖矿</strong>（Yield Farming）。简单地说：协议为了吸引流动性，向LP分发自己的治理代币作为额外奖励。</p>
 
@@ -166,7 +219,7 @@ k = 常数（保持不变）
 <strong>小知识：</strong>很多DeFi协议宣传的APY（年化收益率）是"名义APY"——用协议发行的代币发放奖励，而这些代币本身可能在暴跌。真正的"实际APY"要扣除代币价格下跌后的损失。2021年，很多看APY冲进池子的人，最后发现赚的是"通胀币"，实际收益是负的。
 </div>
 
-<h3>20.6 DeFi风险全景</h3>
+<h2>20.6 DeFi风险全景</h2>
 
 <p>DeFi不是天堂。截至2026年，DeFi领域的安全形势依然严峻。根据区块链安全公司Immunefi的报告，2025年全年因DeFi漏洞被盗窃的资金总额约为<strong>34亿美元</strong>（$3.4B）。主要攻击类型包括：</p>
 
@@ -188,13 +241,34 @@ k = 常数（保持不变）
 
 <p>下一章，我们要聊一个直接决定DeFi能否真正普及的关键技术——<strong>Layer 2扩容</strong>。</p>
 
+<h2>本章参考与延伸</h2>
+<ul>
+  <li>Uniswap 恒定乘积（x·y=k）做市模型与 Aave/Compound 借贷协议的公开文档。</li>
+  <li>UST/Luna 崩盘（2022）、Euler Finance、KyberSwap 等事件为公开链上事件与安全报告记录；Immunefi 年度损失报告为公开口径。</li>
+  <li>TVL、APY、抵押率与清算折扣等为常见近似值，随市场与协议版本变化，页面按公开口径整理。</li>
+</ul>
+
         <div class="footer-nav">
             <a href="19.html">← 上一章</a>
             <a href="index.html">📖 返回目录</a>
             <a href="21.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function(){
+  var x=document.getElementById('am-x'), y=document.getElementById('am-y'), input=document.getElementById('am-in');
+  var out=document.getElementById('am-out');
+  document.getElementById('am-run').addEventListener('click', function(){
+    var X=parseFloat(x.value), Y=parseFloat(y.value), din=parseFloat(input.value);
+    if([X,Y,din].some(isNaN)||X<=0||Y<=0||din<0){ out.textContent='请输入有效的正数（买入 ETH ≥ 0）'; return; }
+    if(din>=X){ out.textContent='买入量不能超过池中 ETH 储备'; return; }
+    var k=X*Y, Y2=k/(X+din), outUsdc=Y-Y2;
+    var spot=Y/X, avg=outUsdc/din, impact=(avg/spot-1)*100;
+    out.textContent='池中比例价：1 ETH ≈ '+spot.toFixed(2)+' USDC\n可得 USDC：'+outUsdc.toFixed(2)+'\n平均成交价：1 ETH ≈ '+avg.toFixed(2)+' USDC\n价格影响（滑点）：+'+impact.toFixed(2)+'%';
+  });
+})();
+</script>
 </body>
 </html>
