@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,16 +42,16 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
-<h2>第15章 钱包安全 — 你的数字金库</h2>
+<h1>第15章 钱包安全 — 你的数字金库</h1>
 
 <p>大家好，我是你们的讲师。如果在之前几章你跟着操作、拥有了自己的比特币钱包，现在你手里正握着一把不可复制的数字钥匙。兴奋之余，一个严肃的问题随之而来：<strong>这东西怎么丢的？</strong></p>
 
 <p>2023年，一名英国IT工程师翻遍了纽波特垃圾填埋场的几千吨垃圾——不是为了找垃圾，而是为了找一个装着8,000枚比特币的硬盘。按今天的价格，那是数亿美元。他的故事我们留到第17章再说，但它引出了一个核心问题：<strong>钱包安全是加密世界最重要的第一课。</strong>在这一章里，我们不学花哨的新技术，我们学怎么不弄丢你的钱。</p>
 
-<h3>15.1 热钱包 vs 冷钱包</h3>
+<h2>15.1 热钱包 vs 冷钱包</h2>
 
 <p>一切安全决策的第一原则：<strong>私钥接触网络的次数越多，风险越大。</strong>基于这个原则，钱包被分成两大类：</p>
 
@@ -68,11 +69,31 @@
   </tbody>
 </table>
 
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 180" aria-labelledby="fig15hc-title fig15hc-desc">
+  <title id="fig15hc-title">热钱包与冷钱包的风险—便利谱系</title>
+  <desc id="fig15hc-desc">横轴从“私钥联网、便利优先”过渡到“私钥离线、安全优先”：热钱包适合小额日常操作，冷钱包适合大额长期持有。</desc>
+  <defs><linearGradient id="g15hc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ef4444"/><stop offset="0.5" stop-color="#f59e0b"/><stop offset="1" stop-color="#16a34a"/></linearGradient></defs>
+  <rect x="50" y="96" width="540" height="24" rx="12" fill="url(#g15hc)"/>
+  <text x="50" y="84" font-size="12" fill="#0f172a" font-weight="600">私钥联网 · 便利优先</text>
+  <text x="590" y="84" font-size="12" fill="#0f172a" font-weight="600" text-anchor="end">私钥离线 · 安全优先</text>
+  <g font-size="10.5" fill="#334155" text-anchor="middle">
+    <line x1="120" y1="120" x2="120" y2="134" stroke="#94a3b8"/>
+    <text x="120" y="148">MetaMask</text><text x="120" y="162">Trust / BlueWallet</text>
+    <line x1="330" y1="120" x2="330" y2="134" stroke="#94a3b8"/>
+    <text x="330" y="148">Tangem / 手机钱包</text>
+    <line x1="560" y1="120" x2="560" y2="134" stroke="#94a3b8"/>
+    <text x="560" y="148">Ledger / Trezor</text><text x="560" y="162">Keystone（气隙）</text>
+  </g>
+</svg>
+<figcaption>图 15-1　热/冷钱包谱系：越往右私钥离网越彻底，安全上升但便利下降。判断标准不是“哪种更好”，而是“这笔钱多久用一次、能承受多大风险”。</figcaption>
+</figure>
+
 <div class="highlight">
 <strong>黄金法则：</strong>永远不要把大量资产放在热钱包里。一个常见的比例是——冷钱包放80-95%，热钱包放5-20%，再单独留一个"burner wallet"（零钱包）用于DApp交互，里面只放每次操作需要的金额。
 </div>
 
-<h3>15.2 硬件钱包深入</h3>
+<h2>15.2 硬件钱包深入</h2>
 
 <p>硬件钱包是目前公认最安全的存储方式。它的核心思想很简单：<strong>私钥永远不离开设备芯片。</strong>交易在设备内部签名，签名结果通过USB或蓝牙传出，私钥全程不出门。</p>
 
@@ -101,11 +122,37 @@
 关键: 第6步中私钥从未离开硬件芯片
 </code></pre>
 
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 210" aria-labelledby="fig15sign-title fig15sign-desc">
+  <title id="fig15sign-title">硬件钱包离线签名流程</title>
+  <desc id="fig15sign-desc">软件钱包创建交易并打包为 PSBT，经 USB 或二维码送入硬件钱包；设备在芯片内完成签名后再把签名交易送回软件钱包广播上链，私钥全程不离开芯片。</desc>
+  <defs><marker id="ar15sign" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker></defs>
+  <g text-anchor="middle" font-size="11" fill="#0f172a">
+    <rect x="16" y="70" width="120" height="56" rx="9" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="76" y="94">软件钱包</text><text x="76" y="110" font-size="9.5" fill="#475569">创建交易</text>
+    <rect x="180" y="70" width="120" height="56" rx="9" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><text x="240" y="94">PSBT</text><text x="240" y="110" font-size="9.5" fill="#475569">未签名交易</text>
+    <rect x="344" y="70" width="136" height="56" rx="9" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/><text x="412" y="90">硬件钱包</text><text x="412" y="106" font-size="9.5" fill="#475569">芯片内签名</text>
+  </g>
+  <rect x="336" y="52" width="152" height="112" rx="13" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="412" y="188" font-size="10" fill="#16a34a" text-anchor="middle">私钥不出芯片</text>
+  <g stroke="#64748b" stroke-width="1.8" fill="none">
+    <line x1="136" y1="98" x2="178" y2="98" marker-end="url(#ar15sign)"/>
+    <line x1="300" y1="98" x2="342" y2="98" marker-end="url(#ar15sign)"/>
+    <path d="M480 83 C520 83 520 40 552 40" marker-end="url(#ar15sign)"/>
+    <path d="M480 113 C520 113 520 150 552 150" marker-end="url(#ar15sign)"/>
+  </g>
+  <g font-size="10.5" fill="#0f172a" text-anchor="middle">
+    <rect x="548" y="20" width="84" height="40" rx="8" fill="#f8fafc" stroke="#64748b"/><text x="590" y="44">广播上链</text>
+    <rect x="548" y="130" width="84" height="40" rx="8" fill="#f8fafc" stroke="#64748b"/><text x="590" y="154">人工确认</text>
+  </g>
+</svg>
+<figcaption>图 15-2　硬件钱包签名流程。交易的金额与收款地址必须在设备屏幕上人工核对——2025 年 Bybit 事件正是攻击者在这个环节下手（见 15.5）。</figcaption>
+</figure>
+
 <div class="tip">
 <strong>选购建议：</strong>如果你是新用户，从Ledger Nano S Plus或Trezor Safe 3开始。不要买二手硬件钱包——你无法验证它是否被篡改过。始终从厂商官网或认证经销商处购买。
 </div>
 
-<h3>15.3 软件钱包安全</h3>
+<h2>15.3 软件钱包安全</h2>
 
 <p>很多人问："我不用硬件钱包，就装个MetaMask行不行？"可以，但你要知道自己承担了什么风险。</p>
 
@@ -130,7 +177,7 @@
 <strong>警示：</strong>千万不要在手机或电脑上截图你的助记词！2024年一份报告显示，超过30%的助记词泄露来自截图上传到iCloud/Google Photos后被黑客获取。如果一定要记录，用纸笔手写。
 </div>
 
-<h3>15.4 社交工程攻击</h3>
+<h2>15.4 社交工程攻击</h2>
 
 <p>你可能觉得自己的密码足够强、电脑足够干净，但攻击最薄弱的一环永远是——<strong>人</strong>。社交工程（social engineering）攻击在2025年达到前所未有的规模。</p>
 
@@ -144,7 +191,7 @@
 <strong>血的教训：</strong>2023年，一个叫"以太坊上被钓鱼最多的人"——一个匿名的NFT收藏者——因为点击了一个伪造的OpenSea链接，损失了价值超过75万美元的BAYC和CryptoPunks。他当时只是想在"OpenSea"上批准一笔交易。那个"O"是数字0。假网站域名是"0pensea.io"。
 </div>
 
-<h3>15.5 交易所安全</h3>
+<h2>15.5 交易所安全</h2>
 
 <p>"Not your keys, not your coins." 这句话在加密世界被说了无数遍，但每次大型交易所被黑客攻击，人们才重新想起它的重量。</p>
 
@@ -158,7 +205,7 @@
   <li><strong>设置提币白名单：</strong>几乎所有主流交易所都支持"提币地址白名单"（withdrawal whitelist）。把常用的提币地址预先录入，每次只能提到白名单内的地址。这是最简单也最有效的防护手段。</li>
 </ul>
 
-<h3>15.6 多层钱包架构</h3>
+<h2>15.6 多层钱包架构</h2>
 
 <p>经过上面五节的安全教育，你应该形成了一个清晰的理念：<strong>不要把鸡蛋放在一个篮子里。</strong>在实际操作中，专业用户通常会采用三层架构：</p>
 
@@ -199,19 +246,50 @@
 交互"烧掉"的最大金额。
 </code></pre>
 
+<div class="widget" id="wallet-alloc">
+  <h4>交互：三层钱包资产分配</h4>
+  <p>输入计划持有的总量与冷库比例，看看三层结构如何拆分（教学示意，非投资建议；热钱包上限按 20% 计算）。</p>
+  <div class="widget-controls">
+    <label>总资产 (BTC) <input id="wa-total" type="number" value="1" min="0" step="0.01"></label>
+    <label>冷库比例 (%) <input id="wa-cold" type="number" value="85" min="0" max="100"></label>
+    <button id="wa-run" type="button">分配</button>
+  </div>
+  <div class="widget-output" id="wa-out" role="status" aria-live="polite">点击“分配”查看结果。</div>
+</div>
+
 <div class="highlight">
 <strong>本章核心：</strong>安全不是一件你可以"做完"的事——它是一个持续的过程。每一次交互、每一次安装新的DApp、每一次转账，你都要问自己：这个操作会不会暴露我的私钥？这笔交易的对手是谁？如果我是攻击者，我会怎么攻击我自己？
 </div>
 
 <p>从钱包安全出发，下一章我们将深入到具体操作中的各种交易陷阱——地址投毒、授权陷阱、签名欺诈。你会惊讶于攻击者的创造力。记住：<strong>在加密世界，你是你自己的银行，也是你自己的警犬。</strong></p>
 
+<h2>本章参考与延伸</h2>
+<ul>
+  <li>硬件钱包厂商公开的安全白皮书与产品文档（Ledger BOLOS、Trezor 开源固件、Keystone 气隙设计）。</li>
+  <li>2025 年 2 月 Bybit 冷钱包事件的公开安全分析；文中金额与百分比为公开报道口径。</li>
+  <li>深度伪造钓鱼增长、助记词截图泄露等数字来自公开安全报告，具体比例会随统计口径变化，页面按报道口径引用，未作二次估算。</li>
+</ul>
+
         <div class="footer-nav">
             <a href="14.html">← 上一章</a>
             <a href="index.html">📖 返回目录</a>
             <a href="16.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function(){
+  var t=document.getElementById('wa-total'), c=document.getElementById('wa-cold');
+  var out=document.getElementById('wa-out');
+  function fmt(x){ return String(Math.round(x*1e8)/1e8); }
+  document.getElementById('wa-run').addEventListener('click', function(){
+    var total=parseFloat(t.value), cold=parseFloat(c.value);
+    if(isNaN(total)||isNaN(cold)||cold<0||cold>100){ out.textContent='请输入有效数值（冷库比例 0–100）'; return; }
+    var coldAmt=total*cold/100, hot=Math.min(20, 100-cold), hotAmt=total*hot/100, burnerAmt=total-coldAmt-hotAmt;
+    out.textContent='冷库 Cold Vault：'+fmt(coldAmt)+' BTC ('+fmt(cold)+'%)\n热钱包 Hot Wallet：'+fmt(hotAmt)+' BTC ('+fmt(hot)+'%)\n零钱包 Burner：'+fmt(burnerAmt)+' BTC ('+fmt(100-cold-hot)+'%)';
+  });
+})();
+</script>
 </body>
 </html>

@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,16 +42,16 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
-<h2>第16章 交易安全 — 链上操作避坑指南</h2>
+<h1>第16章 交易安全 — 链上操作避坑指南</h1>
 
 <p>大家好，我是你们的讲师。上一章我们讲了怎么保管钱包，但保管得好不代表用得安全。很多人的币不是"被偷走"的——而是在转账的操作过程中自己"送出去"的。一次小心的钱包管理，可能被一次粗心的转账毁掉。</p>
 
 <p>在本章中，我们将站在一个交易者的角度，看看从你打开钱包到交易确认之间每一步可能踩到的陷阱。这不是危言耸听——我讲的每一个案例，都是有人用真金白银换来的教训。</p>
 
-<h3>16.1 地址验证的最佳实践</h3>
+<h2>16.1 地址验证的最佳实践</h2>
 
 <p>在比特币和以太坊的世界里，地址是一串毫无规律的长字符串——比特币地址以1、3、bc1开头，通常是26-62个字符；以太坊地址是0x开头的40位十六进制。这种长度和随机性，让地址欺骗变得异常容易。</p>
 
@@ -85,7 +86,18 @@
   <li>硬件钱包用户：<strong>始终在设备屏幕上确认地址。</strong>你的电脑可能被攻破，显示虚假的地址信息，但硬件钱包的屏幕显示的是真实的交易目标。</li>
 </ul>
 
-<h3>16.2 手续费陷阱</h3>
+<div class="widget" id="addr-check">
+  <h4>交互：地址相似度核对器</h4>
+  <p>粘贴两个地址，看看只核对“前 4 位 + 后 4 位”为什么不够（教学工具，仅比较字符串，不连网）。</p>
+  <div class="widget-controls">
+    <label>地址 A <input id="ad-a" type="text" value="0x4f3e9c81d2a71b60a7b2"></label>
+    <label>地址 B <input id="ad-b" type="text" value="0x4f3e00aabb1977cca7b2"></label>
+    <button id="ad-run" type="button">核对</button>
+  </div>
+  <div class="widget-output" id="ad-out" role="status" aria-live="polite">点击“核对”查看结果。</div>
+</div>
+
+<h2>16.2 手续费陷阱</h2>
 
 <p>手续费（transaction fee）是给矿工的报酬。比特币和以太坊采用拍卖机制——你出的费越高，矿工越优先处理你的交易。但这带来了几个常见的麻烦。</p>
 
@@ -109,11 +121,31 @@
 <strong>实用建议：</strong>在发送比特币交易时，观察当前mempool的拥堵情况。工具推荐：mempool.space 或 btc.com。如果你不急，在网络空闲时段发送可以节省50-80%的手续费。周末凌晨通常是BTC和ETH网络最不拥堵的时候。
 </div>
 
-<h3>16.3 地址投毒攻击</h3>
+<h2>16.3 地址投毒攻击</h2>
 
 <p>这是2024-2025年增长速度最快的攻击手段之一。它的精妙之处在于——<strong>你什么都不用做，就被攻击了。</strong></p>
 
 <p><strong>攻击原理：</strong>攻击者生成一个和你近期交易过的地址极其相似的地址（前4后4位匹配），然后向你的地址发送一笔0美元的垃圾交易。这笔交易会自动出现在你的钱包历史中。当你某次想转账时，如果不小心从历史记录中复制了那个假的地址——钱就到攻击者手里了。</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 205" aria-labelledby="fig16poison-title fig16poison-desc">
+  <title id="fig16poison-title">地址投毒攻击原理</title>
+  <desc id="fig16poison-desc">攻击者伪造一个前 4 位与后 4 位与真实收款地址完全相同的地址，并向受害者历史记录投放零额交易；受害者若从历史记录复制，就会把钱转给伪造地址。</desc>
+  <text x="20" y="34" font-size="12" fill="#0f172a" font-weight="600">真实收款地址</text>
+  <rect x="20" y="42" width="600" height="34" rx="8" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="36" y="64" font-size="13" font-family="monospace" fill="#0f172a">0x4f3e</text>
+  <text x="320" y="64" font-size="13" font-family="monospace" fill="#94a3b8" text-anchor="middle">9c81 d2a7 1b60</text>
+  <text x="604" y="64" font-size="13" font-family="monospace" fill="#0f172a" text-anchor="end">a7b2</text>
+  <text x="20" y="112" font-size="12" fill="#0f172a" font-weight="600">攻击者伪造地址</text>
+  <rect x="20" y="120" width="600" height="34" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="36" y="142" font-size="13" font-family="monospace" fill="#0f172a">0x4f3e</text>
+  <text x="320" y="142" font-size="13" font-family="monospace" fill="#dc2626" text-anchor="middle">00aa bb19 77cc</text>
+  <text x="604" y="142" font-size="13" font-family="monospace" fill="#0f172a" text-anchor="end">a7b2</text>
+  <text x="320" y="178" font-size="11" fill="#475569" text-anchor="middle">只有中间字符不同：前 4 位与后 4 位完全相同，肉眼核对会误判为“同一个地址”</text>
+  <text x="320" y="198" font-size="11" fill="#dc2626" text-anchor="middle">地址投毒：历史记录里存两条，复制错一个字符 → 转账不可逆</text>
+</svg>
+<figcaption>图 16-1　地址投毒原理。攻击者用相同前缀/后缀“淹没”历史记录，正是为了让人放弃完整核对。防御方式是用地址本，而不是从历史记录复制。</figcaption>
+</figure>
 
 <div class="warning">
 <strong>史上最大地址投毒案：</strong>2024年，一名USDT持有者因为复制了历史记录中被投毒的地址，损失了超过<strong>5000万USDT</strong>（约5000万美元）。攻击者事先向该用户的交易历史中植入了多个伪造地址。受害者在一次大额转账时没有使用地址本，而是从历史记录直接复制——复制错了。这5000万美元再也无法追回。
@@ -127,7 +159,7 @@
   <li>定期检查你的钱包地址本，删除不认识的地址。</li>
 </ul>
 
-<h3>16.4 智能合约授权风险</h3>
+<h2>16.4 智能合约授权风险</h2>
 
 <p>在以太坊和兼容链上，你调用DApp时会触发一个"approve"（授权）交易。你授权DApp可以花费你账户中的某些代币。问题在于——<strong>大多数DApp请求的是"无限授权"（unlimited approval）。</strong></p>
 
@@ -149,13 +181,30 @@
   ❌ 绝对不要对不熟悉的DApp点击"无限授权"
 </code></pre>
 
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 190" aria-labelledby="fig16approve-title fig16approve-desc">
+  <title id="fig16approve-title">有限授权与无限授权的风险差异</title>
+  <desc id="fig16approve-desc">有限授权把 DApp 可动用额度限制在本次交易所需金额；无限授权等于 2 的 256 次方减 1，一旦合约被攻破，攻击者可一次性清空该代币的全部余额。</desc>
+  <text x="20" y="34" font-size="12" fill="#0f172a" font-weight="600">有限授权 approve(本次所需金额)</text>
+  <rect x="20" y="44" width="600" height="30" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <rect x="20" y="44" width="150" height="30" rx="8" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.4"/>
+  <text x="95" y="64" font-size="11" fill="#14532d" text-anchor="middle">可动用 = 本次金额</text>
+  <text x="470" y="64" font-size="11" fill="#94a3b8" text-anchor="middle">其余余额受保护</text>
+  <text x="20" y="112" font-size="12" fill="#0f172a" font-weight="600">无限授权 approve(2^256-1)</text>
+  <rect x="20" y="122" width="600" height="30" rx="8" fill="#fecaca" stroke="#dc2626" stroke-width="1.4"/>
+  <text x="320" y="142" font-size="11" fill="#7f1d1d" text-anchor="middle">可动用 = 该代币的全部余额（合约被攻破即被清空）</text>
+  <text x="320" y="178" font-size="11" fill="#475569" text-anchor="middle">安全做法：只授权本次所需金额，交易后 revoke 未使用授权</text>
+</svg>
+<figcaption>图 16-2　授权范围对比。多数 DApp 默认请求无限授权，把“这次交易的安全”和“钱包全部余额的安全”绑在了一起。</figcaption>
+</figure>
+
 <div class="warning">
 <strong>KelpDAO事件：</strong>2024年，KelpDAO的合约漏洞导致超过<strong>2.93亿美元</strong>的资产面临风险。原因是用户授予了KelpDAO合约的无限授权，合约漏洞被利用后攻击者可以直接从授权用户那里提取资金。虽然最终大部分资金被白帽黑客救回（MEV机器人拦截），但这警示了无限授权的巨大风险。
 </div>
 
 <p><strong>如何管理授权：</strong>使用 revoke.cash 或 Etherscan的"Token Approvals"页面定期检查和撤销不必要的合约授权。建议每月至少检查一次。</p>
 
-<h3>16.5 签名欺诈</h3>
+<h2>16.5 签名欺诈</h2>
 
 <p>"我没有转账，为什么我的钱没了？"——这是加密世界里最让人困惑的问题之一。答案通常不是你"转"了钱，而是你<strong>签了不该签的东西</strong>。</p>
 
@@ -173,7 +222,7 @@
 <strong>硬件钱包用户的优势：</strong>当你使用Ledger或Trezor时，设备屏幕会显示你正在签名的内容的"human-readable"版本——如果屏幕上显示的是乱码或不认识的地址，绝对不要确认签名。永远不要对你看不懂的内容签名。
 </div>
 
-<h3>16.6 交易加速与取消</h3>
+<h2>16.6 交易加速与取消</h2>
 
 <p>有时候你发了一笔交易，但迟迟未被确认。这时候你有几个选择：</p>
 
@@ -211,13 +260,35 @@
 
 <p>交易安全是每个加密用户都必须掌握的生存技能。从验证地址到管理授权，每一个习惯都可能在未来某一天替你节省一大笔钱。下一章，我们将讨论一个更根本的问题——<strong>助记词与备份。</strong>因为即使所有的交易安全都做好了，如果你弄丢了助记词，一切都没有意义。</p>
 
+<h2>本章参考与延伸</h2>
+<ul>
+  <li>BIP125（Replace-By-Fee 信号）、EIP-1559（费用市场）与 EIP-2612（permit 授权）原始规范。</li>
+  <li>地址投毒、无限授权与 KelpDAO 事件、剪贴板劫持案例均来自公开安全报告与链上事件报道；文中金额为报道口径。</li>
+  <li>本章操作步骤（RBF/CPFP/nonce 覆盖）为通用钱包行为教学整理，具体界面以各钱包当前版本为准。</li>
+</ul>
+
         <div class="footer-nav">
             <a href="15.html">← 上一章</a>
             <a href="index.html">📖 返回目录</a>
             <a href="17.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function(){
+  var a=document.getElementById('ad-a'), b=document.getElementById('ad-b');
+  var out=document.getElementById('ad-out');
+  document.getElementById('ad-run').addEventListener('click', function(){
+    var s1=a.value.trim().replace(/^0x/i,''), s2=b.value.trim().replace(/^0x/i,'');
+    if(!s1||!s2){ out.textContent='请输入两个地址'; return; }
+    var pre=function(s){return s.slice(0,4);}, suf=function(s){return s.slice(-4);};
+    var same=pre(s1)===pre(s2)&&suf(s1)===suf(s2);
+    var diff=Math.abs(s1.length-s2.length), n=Math.min(s1.length,s2.length);
+    for(var i=0;i<n;i++){ if(s1[i]!==s2[i]) diff++; }
+    out.textContent='地址 A：'+pre(s1)+' … '+suf(s1)+'\n地址 B：'+pre(s2)+' … '+suf(s2)+'\n前 4 位：'+(pre(s1)===pre(s2)?'相同':'不同')+'　后 4 位：'+(suf(s1)===suf(s2)?'相同':'不同')+'\n中间存在差异的字符数：'+diff+(same?'\n⚠ 前 4 后 4 相同，正是地址投毒的典型特征。':'\n中间差异较大，仍建议用地址本核对。');
+  });
+})();
+</script>
 </body>
 </html>
