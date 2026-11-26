@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,16 +42,16 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
-<h2>第17章 助记词与备份 — 跨代财富传承</h2>
+<h1>第17章 助记词与备份 — 跨代财富传承</h1>
 
 <p>大家好，我是你们的讲师。想象一下：某天你打开钱包应用，发现余额是0。你的第一反应可能不是"被盗了"——而是"我是不是不小心重置了钱包？"。你手忙脚乱地找出那张写着12个单词的纸条，逐字输入，然后……钱包余额回来了。你松了一口气。</p>
 
 <p>但如果反过来——你找不到那张纸条了会怎么样？在加密世界，<strong>助记词不是"找回密码"的工具。它就是你的密码本身。</strong>丢了助记词，就像把钱烧了。在这一章中，我们要讨论一个可能比你钱包里所有加密知识都更重要的话题：如何保管那12或24个单词，让它们穿越几十年，甚至跨越你的生命周期。</p>
 
-<h3>17.1 助记词的本质</h3>
+<h2>17.1 助记词的本质</h2>
 
 <p>助记词（mnemonic phrase / seed phrase）是一串12个或24个单词，它实际上是你的<strong>整个钱包的终极密钥</strong>。从技术上说：</p>
 
@@ -75,6 +76,34 @@
 9. 主公钥 → 分层确定性派生 → 无数子密钥和地址
 </code></pre>
 
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 205" aria-labelledby="fig17bip39-title fig17bip39-desc">
+  <title id="fig17bip39-title">BIP39 助记词的生成流程</title>
+  <desc id="fig17bip39-desc">随机熵先附加 SHA-256 校验和，再切成 11 位块映射到 2048 词表得到 12 或 24 个单词；助记词经 PBKDF2-HMAC-SHA512 派生 512 位种子，再由种子分层派生出主私钥与所有地址。</desc>
+  <defs><marker id="ar17a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker></defs>
+  <g text-anchor="middle" font-size="10.5" fill="#0f172a">
+    <rect x="20" y="30" width="130" height="46" rx="9" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="85" y="50">128/256 位熵</text><text x="85" y="66" font-size="9" fill="#475569">随机数</text>
+    <rect x="170" y="30" width="130" height="46" rx="9" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><text x="235" y="50">SHA-256 校验和</text><text x="235" y="66" font-size="9" fill="#475569">4 位 / 8 位</text>
+    <rect x="320" y="30" width="130" height="46" rx="9" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><text x="385" y="50">切成 11-bit 块</text>
+    <rect x="470" y="30" width="150" height="46" rx="9" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><text x="545" y="50">BIP39 词表</text><text x="545" y="66" font-size="9" fill="#475569">2048 个单词</text>
+    <rect x="20" y="140" width="130" height="46" rx="9" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/><text x="85" y="160">12 / 24 个单词</text><text x="85" y="176" font-size="9" fill="#475569">助记词</text>
+    <rect x="170" y="140" width="130" height="46" rx="9" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/><text x="235" y="160">PBKDF2</text><text x="235" y="176" font-size="9" fill="#475569">HMAC-SHA512</text>
+    <rect x="320" y="140" width="130" height="46" rx="9" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/><text x="385" y="160">512-bit 种子</text>
+    <rect x="470" y="140" width="150" height="46" rx="9" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/><text x="545" y="160">主私钥 → 地址</text><text x="545" y="176" font-size="9" fill="#475569">分层确定性派生</text>
+  </g>
+  <g stroke="#64748b" stroke-width="1.6" fill="none">
+    <line x1="150" y1="53" x2="168" y2="53" marker-end="url(#ar17a)"/>
+    <line x1="300" y1="53" x2="318" y2="53" marker-end="url(#ar17a)"/>
+    <line x1="450" y1="53" x2="468" y2="53" marker-end="url(#ar17a)"/>
+    <line x1="150" y1="163" x2="168" y2="163" marker-end="url(#ar17a)"/>
+    <line x1="300" y1="163" x2="318" y2="163" marker-end="url(#ar17a)"/>
+    <line x1="450" y1="163" x2="468" y2="163" marker-end="url(#ar17a)"/>
+    <path d="M545 76 C545 108 85 100 85 138" marker-end="url(#ar17a)"/>
+  </g>
+</svg>
+<figcaption>图 17-1　BIP39 生成流程。熵 → 单词 → 种子 → 密钥是一条单向链：单词一旦泄露，攻击者可直接重算全部地址，没有“改密码”的余地。</figcaption>
+</figure>
+
 <p>重点：<strong>助记词重建一切。</strong>有了12或24个单词，攻击者可以恢复你钱包里的所有地址、所有私钥、所有资产。不需要额外密码，不需要双重验证。12个单词就是你的全部。</p>
 
 <table>
@@ -95,7 +124,7 @@
 <strong>小知识：</strong>BIP39词表包含2048个精心挑选的英语单词。它们被设计为容易辨认、不易混淆。比如词表中没有"woman"和"women"同时出现（容易拼错），也没有发音过于相近的词。但注意——<strong>不要用翻译成中文的词表</strong>。助记词的核心是"每个单词对应一个11-bit数字"，切换到中文就破坏了这种确定性映射关系。始终使用英语原词。
 </div>
 
-<h3>17.2 备份介质对比</h3>
+<h2>17.2 备份介质对比</h2>
 
 <p>把助记词写在便利贴上贴在显示器边框上——对不起，这可能是你能想到的最差方案。我们来看看不同备份介质的优劣：</p>
 
@@ -117,7 +146,7 @@
 <strong>推荐组合：</strong>纸质备份（短期、低成本的快速恢复方案） + 钢/钛板（长期、耐久性经过验证的物理备份） + 加密的数字备份（放在密码管理器或U盘里，用强密码保护，存入银行保险柜）。三个介质，两个地点。记住"3-2-1备份原则"：3份备份，2种介质，1个异地存储。
 </div>
 
-<h3>17.3 存储策略</h3>
+<h2>17.3 存储策略</h2>
 
 <p>无论你选择了什么介质，存放位置的重要性不亚于介质本身。我推荐一个<strong>地理冗余</strong>（geographic redundancy）策略：</p>
 
@@ -130,13 +159,32 @@
 <div class="warning">
 <strong>一个真实的悲剧：</strong>2013年，一位早期比特币矿工在硬盘上存了约7,500个BTC（按今天的价格超过7亿美元）。他把硬盘放进了一个垃圾袋，打算拿去废品站。他忘记了——他的妻子已经把"那袋垃圾"扔进了市政垃圾箱。硬盘被运到纽波特垃圾填埋场，埋在数万吨垃圾之下。他花了数年时间试图向市政府申请挖掘许可，但最终被拒绝。这些比特币永远消失了。这就是著名的"James Howells硬盘扔掉比特币"的故事。</div>
 
-<h3>17.4 Shamir秘密共享（SLIP-39）</h3>
+<h2>17.4 Shamir秘密共享（SLIP-39）</h2>
 
 <p>如果你手握大量资产，把所有鸡蛋放在一个篮子里（即使是一个非常好的保险箱）是不明智的。有没有一种方法，可以把助记词"打碎"，一个人拿几块？这就是<strong>Shamir秘密共享</strong>（Shamir's Secret Sharing, SSS）解决的问题。</p>
 
 <p>Shamir秘密共享的数学原理听起来很复杂（多项式插值），但它的效果很直观：</p>
 
 <p>假设你设置2-of-3——生成3个share（碎片），任意2个可以恢复完整的助记词。你可以把3片分别放在：家里、银行、律师那里。即使家里被烧了、银行出了意外，只要还有任意2片就能恢复。</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 170" aria-labelledby="fig17sss-title fig17sss-desc">
+  <title id="fig17sss-title">Shamir 3-of-5 秘密共享</title>
+  <desc id="fig17sss-desc">把助记词拆成 5 个碎片并分散保存：任意 3 个碎片即可重建，少于 3 个碎片无法得到任何信息；失去任意 2 个碎片仍可恢复。</desc>
+  <g text-anchor="middle" font-size="11" fill="#0f172a">
+    <rect x="40" y="40" width="90" height="44" rx="9" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="85" y="67">片 1</text>
+    <rect x="150" y="40" width="90" height="44" rx="9" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="195" y="67">片 2</text>
+    <rect x="260" y="40" width="90" height="44" rx="9" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="305" y="67">片 3</text>
+    <rect x="370" y="40" width="90" height="44" rx="9" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/><text x="415" y="67">片 4</text>
+    <rect x="480" y="40" width="90" height="44" rx="9" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/><text x="525" y="67">片 5</text>
+  </g>
+  <text x="300" y="26" font-size="11" fill="#475569" text-anchor="middle">分散保存（家中 / 办公室 / 银行 / 律师 / 亲属）</text>
+  <text x="300" y="118" font-size="11" fill="#16a34a" text-anchor="middle">任意 ≥ 3 片 → 重建助记词</text>
+  <text x="300" y="138" font-size="11" fill="#dc2626" text-anchor="middle">≤ 2 片 → 得不到任何信息</text>
+  <text x="300" y="160" font-size="11" fill="#475569" text-anchor="middle">安全性：攻击者必须同时拿到 3 片；可用性：失去 2 片仍可恢复</text>
+</svg>
+<figcaption>图 17-2　Shamir 3-of-5 阈值示意。阈值 M 越低越“易用”，但 1-of-N 等于没有分片保护——这是最需要避免的配置。</figcaption>
+</figure>
 
 <pre><code>Shamir（SLIP-39）配置示例：
 
@@ -155,13 +203,24 @@
    ——这会破坏安全性，反而增加了单点故障
 </code></pre>
 
+<div class="widget" id="sss-widget">
+  <h4>交互：Shamir 阈值试算器</h4>
+  <p>设定碎片总数 N 与恢复阈值 M，看看需要几片才能恢复、共有多少种组合（教学示意）。</p>
+  <div class="widget-controls">
+    <label>碎片总数 N <input id="sss-n" type="number" value="5" min="2" max="16"></label>
+    <label>恢复阈值 M <input id="sss-m" type="number" value="3" min="1" max="16"></label>
+    <button id="sss-run" type="button">试算</button>
+  </div>
+  <div class="widget-output" id="sss-out" role="status" aria-live="polite">点击“试算”查看结果。</div>
+</div>
+
 <p>SLIP-39（Shamir's Secret Sharing for Mnemonic Codes）是BIP39的扩展，基于Shamir算法，专门为助记词碎片化管理设计。Trezor钱包原生支持SLIP-39，Ledger通过第三方工具也可实现。</p>
 
 <div class="tip">
 <strong>关于Passphrase：</strong>大多数人不知道，BIP39还支持一个额外的"passphrase"（25th word）。你可以在助记词后面附加一个自定义密码。知道助记词但不知道passphrase的人无法访问你的钱包。这是一种"plausible deniability"——即使被逼迫交出助记词，你也可以交出一个带少量比特币的"decoy wallet"，真正的资产在passphrase保护的隐藏钱包里。但注意：丢失passphrase等于丢失资产，不存在"找回密码"的选项。
 </div>
 
-<h3>17.5 灾难恢复演练</h3>
+<h2>17.5 灾难恢复演练</h2>
 
 <p>你是否真的能用你的助记词恢复钱包？我建议每个持有加密资产的人做一件事——<strong>灾难恢复演练</strong>。</p>
 
@@ -181,7 +240,7 @@
 
 <p>你可能会想：这么多币丢失，比特币不是通缩得更厉害了？是的——但每一个丢失的币背后都有一个真实的故事。有人把私钥刻在墙上然后房子被拆了；有人写在海滩上被浪冲走了；有人在旧电脑里发现了数百万美元但不知道密码……这些人没有做"灾难恢复演练"。</p>
 
-<h3>17.6 遗产规划</h3>
+<h2>17.6 遗产规划</h2>
 
 <p>如果你去世了，你的比特币会怎么样？如果你的家人不知道你有加密货币，你的资产可能永远留在链上。这是一个很少人思考但非常重要的话题。</p>
 
@@ -214,13 +273,36 @@
 
 <p>关于助记词和备份的故事可以写一整本书——事实上已经有人写了。核心信息很简短：<strong>加密世界不相信"忘记密码"。</strong>12个单词连接着你的数字财富，也连接着你的责任。如果你没有做好备份，你就没有真正拥有你的资产。下一章，我们将探讨隐私与匿名——既然区块链是公开的，我们如何在其中保护自己的隐私？</p>
 
+<h2>本章参考与延伸</h2>
+<ul>
+  <li>BIP39（助记词编码）、BIP32（分层确定性钱包）与 SLIP-0039（Shamir 分片）原始规范。</li>
+  <li>比特币丢失量（约 230 万–370 万枚）来自 Chainalysis 的公开估算，区间随其统计口径变化，页面按该估算引用。</li>
+  <li>介质耐火温度、寿命与 James Howells 硬盘事件为公开报道与厂商参数整理。</li>
+</ul>
+
         <div class="footer-nav">
             <a href="16.html">← 上一章</a>
             <a href="index.html">📖 返回目录</a>
             <a href="18.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function(){
+  var n=document.getElementById('sss-n'), m=document.getElementById('sss-m');
+  var out=document.getElementById('sss-out');
+  function comb(a,b){ if(b<0||b>a) return 0; b=Math.min(b,a-b); var r=1; for(var i=0;i<b;i++){ r=r*(a-i)/(i+1); } return Math.round(r); }
+  document.getElementById('sss-run').addEventListener('click', function(){
+    var N=parseInt(n.value,10), M=parseInt(m.value,10);
+    if(isNaN(N)||isNaN(M)||N<2||M<1){ out.textContent='请输入有效数值（N ≥ 2，M ≥ 1）'; return; }
+    if(M>N){ out.textContent='阈值 M 不能大于碎片总数 N'; return; }
+    var lines=['碎片总数 N = '+N+'，恢复阈值 M = '+M, '恢复需要：任意 '+M+' 片', '可恢复的组合数：C('+N+','+M+') = '+comb(N,M)+' 种', '失去 '+(N-M)+' 片仍可恢复'];
+    if(M===1) lines.push('⚠ M=1 时任意 1 片即可恢复，等于没有分片保护。');
+    if(N-M===0) lines.push('⚠ M=N 时没有任何冗余，丢失 1 片就永久无法恢复。');
+    out.textContent=lines.join('\n');
+  });
+})();
+</script>
 </body>
 </html>
