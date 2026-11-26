@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a class="skip-link" href="#content">跳转至正文</a>
 <div class="double-border">
 <div class="container">
-    <div class="sidebar">
+    <nav class="sidebar" aria-label="课程章节导航">
         <h3>🪙 课程目录</h3>
         <ul class="chapter-list">
             <li><a href="01.html">第1章 货币的演化</a></li>
@@ -41,10 +42,10 @@
             <li><a href="27.html">第27章 前沿趋势</a></li>
             <li><a href="28.html">第28章 综合项目</a></li>
         </ul>
-    </div>
-    <div class="main-content">
+    </nav>
+    <main class="main-content" id="content">
 
-<h2>第22章 NFT与资产代币化 — 所有权的数字革命</h2>
+<h1>第22章 NFT与资产代币化 — 所有权的数字革命</h1>
 
 <p>2014年5月，一位叫<strong>Kevin McCoy</strong>的纽约艺术家在区块链上登记了一幅动画作品——一个不断旋转的八边形像素图案。这看起来并不起眼，但这幅名为"Quantum"的作品被认为是<strong>人类历史上第一个NFT</strong>。它在2021年以140万美元的价格被拍卖。</p>
 
@@ -52,7 +53,7 @@
 
 <p>这一章，我们来拆解NFT到底是什么，以及它为什么可能比人们想象的更重要。</p>
 
-<h3>22.1 NFT是什么</h3>
+<h2>22.1 NFT是什么</h2>
 
 <p>NFT（Non-Fungible Token）是区块链上<strong>代表"独一无二"物品的代币</strong>。与其相对的是FT（Fungible Token）——比如一枚比特币和另一枚比特币完全等价，就像一张1美元钞票和另一张1美元钞票。</p>
 
@@ -87,11 +88,52 @@ contract MyFirstNFT is ERC721 {
 // mint("0xABC...", "ipfs://QmXYZ...")  → 铸造一个NFT
 // 元数据指向IPFS，图片永久存储在去中心化存储中</code></pre>
 
+<div class="widget" id="nft-meta">
+  <h4>交互：NFT 元数据存储的耐久性</h4>
+  <p>选择元数据的托管方式，看看它取决于什么（教学示意）。</p>
+  <div class="widget-controls">
+    <label>托管方式
+      <select id="nm-kind">
+        <option value="ipfs">IPFS（内容寻址）</option>
+        <option value="ar">Arweave（永久存储）</option>
+        <option value="onchain">完全上链（SVG/文本）</option>
+        <option value="http">中心化 HTTPS 服务器</option>
+      </select>
+    </label>
+    <button id="nm-run" type="button">判断</button>
+  </div>
+  <div class="widget-output" id="nm-out" role="status" aria-live="polite">选择后点击“判断”。</div>
+</div>
+
 <div class="tip">
 <strong>重要澄清：</strong>NFT本身<strong>不存储</strong>图片——它存储的是一个指向图片的链接（URI）。如果URI指向AWS服务器，NFT=你的链接。如果URI指向IPFS（去中心化文件系统），NFT=永久存在的证明。这就是为什么很多收藏者要求项目方使用IPFS或Arweave这样的去中心化存储——否则项目方跑路后，你的"猴子"会变成一把叉(X)号。
 </div>
 
-<h3>22.2 NFT的应用场景</h3>
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 200" aria-labelledby="fig22meta-title fig22meta-desc">
+  <title id="fig22meta-title">NFT 只存指针：元数据放在哪里决定它的寿命</title>
+  <desc id="fig22meta-desc">链上合约记录 tokenId 与一个元数据 URI；图片本体并不在链上。URI 指向 IPFS/Arweave 时内容可长期存在，指向中心化服务器时项目方一旦下线，NFT 就会失去图像。</desc>
+  <defs><marker id="ar22a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker></defs>
+  <rect x="20" y="70" width="150" height="60" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="95" y="96" font-size="11" fill="#0f172a" text-anchor="middle">链上合约</text>
+  <text x="95" y="114" font-size="9.5" fill="#475569" text-anchor="middle">tokenId + metadata URI</text>
+  <line x1="172" y1="100" x2="218" y2="100" stroke="#64748b" stroke-width="1.8" marker-end="url(#ar22a)"/>
+  <rect x="226" y="70" width="150" height="60" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="301" y="96" font-size="11" fill="#0f172a" text-anchor="middle">元数据 URI</text>
+  <text x="301" y="114" font-size="9.5" fill="#475569" text-anchor="middle">只是指针，不是图片</text>
+  <line x1="378" y1="82" x2="424" y2="52" stroke="#16a34a" stroke-width="1.8" marker-end="url(#ar22a)"/>
+  <line x1="378" y1="118" x2="424" y2="148" stroke="#dc2626" stroke-width="1.8" marker-end="url(#ar22a)"/>
+  <rect x="432" y="20" width="188" height="56" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="526" y="44" font-size="11" fill="#14532d" text-anchor="middle">IPFS / Arweave</text>
+  <text x="526" y="62" font-size="9.5" fill="#475569" text-anchor="middle">内容寻址，可长期存在</text>
+  <rect x="432" y="132" width="188" height="56" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="526" y="156" font-size="11" fill="#7f1d1d" text-anchor="middle">中心化服务器</text>
+  <text x="526" y="174" font-size="9.5" fill="#475569" text-anchor="middle">下线即失效 → 变成叉号</text>
+</svg>
+<figcaption>图 22-1　NFT 的元数据指针。链上只存“这个 token 指向哪个 URI”；URI 的托管方式决定图像会不会随项目方一起消失。</figcaption>
+</figure>
+
+<h2>22.2 NFT的应用场景</h2>
 
 <p>很多人以为NFT就是"昂贵的JPG图片"——这曾经是事实（2021年最热的时候，CryptoPunks的地板价超过10万美元）。但NFT的能力远不止于此：</p>
 
@@ -111,7 +153,7 @@ contract MyFirstNFT is ERC721 {
 
 <p>其中，<strong>ENS（以太坊域名服务）</strong>是实用型NFT中最成功的案例之一。超过400万个.eth域名已被注册。"vitalik.eth"替代了"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"——这对日常使用加密货币的人来说是不可或缺的基础设施。</p>
 
-<h3>22.3 比特币NFT</h3>
+<h2>22.3 比特币NFT</h2>
 
 <p>在以太坊发展NFT的同时，比特币世界也没有闲着。2023年，比特币NFT横空出世——通过<strong>Ordinals协议</strong>（序数协议）。</p>
 
@@ -129,11 +171,29 @@ contract MyFirstNFT is ERC721 {
 <strong>争论现场：</strong>Ordinals高峰期，普通的比特币转账手续费涨到了$30-50。反对者认为Ordinals破坏了比特币作为"支付系统"的初衷，支持者认为"比特币的区块空间属于自由市场——谁出价高谁用"。这件事至今没有定论。但从经济角度看，Ordinals确实给矿工带来了可观的收入——2023年铭刻相关费用占矿工总收入的20%以上。
 </div>
 
-<h3>22.4 现实资产代币化</h3>
+<h2>22.4 现实资产代币化</h2>
 
 <p>如果你觉得NFT只是"猴子的图片"和"数字收藏品"，那你可能错过了2025-2026年NFT领域最重要的发展趋势——<strong>RWA</strong>（Real World Assets，现实世界资产代币化）。</p>
 
 <p>RWA把现实世界的资产——美国国债、房地产、大宗商品、私募股权——的"所有权"记录在区块链上。这比Bored Ape的意义大得多：这是将代笔美元价值几百万亿美元的资产引入链上。</p>
+
+<figure class="article-figure">
+<svg role="img" viewBox="0 0 640 190" aria-labelledby="fig22rwa-title fig22rwa-desc">
+  <title id="fig22rwa-title">现实资产代币化（RWA）的分层</title>
+  <desc id="fig22rwa-desc">现实世界资产（国债、房地产、私募股权）由托管方持有，链上发行对应代币代表份额与收益权；持有人可在链上转移份额并自动领取收益。</desc>
+  <defs><marker id="ar22b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker></defs>
+  <g text-anchor="middle" font-size="11" fill="#0f172a">
+    <rect x="20" y="60" width="170" height="70" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/><text x="105" y="88">现实资产</text><text x="105" y="106" font-size="9.5" fill="#475569">国债 / 房地产 / 股权</text>
+    <rect x="235" y="60" width="170" height="70" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="320" y="88">合规托管 + 代币化</text><text x="320" y="106" font-size="9.5" fill="#475569">链上份额 / 收益权</text>
+    <rect x="450" y="60" width="170" height="70" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/><text x="535" y="88">持有人</text><text x="535" y="106" font-size="9.5" fill="#475569">可转移 + 自动收益</text>
+  </g>
+  <line x1="192" y1="95" x2="233" y2="95" stroke="#64748b" stroke-width="1.8" marker-end="url(#ar22b)"/>
+  <line x1="407" y1="95" x2="448" y2="95" stroke="#64748b" stroke-width="1.8" marker-end="url(#ar22b)"/>
+  <text x="320" y="32" font-size="11" fill="#475569" text-anchor="middle">把“所有权”搬上链，而不是把资产本身搬上链</text>
+  <text x="320" y="166" font-size="10.5" fill="#475569" text-anchor="middle">RWA 的规模不在“图片”，而在数万亿美元级传统资产的份额化</text>
+</svg>
+<figcaption>图 22-2　RWA 代币化的分层。现实资产仍由托管方持有，链上代币代表份额与收益权；这也是它与纯数字 NFT 最大的不同。</figcaption>
+</figure>
 
 <ul>
   <li><strong>BlackRock BUIDL基金</strong>：2024年3月在以太坊上推出了代币化国债基金，截至2026年规模已超过$50亿。每天自动将收益以代币形式分配给持有者。</li>
@@ -145,7 +205,7 @@ contract MyFirstNFT is ERC721 {
 <strong>一个关键的里程碑：</strong>2025年，美国众议院通过了<strong>CLARITY法案</strong>（CLEAR Act），为数字资产证券提供了明确的监管框架，尤其是对RWA代币化产品的法律地位做了清晰界定。这被行业视为RWA大规模发展的"开闸放水"。摩根大通和高盛已经在自己的私有链上运行了代币化产品，瑞士的SIX数字交易所也在交易代币化债券。
 </div>
 
-<h3>22.5 NFT市场与创作</h3>
+<h2>22.5 NFT市场与创作</h2>
 
 <p>NFT的交易生态在过去几年发生了巨大变化：</p>
 
@@ -167,7 +227,7 @@ contract MyFirstNFT is ERC721 {
 <strong>创作建议：</strong>如果你是艺术家想发行NFT——<strong>不要在产品设计上偷懒</strong>。2021年那种"一键生成10000个像素头像"的时代已经过去了。2026年的NFT买家看重的是：真正的艺术价值、清晰的路线图、实用的utility（社区访问、空投资格、治理权），以及最重要的——<strong>项目方的信誉</strong>。跑路的项目太多了，市场已经用价格给"诚实"和"忽悠"做了清晰的区分。
 </div>
 
-<h3>22.6 所有权经济的未来</h3>
+<h2>22.6 所有权经济的未来</h2>
 
 <p>NFT从2021年的投机狂热中走出来，正在走向一个更实质的方向。<strong>所有权经济</strong>（Ownership Economy）是今年行业讨论最多的话题之一。</p>
 
@@ -206,13 +266,35 @@ contract SoulboundBadge is ERC721 {
 
 <p>下一章，我们将从<strong>资产</strong>回到<strong>市场</strong>——探讨加密货币交易所的工作原理、交易策略和中心化vs去中心化交易所的博弈。</p>
 
+<h2>本章参考与延伸</h2>
+<ul>
+  <li>ERC-721（非同质化代币）与 EIP-2981（版税）公开规范；Ordinals / BRC-20 为比特币社区公开协议。</li>
+  <li>Kevin McCoy 的 “Quantum”、Beeple、CryptoPunks 等为公开拍卖记录；BlackRock BUIDL、CLARITY 法案为公开报道。</li>
+  <li>域名数、市场规模与基金规模等为公开报道口径，随时间变化，页面按公开口径整理。</li>
+</ul>
+
         <div class="footer-nav">
             <a href="21.html">← 上一章</a>
             <a href="index.html">📖 返回目录</a>
             <a href="23.html">下一章 →</a>
         </div>
-    </div>
+    </main>
 </div>
 </div>
+<script>
+(function(){
+  var sel=document.getElementById('nm-kind'); var out=document.getElementById('nm-out');
+  var info={
+    ipfs:{d:'耐久性：较高', t:'内容寻址，只要有人继续把文件钉住（pin）就能取回；若无人固定，数据可能被回收。'},
+    ar:{d:'耐久性：很高', t:'一次性付费后写入永久存储网络，长期可检索，但依赖该网络的持续存在。'},
+    onchain:{d:'耐久性：最高', t:'图片/文本直接写入合约，随链存活，成本最高。'},
+    http:{d:'耐久性：最低', t:'依赖中心化服务器；项目方停服或改域名后，图像会失效，变成占位叉号。'}
+  };
+  document.getElementById('nm-run').addEventListener('click', function(){
+    var v=sel.value, i=info[v];
+    out.textContent=i.d+'\n'+i.t;
+  });
+})();
+</script>
 </body>
 </html>
