@@ -101,7 +101,7 @@
 
 <ul>
   <li><strong>Ledger（Nano S / Nano X）：</strong>使用STMicroelectronics的Secure Element芯片（EAL5+级认证）。关键特性是Ledger自己的操作系统BOLOS，每个App在独立沙箱中运行。2020年曾因Ledger电商数据泄露导致客户信息被钓鱼攻击，但设备本身从未被攻破。</li>
-  <li><strong>Trezor（Model T / Safe 3）：</strong>最早的开源硬件钱包。Model T的secure element是EAL6+级（更高安全级别），而且Trezor的固件是100%开源的。安全社区可以审计每一行代码。</li>
+  <li><strong>Trezor（Model T / Safe 3）：</strong>最早的开源硬件钱包。需要区分两代：Model T <strong>没有安全芯片</strong>，私钥保存在通用微控制器上，靠开源固件与 PIN/密码保护；直到 Safe 3 才引入 EAL6+ 认证的安全元件（英飞凌 Optiga Trust M）。Trezor 固件开源，安全社区可以审计每一行代码。</li>
   <li><strong>Tangem：</strong>一张"卡"，外形像银行卡，内置EAL6+安全芯片。采用无电池设计，通过NFC与手机通信。极简主义者的选择。</li>
   <li><strong>Keystone：</strong>全开源、气隙（air-gapped）钱包。通过二维码传输交易数据，没有任何有线/无线连接。Firmware 100%可以自行编译验证。</li>
 </ul>
@@ -195,7 +195,7 @@
 
 <p>"Not your keys, not your coins." 这句话在加密世界被说了无数遍，但每次大型交易所被黑客攻击，人们才重新想起它的重量。</p>
 
-<p><strong>2025年Bybit 15亿美元黑客事件：</strong>2025年2月，著名交易所Bybit遭到了一次"地址投毒"式攻击。黑客通过操纵冷钱包签名流程，在Bybit一次常规的冷热钱包资金转移中，篡改了ETH多签钱包的合约逻辑。结果是一次"看起来正确"的多签交易，实际上把15亿美元的资金转移到了攻击者地址。这是加密货币史上迄今为止最大的单次盗窃案。</p>
+<p><strong>2025年Bybit 15亿美元黑客事件：</strong>2025年2月，著名交易所Bybit遭遇了加密货币史上最大的单次盗窃（约15亿美元）。攻击方式并<strong>不是</strong>把地址复制错的<em>地址投毒</em>（见第16章），而是针对多签钱包服务商 Safe 的<strong>供应链/前端篡改</strong>：攻击者入侵了 Safe 的开发者环境并在其前端注入恶意脚本，使得签名者在界面上看到的收款地址与合约调用看起来都“正常”，实际签下的却是一笔替换了 Safe 合约逻辑的交易。这正是“所见非所签”（blind signing）的典型：即使操作者逐字核对了屏幕上的地址，恶意前端仍能改变底层真正的签名内容。</p>
 
 <p>这个案例告诉我们：</p>
 
